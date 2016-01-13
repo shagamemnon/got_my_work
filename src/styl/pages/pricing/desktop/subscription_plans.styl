@@ -1,0 +1,138 @@
+section.subscription-plans
+  padding: 75px 0
+  background: transparent
+  position: relative
+  top: -445px
+
+  h2
+    max-width: 960px
+    header1()
+    letter-spacing: 1px
+    color: white
+    margin: 0 auto
+    padding-bottom: 20px
+    text-align: center
+
+  p
+    paragraph()
+    color: white
+    text-align: center
+    padding-bottom: 220px
+    margin: auto
+
+  .plans
+    width: 1000px
+    margin: 0 auto
+    clearfix()
+
+    a
+      text-decoration: none
+
+  .subscription
+    col(1/4)
+    height: 380px
+    border-radius: 2px
+    box-shadow: 0px 0px 2px 1px #ddd
+    cursor: pointer
+    single-transition( box-shadow )
+
+    &:hover
+      single-transition( box-shadow )
+      box-shadow: 0px 0px 1px 2px $primary-color
+
+    .sub-header
+      display: block
+      height: 60px
+      background linear-gradient(left, #33bac1, #33a9cd)
+      text-align: center
+
+      h4
+        padding-top: 24px
+        padding-bottom: 45px
+        font-size: 18px
+        text-align: center
+        font-weight: 400
+        letter-spacing: 1px
+        color: white
+
+      em.rate
+        font-family: "Lato"; sans-serif
+        display: inline-block
+        text-align: center
+        font-style: normal
+        font-weight: 400
+        font-size: 50px
+        margin-top: 20px
+        color: #444
+        padding-bottom: 45px
+        padding-left: 10px
+
+      em.year
+        font-size: 11px
+        padding-bottom: 20px
+        vertical-align: baseline
+        display: inline-block
+        color: #222
+        text-decoration: none
+        text-align: center
+        padding-left: 2px
+        letter-spacing: 0.5px
+
+      p
+        display: block
+        text-align: left
+        padding-top: 12px
+        color: #222
+        font-weight: 400
+        font-size: 14px
+        padding-left: 15px
+        padding-bottom: 0
+        @media (max-width: 600px)
+          padding-left: 5px
+          font-size: 16px
+
+        &.highlight
+          color: #EE7637
+
+      button
+        background-color: blue
+        color: white
+        font-size: 14px
+        display: block
+        margin: 30px auto 0
+        width: 200px
+        height: 40px
+        border: none
+        background #33bac1
+        opacity: 0.92
+        cursor: pointer
+        outline: none
+
+        &:hover
+          opacity: 1
+          outline: none
+
+        a
+          text-decoration: none
+          color: white
+
+  .subscription.student
+    .sub-header
+      background linear-gradient(left, #33a9cd, #339ad9)
+
+      button
+        background #33a9cd
+
+  .subscription.company
+    .sub-header
+      background linear-gradient(left, #337dee, #3366ff)
+
+      button
+        background #337dee
+
+  .subscription.paid
+    .sub-header
+      background linear-gradient(left, #339ad9, #337dee)
+
+      button
+        background: #339ad9

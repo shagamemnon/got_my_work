@@ -1,0 +1,44 @@
+{
+  "name": "IGotMyWork",
+  "version": "0.0.1",
+  "description": "DESCRIPTION",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shagamemnon/gotmywork.git"
+  },
+  "dependencies": {
+    "grunt": "~0.4.0",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-jade": "~0.8.0",
+    "grunt-contrib-stylus": "~0.21.0",
+    "grunt-contrib-copy": "0.8.0",
+    "grunt-exec": "~0.4.0",
+    "grunt-regarde": "~0.1.1",
+
+    "requirejs": "~2.1.5",
+    "jquery": "~2.1.0",
+    "underscore": "~1.6.0",
+    "backbone": "~1.1.2",
+    "jeet": "~6.1.2",
+
+    "famous": "cents/engine",
+
+    "express": "3.1.x",
+    "express-session": "~1.11.3",
+    "express-device": "~0.3.13",
+    "serve-favicon": "~2.3.0",
+    "body-parser": "~1.13.3",
+    "express-mailer": "~0.3.0",
+    "jade": "1.11.0",
+
+    "parse": "~1.5.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "postinstall": "node_modules/grunt-cli/bin/grunt build",
+    "start": "node app.js"
+  }
+}

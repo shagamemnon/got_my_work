@@ -1,0 +1,102 @@
+.top-nav
+  min-width: 300px
+  width: 100%
+  position: fixed
+  z-index: 20
+  height: 62px
+
+  .logo
+    display: none
+
+  > .background
+    z-index: 0
+
+  .mobile-logo
+    position: absolute
+    left: 20px
+    top: 15px
+    display: block
+
+    img
+      height: 33px
+      width: auto
+
+  &.opacit
+    .background
+      display: block
+      opacity: 1
+      background-color: #323232
+    .nav-links .background
+      opacity: 1
+
+  .menu-icon
+    display: block
+    height: 60px
+    width: 140px
+    position: absolute
+    top: 0px
+    right: -30px
+    z-index: 20
+    cursor: s-resize
+
+  .hamburger-icon
+    display: block
+    height: 35px
+    margin: 14px 0px 15px 50px
+    fill: white
+    g
+      fill: white
+
+  .top-nav-container
+    left: 0
+    right: 0
+    height: 62px
+    z-index: 1
+
+  .nav-links
+    position: absolute
+    top: -327px
+    width: 100%
+    single-transition( top )
+
+  .nav-link
+    margin: 0
+    display: block
+    text-align: center
+    float: none
+    height: 30px
+    padding-top: 25px
+    padding-bottom: 0px
+
+    &.home
+      display: block
+
+    .text
+      display: inline-block
+
+    &.square-border
+      margin-bottom: -1px
+      padding-bottom: 25px
+      margin-top: 10px
+      .button
+        display: inline-block
+
+  .desktop
+    display: none
+
+.top-nav.expand
+  &.opacit
+    > .background
+      opacity: 0
+
+  .nav-links
+    top: 0px
+    single-transition( top )
+
+.top-nav
+  .not-home
+    display: inline-block
+
+  .home-only
+    display: none
+

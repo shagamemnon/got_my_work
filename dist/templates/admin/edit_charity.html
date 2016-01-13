@@ -1,0 +1,10 @@
+<a href="#">
+  <button>ADMIN PANEL</button></a><br/><br/><% if ( !!charity && !!charity.id ) { %>
+<button class="js-delete-charity">Delete</button><% } %><br/><br/>
+<form>
+  <label>Names</label><br/>
+  <input name="charity[name]" type="text" placeholder="Name" value="<%= charity.get( 'name' ) %>"/><br/><br/>
+  <label>Logo</label><br/>
+  <input name="charity[logo]" type="text" placeholder="Logo" value="<%= charity.get( 'logo' ) %>"/><br/><br/>
+  <input type="submit" value="<%= !!charity.id ? 'update charity' : 'create charity' %>"/>
+</form>

@@ -1,0 +1,16 @@
+global-reset()
+
+@import "../../utilities/font"
+@import "../../utilities/mixins"
+
+body
+  font-family: $Gotham
+  color: #555555
+
+@import "../general/top_nav/main"
+
+@import './desktop/main'
+@media (max-width: 767px)
+  @import './mobile/main'
+
+@import "../general/footer/main"

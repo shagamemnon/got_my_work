@@ -1,0 +1,12 @@
+
+<h3>ADMINS</h3><a href="#/manage" style="margin-bottom: 10px">Manage Admins</a><br/><br/>
+<h3>CHARITIES</h3><a href="#/charities/new" style="margin-bottom: 10px">New Charity</a><br/><br/><% if ( !!charities && charities.length > 0 ) { %>
+<select name="charity[id]"><% _.each( charities, function ( charity ) { %>
+  <option value="<%= charity.id %>"><%= charity.get( 'name' ) %></option><% } ) %>
+</select>
+<button class="js-edit-charity">Edit Charity</button><% } %><br/><br/>
+<h3>PROJECTS</h3><a href="#/projects/new" style="margin-bottom: 10px">New Project</a><br/><br/><% if ( !!projects && projects.length > 0 ) { %>
+<select name="project[id]"><% _.each( projects, function ( project ) { %>
+  <option value="<%= project.id %>"><%= project.get( 'name' ) %></option><% } ) %>
+</select>
+<button class="js-edit-project">Edit Project</button><% } %>

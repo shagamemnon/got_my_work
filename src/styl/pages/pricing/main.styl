@@ -1,0 +1,17 @@
+global-reset()
+
+@import "../../utilities/variables"
+@import "../../utilities/font"
+@import "../../utilities/colors"
+@import "../../utilities/mixins"
+
+body
+  font-family: $Gotham
+
+@import "../general/top_nav/main"
+
+@import './desktop/main'
+@media only screen and (max-width: 1024px)
+  @import './responsive/main'
+
+@import "../general/footer/main"

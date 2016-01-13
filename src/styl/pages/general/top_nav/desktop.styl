@@ -1,0 +1,139 @@
+.top-nav
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  display: block
+  width: 100%
+  min-width: 960px
+  margin: auto
+  text-align: center
+  height: 62px
+  z-index: 20
+  clearfix()
+  @media (max-width: 769px)
+    min-width: 768px
+
+  .mobile-logo
+    display: none
+
+  .hamburger-icon
+    display: none
+
+  .background
+    background-color: #323232
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    width: 100%
+    single-transition( opacity )
+
+  &.opacit .background
+    display: none
+
+  .top-nav-container
+    position: absolute
+    left: 4%
+    right: 4%
+    height: 100%
+
+  .logo img
+    position: absolute
+    display: block
+    top: 16px
+    left: 0
+    z-index: 2
+    height: 31px
+    width: auto
+
+  .nav-links
+    float: right
+    clearfix()
+
+  .nav-link
+    position: relative
+    font-size: 12px
+    font-family: $Gotham
+    font-weight: 500
+    display: block
+    float: left
+    text-decoration: none
+    color: #F9F9FA
+    padding: 19px 25px 17px 25px
+    margin: 0 10px
+    letter-spacing: 1.2px
+
+    &.home
+      display: none
+
+    .text
+      padding: 7px 2px
+      display: block
+      position: relative
+
+    .underline
+      height: 2px
+      position: absolute
+      width: 98%
+      left: 0
+      bottom: 0
+      background-color: white
+      opacity: 0
+      single-transition( opacity )
+
+    &:hover
+      cursor: pointer
+      .underline
+        opacity: .6
+        single-transition( opacity )
+
+    &.square-border
+      padding: 14px 35px 30px 25px
+      font-size: 12px
+      .button
+        padding: 0
+        width: 145px
+        height: 32px
+        letter-spacing: 1px
+        line-height: 32px
+        text-align: center
+        border: solid 1px #F9F9FA
+        border-radius: 3px
+        position: relative
+
+      .text
+        position: absolute
+        display: block
+        width: 100%
+        text-align: center
+        padding: 0
+        top: 0
+        line-height: 33px
+
+    .background-button
+      position: absolute
+      top: 0
+      left: 0
+      height: 100%
+      width: 100%
+      background-color: #282828
+      border-radius: 3px
+      opacity: 0
+      single-transition( opacity )
+
+    &:hover .background-button
+      opacity: 0.9
+      single-transition( opacity )
+
+  .mobile
+    display: none
+
+// Selectors below target homepage
+
+.top-nav
+  .not-home
+    display: inline-block
+
+  .home-only
+    display: none

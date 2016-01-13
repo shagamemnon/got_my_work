@@ -1,0 +1,37 @@
+.background
+.menu-icon
+  include ./hamburger_icon
+.top-nav-container
+  a.logo( href="/" )
+    img( src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
+
+  .mobile-logo
+    a( href="/" )
+      img( src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
+
+  .nav-links
+    .background
+    a.home.nav-link( href="/" )
+      .text HOME
+        .underline
+
+    a.nav-link.mobile( href="/login-user" )
+      .text SIGN UP
+        .underline
+
+    a.nav-link( href="/pricing" )
+      .text PRICING
+        .underline
+
+    a.nav-link( href="/about" )
+      .text ABOUT
+        .underline
+
+    a.nav-link.desktop( href="/contact" )
+      .text CONTACT
+        .underline
+
+    a.nav-link.square-border( href="/login-user" )
+      .button
+        .background-button
+        .text SIGN UP

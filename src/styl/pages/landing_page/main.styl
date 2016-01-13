@@ -1,0 +1,24 @@
+global-reset()
+
+@import "../../utilities/variables"
+@import "../../utilities/font"
+@import "../../utilities/colors"
+@import "../../utilities/mixins"
+
+body
+  background-color: #F5F5F5
+  font-family: $Gotham
+
+.content
+  max-width: 100%
+  overflow: hidden
+
+@import "../general/top_nav/main"
+@import "../project_index/desktop/tiles"
+
+@import './desktop/main'
+@media (max-width: 769px)
+  @import './responsive/main'
+  @import "../project_index/mobile/tiles"
+
+@import "../general/footer/main"

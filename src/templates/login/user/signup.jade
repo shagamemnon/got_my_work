@@ -1,0 +1,18 @@
+.signup-header
+  .container
+    .signup.user
+      h2 Register as a Freelancer
+      form(action="//formspree.io/chirag@ckiict.com", method="post")
+        em Name
+        input( name="name", type="text", placeholder="First and Last Name" )
+        em Email
+        input( name="email", type="text", placeholder="Email" )
+        em Phone
+        input( name="phone", type="text", placeholder="Phone" )
+        em Password
+        input( name="pw", type="text", placeholder="Create Password" )
+        input( type="hidden", name="_next", value="//igotmyworks.com/thanks" )
+        input( type="text", name="_gotcha", style="display:none")
+        .submit-button
+          button SUBMIT
+    .right-half

@@ -1,0 +1,18 @@
+
+<div class="edit-section collapsed">
+  <div class="expand-button"><img src="http://mycents.co/assets/minus-20e582619a3e0ba4b1e6bf7d7bcaf6ce.png" class="minus"/><img src="http://mycents.co/assets/plus-200f7746a6ebce78394cc0496824c0c6.png" class="plus"/></div>
+  <h4>Image</h4>
+  <div data-id="<%= content.id %>" class="edit-content">
+    <form class="js-edit-image">
+      <h5>Source</h5>
+      <input name="source" type="text" value="<%= content.get( 'source' ) %>"/><br/><br/>
+      <h5>Caption</h5>
+      <input name="caption" type="text" value="<%= content.get( 'caption' ) %>"/><br/><br/>
+      <h5>Shareable</h5><% if ( content.get( 'shareable' ) ) { %>
+      <input name="shareable" type="checkbox" checked="checked"/><% } else { %>
+      <input name="shareable" type="checkbox"/><% } %><br/><br/>
+      <input type="submit" value="Save Image"/>
+    </form>
+    <button class="js-delete-image">Delete Image</button>
+  </div>
+</div>

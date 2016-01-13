@@ -1,0 +1,47 @@
+footer
+  background-color: #111
+  width: 100%
+  max-width: 100%
+
+  section
+    position: relative
+    margin: 0 auto
+    clearfix()
+    padding: 80px 12px 0px
+
+    .tiles-container
+
+      .footer-tile
+        span(1/2)
+        height: 220px
+
+        button
+          width: 155px
+          font-size: 10px
+          letter-spacing: 0.1px
+
+        h6
+          font-size: 15px
+
+        p
+          font-size: 12px
+
+        a
+          font-size: 12px
+
+        img
+          height: 23px
+
+        &:nth-child(2)
+          shift(0)
+          text-align: right
+
+        &:nth-child(3)
+          shift(0)
+
+        &:last-child
+          shift(0)
+          text-align: right
+
+  section.bottom
+    display: none

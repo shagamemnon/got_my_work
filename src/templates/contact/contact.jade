@@ -1,0 +1,40 @@
+#contact
+  h3 Get in Touch.
+  p Interested in custom packages or partnerships? Contact us. We'll always respond within 24 hours.
+  form.contact-us( action="//formspree.io/chirag@ckiict.com", method="post" )
+    img.pencil(src="https://s3.amazonaws.com/mycents/photos/landing_page/contact/pencil.png")
+    .contact-info-container
+      .contact-info
+        table
+          tr
+            td.img
+              img( src="https://s3.amazonaws.com/mycents/photos/centsdevshop/contact/email.png" )
+            td.text
+              a(href='mailto:chirag@ckiict.com') info@igotmyworks.com
+        input( name="email", type="text", placeholder="Email" )
+
+      .contact-info
+        table
+          tr
+            td.img
+              img( src="https://s3.amazonaws.com/mycents/photos/icons/call_white.png" )
+            td.text.phone
+              | 203.293.2594
+        input( name="name", type="text", placeholder="Name" )
+
+    .textarea-border
+      textarea( name="message", placeholder="How can we help?" )
+      input( type="hidden", name="_next", value="//igotmyworks.com/thanks" )
+      input( type="text", name="_gotcha", style="display:none")
+      button.submit-button SEND
+
+.mobile-contact
+  h3 Contact Us
+  p Let's build something together.
+  form(action="//formspree.io/frank@mycents.co", method="post")
+    input( name="email", type="text", placeholder="First Name" )
+    input( name="name", type="text", placeholder="Email" )
+    textarea( name="message", type="text", placeholder="How can we help?" )
+    input( type="hidden", name="_next", value="//igotmyworks.com" )
+    input( type="text", name="_gotcha", style="display:none")
+    button.submit-button SUBMIT

@@ -1,0 +1,43 @@
+<a href="#">
+  <button>ADMIN PANEL</button></a>
+<h3>Project Editor<% if ( !!project.id ) { %> - <%= project.get( 'name' ) %></h3>
+<button class="js-delete-project">Delete Project</button><% } %>
+<hr/>
+<div class="edit-section">
+  <div class="expand-button"><img src="http://mycents.co/assets/minus-20e582619a3e0ba4b1e6bf7d7bcaf6ce.png" class="minus"/><img src="http://mycents.co/assets/plus-200f7746a6ebce78394cc0496824c0c6.png" class="plus"/></div>
+  <h4>Title, charity, etc.</h4>
+  <div class="edit-content">
+    <form class="js-update-project"><% if ( !!charities ) { %>
+      <h5>Charity</h5>
+      <select name="project[charity_id]"><% _.each( charities, function ( charity ) { %>
+        <option value="<%= charity.id %>"><%= charity.get( 'name' ) %></option><% } ) %>
+      </select><% } %><br/><br/>
+      <h5>Name</h5>
+      <input name="project[name]" type="text" placeholder="Name" value="<%= project.get( 'name' ) %>"/><br/><br/>
+      <h5>Card Image</h5>
+      <input name="project[card_image]" type="text" placeholder="Card Image" value="<%= project.get( 'card_image' ) %>"/><br/><br/>
+      <h5>Card Description</h5>
+      <textarea name="project[card_desc]" placeholder="Card Description"><%= project.get( 'card_desc' ) %></textarea><br/><br/>
+      <h5>Page Image</h5>
+      <input name="project[page_image]" type="text" placeholder="Page Image" value="<%= project.get( 'page_image' ) %>"/><br/><br/>
+      <h5>Page Description</h5>
+      <textarea name="project[page_desc]" placeholder="Page Description"><%= project.get( 'page_desc' ) %></textarea><br/><br/>
+      <input type="submit" value="<%= !project.id ? 'Create Project' : 'Update Project' %>"/>
+    </form>
+  </div>
+</div>
+<div class="edit-section">
+  <div class="expand-button"><img src="http://mycents.co/assets/minus-20e582619a3e0ba4b1e6bf7d7bcaf6ce.png" class="minus"/><img src="http://mycents.co/assets/plus-200f7746a6ebce78394cc0496824c0c6.png" class="plus"/></div>
+  <h4>Content</h4>
+  <div class="edit-content content-forms">
+    <% _.each( contents, function ( content ) { %>
+    <% if ( content.type == 'Image' ) {  %>
+    <%= _.template( edit_image_template )({ content: content.content }) %>
+    <% } else {  %>
+    <%= _.template( edit_paragraph_template )({ content: content.content }) %>
+    <% } %>
+    <% } ) %><br/>
+    <button class="js-add-image">Add Image</button>
+    <button class="js-add-paragraph">Add Paragraph</button>
+  </div>
+</div>
