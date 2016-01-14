@@ -1,18 +1,14 @@
-.signup-header
+section.signup-header
+  h1 GET STARTED
   .container
     .signup.user
       h2 Register as a Freelancer
-      form(action="//formspree.io/chirag@ckiict.com", method="post")
+      form(method="post")
         em Name
         input( name="name", type="text", placeholder="First and Last Name" )
         em Email
         input( name="email", type="text", placeholder="Email" )
-        em Phone
-        input( name="phone", type="text", placeholder="Phone" )
-        em Password
-        input( name="pw", type="text", placeholder="Create Password" )
-        input( type="hidden", name="_next", value="//igotmyworks.com/thanks" )
         input( type="text", name="_gotcha", style="display:none")
-        .submit-button
-          button SUBMIT
-    .right-half
+  img(style="padding-top:30px;height:10px", src="https://s3.amazonaws.com/igotmywork/signup/dots_one.png")
+  .submit-button
+    button NEXT

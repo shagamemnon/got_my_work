@@ -124,15 +124,15 @@ app.get('/company', function ( req, res) {
   res.sendfile( 'dist/pages/company_profile.html')
 });
 
-app.get('/login-company', function ( req, res) {
+app.get('/signup-company', function ( req, res) {
   res.sendfile( 'dist/pages/login/company.html')
 });
 
-app.get('/login-user', function ( req, res) {
+app.get('/signup-user', function ( req, res) {
   res.sendfile( 'dist/pages/login/user.html')
 });
 
-app.get('/login-manager', function ( req, res) {
+app.get('/signup-manager', function ( req, res) {
   res.sendfile( 'dist/pages/login/manager.html')
 });
 

@@ -1,21 +1,20 @@
-.signup-header
+section.signup-header
   .container
     .signup.company
-      h2 Register as a Company
-      form(action="//formspree.io/chirag@ckiict.com", method="post")
-        em Logo
-        button Upload Logo
+      h2 Company
+      form(method="post")
         em Company
-        input( name="company name", type="text", placeholder="Company Name" )
+        input( name="email", type="text", placeholder="Company Name" )
+        em Company Expertise (dropdown)
+        input( name="name", type="text", placeholder="Expertise" )
         em Contact Name
         input( name="email", type="text", placeholder="Full Name" )
         em Phone
-        input( name="phone", type="text", placeholder="Phone" )
+        input( name="name", type="text", placeholder="Phone" )
         em Email
         input( name="email", type="text", placeholder="Email" )
         em Password
         input( name="name", type="text", placeholder="Create Password" )
-        input( type="hidden", name="_next", value="//igotmyworks.com/thanks" )
         input( type="text", name="_gotcha", style="display:none")
-        .submit-button
-          button SUBMIT
+  .submit-button
+    button SUBMIT

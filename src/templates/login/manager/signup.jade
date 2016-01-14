@@ -1,22 +1,12 @@
-.signup-header
-  .signup
-    h2 Company
-    form(action="//formspree.io/frank@mycents.co", method="post")
-      em Logo
-      button Upload Logo
-      em Company
-      input( name="email", type="text", placeholder="Company Name" )
-      em Company Expertise (dropdown)
-      input( name="name", type="text", placeholder="Expertise" )
-      em Contact Name
-      input( name="email", type="text", placeholder="Full Name" )
-      em Phone
-      input( name="name", type="text", placeholder="Phone" )
-      em Email
-      input( name="email", type="text", placeholder="Email" )
-      em Password
-      input( name="name", type="text", placeholder="Create Password" )
-      input( type="hidden", name="_next", value="//factory.mycents.co" )
-      input( type="text", name="_gotcha", style="display:none")
-      .submit-button
-        button SUBMIT
+section.signup-header
+  .container
+    .signup.company
+      h2 Manager
+      form(method="post")
+        em Full Name
+        input( name="email", type="text", placeholder="Company Name" )
+        em Token
+        input( name="name", type="text", placeholder="Expertise" )
+        input( type="text", name="_gotcha", style="display:none")
+  .submit-button
+    button SUBMIT

@@ -1,6 +1,6 @@
-.signup-header
+section.signup-header
   border-top: 65px solid #111
-  padding: 80px 0px 0px 60px
+  padding: 80px 0px
   z-index: 1
   max-width: 100%
   margin: auto
@@ -21,20 +21,14 @@
     margin: auto
     overflow: hidden
 
-    .company
+    .company, .user, .manager
       max-width: 670px
-      margin: 0 auto 80px
-
-    .user
-      col(1/2)
-      max-width: 670px
-      margin: 40px auto 0
+      margin: 40px auto 10px
 
     .signup
       background-color: white
       border-top: 62px solid transparent
       position: relative
-      z-index: 2
       border-radius: 5px
       border: 2px solid #ddd
 
@@ -43,38 +37,19 @@
         padding-top: 40px
         margin-bottom: 40px
         text-align: center
-        header2()
+        header3()
+        font-weight: 500
         border-bottom: 2px solid #ddd
 
       p
         paragraph()
 
-      button
-        button()
-        border-radius: 3px
-        background: #FF6363
-        color: white
-        width: 270px
-        margin: 20px auto 0 auto
-        display: block
-        font-family: $Gotham
-        font-weight: 500
-        letter-spacing: 1.5px
-        cursor: pointer
-        font-size: 15px
-        single-transition( background-color )
-
-        &:hover, &.active
-          background-color: #B04343
-          single-transition( background-color )
-
       form
         width: 100%
         display: block
         max-width: 600px
-        padding-left: 20px
+        padding: 0px 20px 15px
         margin: auto
-        padding-right: 20px
         text-align: left
 
         select[name="expertise"]
@@ -98,17 +73,6 @@
           letter-spacing: 0.5px
           color: #222
 
-        button
-          display: block
-          margin: 30px 32px
-          width: 160px
-          letter-spacing: 0px
-          padding-top: 13px
-          font-weight: 400
-          height: 44px
-          font-size: 16px
-          background-color: $primary-color
-
         input[type="text"]
           padding: 15px
           font-family: $Gotham
@@ -128,19 +92,20 @@
         input[name="dob"]
           clearfix()
 
-        .submit-button
-          display: block
-          text-align: right
-          position: relative
-          right: 0px
+  .submit-button
+    display: block
+    text-align: right
+    max-width: 670px
+    margin: auto
 
-    .right-half
-      col(1/2)
-      height: 800px
-      background-size: cover
-      background-repeat: no-repeat
-      background-image: url('https://s3.amazonaws.com/igotmywork/user_profile/freelancer.png')
-      margin: 170px auto 0
-      position: relative
-      float: right
-      overflow: hidden
+    button
+      button()
+      display: block
+      margin: 30px auto
+      width: 160px
+      letter-spacing: 0px
+      padding-top: 13px
+      font-weight: 400
+      height: 44px
+      font-size: 16px
+      background-color: $primary-color
