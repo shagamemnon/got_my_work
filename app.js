@@ -136,6 +136,10 @@ app.get('/signup-manager', function ( req, res) {
   res.sendfile( 'dist/pages/login/manager.html')
 });
 
+app.get('/payment', function ( req, res) {
+  res.sendfile( 'dist/pages/login/payment.html')
+});
+
 app.get('/thanks', function ( req, res) {
   res.sendfile( 'src/pages/thanks.html')
 });

@@ -1,0 +1,18 @@
+section.signup-header
+  h1 GET STARTED
+  .container
+    .signup.user
+      h2 Enter Payment Information
+      form(method="post")
+        em Full Name
+        input( name="name", type="text", placeholder="First and Last Name" )
+        em.inline Payment Card Number
+          input( name="email", type="text", style="width: 205px", placeholder="XXXX XXXX XXXX XXXX" )
+        em.inline Expiration
+          input( name="email", type="text", placeholder="XXX" )
+        em.inline CVV
+          input( name="email", type="text", placeholder="XXX" )
+        input( type="text", name="_gotcha", style="display:none")
+  img(style="padding-top:30px;height:10px", src="https://s3.amazonaws.com/igotmywork/signup/dots_three.png")
+  .submit-button
+    button SUBMIT

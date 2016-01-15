@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="dist/css/project_listing.css">
+    <link rel="stylesheet" href="dist/css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css">
-    <title>Listing</title>
+    <title>Signup | Payment</title>
     <meta name="description" content="India's Biggest Freelance Portal">
   </head>
   <body>
@@ -49,6 +49,24 @@
           </div>
         </div>
       </nav>
+      <section class="signup-header">
+        <h1>GET STARTED</h1>
+        <div class="container">
+          <div class="signup user">
+            <h2>Enter Payment Information</h2>
+            <form method="post"><em>Full Name</em>
+              <input name="name" type="text" placeholder="First and Last Name"><em class="inline">Payment Card Number
+                <input name="email" type="text" style="width: 205px" placeholder="XXXX XXXX XXXX XXXX"></em><em class="inline">Expiration
+                <input name="email" type="text" placeholder="XXX"></em><em class="inline">CVV
+                <input name="email" type="text" placeholder="XXX"></em>
+              <input type="text" name="_gotcha" style="display:none">
+            </form>
+          </div>
+        </div><img style="padding-top:30px;height:10px" src="https://s3.amazonaws.com/igotmywork/signup/dots_three.png">
+        <div class="submit-button">
+          <button>SUBMIT</button>
+        </div>
+      </section>
       <footer>
         <section>
           <div class="tiles-container">
