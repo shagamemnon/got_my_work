@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://use.typekit.net/vzc0ynf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <link rel="stylesheet" href="dist/css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="node_modules/underscore/underscore-min.js"></script>
@@ -56,9 +58,9 @@
             <h2>Enter Payment Information</h2>
             <form method="post"><em>Full Name</em>
               <input name="name" type="text" placeholder="First and Last Name"><em class="inline">Payment Card Number
-                <input name="email" type="text" style="width: 205px" placeholder="XXXX XXXX XXXX XXXX"></em><em class="inline">Expiration
-                <input name="email" type="text" placeholder="XXX"></em><em class="inline">CVV
-                <input name="email" type="text" placeholder="XXX"></em>
+                <input name="payment-card" type="text" style="width: 205px" placeholder="XXXX XXXX XXXX XXXX"></em><em class="inline">Expiration
+                <input name="expiration" type="text" placeholder="XXX"></em><em class="inline">CVV
+                <input name="cvv" type="text" placeholder="XXX"></em>
               <input type="text" name="_gotcha" style="display:none">
             </form>
           </div>
