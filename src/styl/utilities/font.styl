@@ -1,44 +1,52 @@
 @import 'font_import/gotham'
 
-$Gotham = 'proxima-nova', Roboto, Arial, sans-serif
+$ProxiNova = 'proxima-nova', Roboto, Arial, sans-serif
 $IdealSans = 'Open Sans', 'Helvetica Neue', Roboto, Arial, sans-serif
-$Tall = "Gotham SSm", Helvetica, sans-serif
+$Gotham = 'Gotham', Helvetica, sans-serif
 
-$DefaultFont = $ProxiNova
+$DefaultFont = $Gotham
 $HeaderFont = $Gotham
-$SubHeaderFont = $ProxiNova
-$ParagraphFont = 'Open Sans', 'Helvetica Neue', Roboto, Arial, sans-serif
+$SubHeaderFont = $Gotham
+$ParagraphFont = $Gotham
 
 paragraph()
-  font-family: $ParagraphFont
-  font-size: 1em
-  font-weight: normal
-  line-height: 1.5
+  font-family: $Gotham
+  font-size: 0.8em
+  font-weight: 400
+  line-height: 1.4
+  color: #333
 
 header1()
-  font-family: $Tall
-  font-weight: 800
-  font-size: 3.5em
+  font-family: $HeaderFont
+  font-weight: 600
+  font-size: 3.2em
   letter-spacing: 1.5px
   line-height: 1.1
 
 header2()
-  font-family: $Gotham
+  font-family: $HeaderFont
   font-weight: 800
   font-size: 2.5em
 
 header3()
-  font-family: $Gotham
-  font-weight: 400
+  font-family: $HeaderFont
+  font-weight: 600
+  letter-spacing: 1px
   line-height: 1.2
-  font-size: 2em
+  font-size: 1.8em
 
 header4()
-  font-family: $Gotham
+  font-family: $HeaderFont
   font-weight: 600
   font-size: 1.5em
 
 header5()
-  font-family: $Gotham
-  font-weight: 700
-  font-size: 1em
+  font-family: $HeaderFont
+  font-weight: 300
+  font-size: 1.2em
+
+header6()
+  font-family: $HeaderFont
+  font-weight: 300
+  font-size: 0.95em
+  line-height: 1.3
