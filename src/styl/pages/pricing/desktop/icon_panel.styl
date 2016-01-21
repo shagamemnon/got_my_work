@@ -1,0 +1,60 @@
+.icon-panel
+  margin: auto
+  background-color: white
+  padding-top: 115px
+  padding-bottom: 125px
+
+  .icon-row
+    max-width: 1000px
+    margin: 0 auto
+    padding: 0px 20px
+    clearfix()
+
+    a.icon-tile
+      col(1/4, gutter: 2)
+      cursor: pointer
+      background-color: white
+      padding: 0px
+      border-radius: 1px
+      text-decoration: none
+      text-align: center
+      color: #222
+      clearfix()
+      margin: auto
+      max-width: 100%
+
+      img
+        height: 80px
+        width: auto
+        padding-bottom: 15px
+
+      .hr
+        background-color: #ddd
+        height: 2px
+        max-width: 58px
+        margin: auto
+
+      .text
+        padding: 30px 15px 0
+        text-align: left
+
+        h5
+          header5()
+          margin-bottom: 30px
+          color: $primary-color
+          text-transform: uppercase
+          text-align: center
+          letter-spacing: 0.5px
+
+        p
+          paragraph()
+          margin-bottom: 20px
+
+        em
+          font-style: italic
+          font-size: 13px
+          text-transform: lowercase
+          font-family: $Gotham
+          font-weight: 400
+          color: #444
+          text-align: left
