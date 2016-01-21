@@ -2,10 +2,10 @@
 <div class="dashboard-container">
   <div class="dashboard">
     <h2>Update SQL Database</h2>
-    <div class="titles"><em class="left">
-         
-        Company</em><em class="right">Freelancer</em></div>
-    <div class="participant">
+    <section class="participants">
+      <div class="titles"><em class="left">
+           
+          Company</em><em class="right">Freelancer</em></div>
       <div class="company">
         <div class="logo"> </div>
       </div>
@@ -15,11 +15,95 @@
           <p>ARVIND SWAMY</p><small>Java Engineer</small>
         </div>
       </div>
+    </section>
+    <section class="status"><em>Status</em>
+      <div id="complete" class="stage"><small>Waiting</small></div>
+      <div id="complete" class="stage"><small>Running</small></div>
+      <div id="active" class="stage"><small>Testing</small></div>
+      <div id="inactive" class="stage"><small>Complete</small></div>
+      <div id="inactive" class="stage"><small>Delivered</small></div>
+    </section>
+    <div class="key">
+      <div class="dot start">
+        <p>Start</p>
+      </div>
+      <div class="dot today">
+        <p>Today</p>
+      </div>
+      <div class="dot due">
+        <p>Due</p>
+      </div>
     </div>
-    <div class="status"><em>Status</em></div>
-    <div class="info-row">
+    <div class="calendar">
+      <div class="header">
+        <div class="arrow-left">o</div>
+        <h2>July 2013</h2>
+        <div class="arrow-right">o</div>
+      </div>
+      <table>
+        <tr>
+          <td>SUN</td>
+          <td>MON</td>
+          <td>TUE</td>
+          <td>WED</td>
+          <td>THU</td>
+          <td>FRI</td>
+          <td>SAT</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td class="start">7</td>
+          <td>8</td>
+          <td>9</td>
+          <td>10</td>
+          <td>11</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td class="today">14</td>
+          <td>15</td>
+          <td>16</td>
+          <td>17</td>
+          <td class="due">18</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>21</td>
+          <td>22</td>
+          <td>23</td>
+          <td>24</td>
+          <td>25</td>
+          <td>26</td>
+        </tr>
+        <tr>
+          <td>27</td>
+          <td>28</td>
+          <td>29</td>
+          <td>30</td>
+          <td>31</td>
+          <td class="future">1</td>
+          <td class="future">2</td>
+        </tr>
+      </table>
+    </div>
+    <section class="files-row">
       <div class="left"><em>Files</em><a>mpasve02.sql</a><small>10/22/2015</small></div>
       <div class="right"><a>Upload</a></div>
+    </section>
+    <div class="dashboard-buttons">
+      <button class="cancel"><a href="#">Cancel Project</a></button>
+      <button class="deliver"><a href="#">Deliver Project</a></button>
     </div>
   </div>
 </div>
