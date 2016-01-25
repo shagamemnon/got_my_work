@@ -1,12 +1,12 @@
 section.subscription-plans
-  padding: 60px 0 0
+  padding: 50px 0 0
   background: white
   border-top: none
 
   h2
     max-width: 960px
     header2()
-    color: #222
+    color: white
     margin: 0 auto
     padding-bottom: 20px
     text-align: center
@@ -27,93 +27,17 @@ section.subscription-plans
     stack()
     max-width: 80%
     margin: 30px auto
-    height: 420px
+    height: 500px
 
     .sub-header
       display: block
-      background linear-gradient(left, #33bac1, #33a9cd)
       text-align: center
 
       h4
         text-align: center
         font-weight: 400
         color: white
-
-      em.rate
-        font-family: "Lato"
-        display: inline-block
-        text-align: center
-        font-style: normal
-        font-weight: 300
-        font-size: 50px
-        margin-top: 20px
-        padding-bottom: 45px
-        padding-left: 10px
-
-      em.year
-        font-size: 11px
-        vertical-align: baseline
-        display: inline-block
-        text-decoration: none
-        text-align: center
-        padding-left: 2px
-        letter-spacing: 0.5px
-
+      
+    .description
       p
-        display: block
-        text-align: left
-        padding-top: 12px
-        color: #222
-        font-weight: 400
-        font-size: 14px
-        padding-left: 15px
-        padding-bottom: 0
-        @media (max-width: 600px)
-          padding-left: 5px
-          font-size: 16px
-
-        &.highlight
-          color: #EE7637
-
-      button
-        background-color: blue
-        color: white
-        font-size: 14px
-        display: block
-        margin: 30px auto 0
-        width: 200px
-        height: 40px
-        border: none
-        background #33bac1
-        opacity: 0.92
-        cursor: pointer
-        outline: none
-
-        &:hover
-          opacity: 1
-          outline: none
-
-        a
-          text-decoration: none
-          color: white
-
-  .subscription.student
-    .sub-header
-      background linear-gradient(left, #33a9cd, #339ad9)
-
-      button
-        background #33a9cd
-
-  .subscription.company
-    .sub-header
-      background linear-gradient(left, #337dee, #3366ff)
-
-      button
-        background #337dee
-
-  .subscription.paid
-    .sub-header
-      background linear-gradient(left, #339ad9, #337dee)
-
-      button
-        background: #339ad9
+        text-align: center
