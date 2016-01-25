@@ -2,7 +2,6 @@ section.subscription-plans
   padding: 75px 0
   background: transparent
   position: relative
-  top: -445px
 
   h2
     max-width: 960px
@@ -32,60 +31,73 @@ section.subscription-plans
     col(1/4)
     height: 380px
     border-radius: 2px
-    box-shadow: 0px 0px 2px 1px #ddd
     cursor: pointer
     single-transition( box-shadow )
 
     &:hover
       single-transition( box-shadow )
-      box-shadow: 0px 0px 1px 2px $primary-color
+      background: $primary-color
+
+    h4
+      header5()
+      color: $primary-color
+      text-transform: uppercase
+      text-align: center
+      display: block
+      max-width: 100%
+      margin: 30px auto
+      width: 150px
+      letter-spacing: 0.5px
 
     .sub-header
       display: block
-      height: 60px
-      background linear-gradient(left, #33bac1, #33a9cd)
+      max-width: 100%
+      margin: auto
+      height: 145px
+      width: 145px
       text-align: center
-
-      h4
-        padding-top: 24px
-        padding-bottom: 45px
-        font-size: 18px
-        text-align: center
-        font-weight: 400
-        letter-spacing: 1px
-        color: white
+      border-radius: 50%
+      border: 3px dotted $primary-color
 
       em.rate
-        font-family: "Lato"; sans-serif
-        display: inline-block
+        font-family: 'Gotham'
+        display: block
         text-align: center
         font-style: normal
-        font-weight: 400
-        font-size: 50px
-        margin-top: 20px
-        color: #444
+        font-weight: 300
+        font-size: 40px
+        position: relative
+        top: 50px
+        color: #666
         padding-bottom: 45px
-        padding-left: 10px
+        letter-spacing: -2px
 
       em.year
+        position: relative
         font-size: 11px
+        top: 8px
         padding-bottom: 20px
         vertical-align: baseline
-        display: inline-block
+        display: block
         color: #222
-        text-decoration: none
+        font-style: italic
         text-align: center
         padding-left: 2px
         letter-spacing: 0.5px
 
+    .description
+      margin-top: 25px
+
       p
         display: block
         text-align: left
+        margin: auto
+        max-width: 400px
         padding-top: 12px
         color: #222
         font-weight: 400
-        font-size: 14px
-        padding-left: 15px
+        font-size: 12px
+        padding-left: 35px
         padding-bottom: 0
         @media (max-width: 600px)
           padding-left: 5px
@@ -95,18 +107,22 @@ section.subscription-plans
           color: #EE7637
 
       button
-        background-color: blue
+        background-color: #bbb
+        text-transform: uppercase
+        font-weight: 500
         color: white
-        font-size: 14px
+        font-size: 13px
         display: block
         margin: 30px auto 0
-        width: 200px
-        height: 40px
+        width: 160px
+        max-width: 100%
+        height: 35px
         border: none
-        background #33bac1
         opacity: 0.92
         cursor: pointer
         outline: none
+        border-radius: 2px
+        letter-spacing: 1px
 
         &:hover
           opacity: 1
@@ -115,24 +131,3 @@ section.subscription-plans
         a
           text-decoration: none
           color: white
-
-  .subscription.student
-    .sub-header
-      background linear-gradient(left, #33a9cd, #339ad9)
-
-      button
-        background #33a9cd
-
-  .subscription.company
-    .sub-header
-      background linear-gradient(left, #337dee, #3366ff)
-
-      button
-        background #337dee
-
-  .subscription.paid
-    .sub-header
-      background linear-gradient(left, #339ad9, #337dee)
-
-      button
-        background: #339ad9
