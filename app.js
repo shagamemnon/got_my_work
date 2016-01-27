@@ -153,6 +153,10 @@ app.get('/company', function ( req, res) {
   res.sendfile( 'dist/pages/company_profile.html')
 });
 
+app.get('/get-started', function ( req, res) {
+  res.sendfile( 'dist/pages/login/selection.html')
+});
+
 app.get('/signup-company', function ( req, res) {
   res.sendfile( 'dist/pages/login/company.html')
 });

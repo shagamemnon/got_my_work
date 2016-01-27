@@ -1,0 +1,97 @@
+section.selection
+  border-top: 62px solid transparent
+  max-width: 880px
+  margin: 80px auto
+  min-height: 800px
+
+  h2
+    header2()
+    letter-spacing: -2px
+    color: #444
+    text-align: center
+    margin-bottom: 80px
+
+  .half
+    col(1/2)
+    text-align: center
+    height: 420px
+
+    img
+      padding-top: 60px
+      height: 60px
+      opacity: 0.5
+      margin-bottom: 30px
+
+    h5
+      header4()
+      font-weight: 500
+      color: #333
+      text-transform: uppercase
+      margin-bottom: 30px
+
+    p
+      header6()
+      font-weight: 300
+      line-height: 1.4
+      max-width: 290px
+      margin: auto
+      margin-bottom: 60px
+
+    a
+      text-decoration: none
+      color: white
+
+      button
+        button()
+        height: 48px
+        width: 200px
+        font-size: 14px
+        letter-spacing: 0.5px
+        font-weight: 400
+        background: $primary-color
+        text-transform: uppercase
+        display: block
+        max-width: 100%
+        margin: auto
+
+  .right
+    box-shadow: -1px 0 0px 0 #ccc
+
+    a
+      button
+        background: #888
+
+        &:hover
+          background: #999
+
+    .mobile
+      display: none
+
+#overlay, #overlay-user
+  opacity: 0
+  background-color: #fff
+  position: absolute
+  top: 0px
+  left: 0px
+  z-index: 50
+  width: 100%
+  height: 100%
+  display: none
+
+#info, #info-user
+  opacity: 0
+  top: 0
+  margin: 0 auto 0
+  padding: 20px
+  width:920px
+  margin-top: -80px
+  background:transparent
+  z-index: 51
+  position:absolute
+  display: none
+
+  img
+    float: right
+    cursor: pointer
+    padding-top: -80px
+    height: 50px
