@@ -63,7 +63,7 @@ section.signup-header
           width: 600px
           display: block
 
-        em
+        em, .error-message
           display: block
           text-transform: uppercase
           font-family: $Gotham
@@ -73,7 +73,11 @@ section.signup-header
           letter-spacing: 0.5px
           color: #222
 
-        input[type="text"]
+        .error-message
+          color: #ff0000;
+          padding-bottom: 10px;
+		  
+        input[type="text"], input[type="password"]
           padding: 15px
           font-family: $Gotham
           font-size: 16px
@@ -94,7 +98,13 @@ section.signup-header
           
           input[type="text"]
             width: 80px
+			
+        input.error
+          border-color: #ff0000;
 
+        .hidden
+          display: none;
+		  
   .submit-button
     display: block
     text-align: right

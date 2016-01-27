@@ -82,7 +82,7 @@
           width: 600px
           display: block
 
-        em
+        em, .error-message
           display: block
           text-transform: uppercase
           font-family: $Gotham
@@ -92,6 +92,10 @@
           letter-spacing: 0.5px
           color: #222
 
+        .error-message
+          color: #ff0000;
+          padding-bottom: 10px;
+		  
         button
           display: block
           margin: 30px 32px
@@ -103,7 +107,7 @@
           font-size: 16px
           background-color: $primary-color
 
-        input[type="text"]
+        input[type="text"], input[type="password"]
           padding: 15px
           font-family: $Gotham
           font-size: 16px
@@ -127,6 +131,12 @@
           text-align: right
           position: relative
           right: 0px
+		  
+	    input.error
+          border-color: #ff0000;
+
+        .hidden
+          display: none;
 
     .right-half
       stack()

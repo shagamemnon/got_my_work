@@ -5,7 +5,23 @@ var port = process.env.PORT || 3000
   , qs = require( 'querystring' )
   , favicon = require('serve-favicon')
   , mailer = require('express-mailer')
-  , device = require('express-device');
+  , device = require('express-device')
+  , bodyParser = require('body-parser')
+  , config = require('./vendor/apps_config')
+  , Parse = require('parse').Parse;
+
+Parse.initialize(config.parse.appId, config.parse.JSKey);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+var path = require('path');
+app.configure(function() {
+	app.use(express.static(path.join(__dirname, '../dist')));
+  //app.use(express.static(__dirname + '/dist'));
+});
+//app.use(express.static(path.join(__dirname, '../dist')));
+//app.use("/dist", express.static(path.join(__dirname, '../dist')));
 
 app.use(express.favicon('./assets/images/favicon.ico'));
 app.use( device.capture() );
@@ -116,8 +132,21 @@ app.get('/dashboard', function ( req, res) {
   res.sendfile( 'dist/pages/project_dashboard.html')
 });
 
-app.get('/profile', function ( req, res) {
+/*app.get('/profile', function ( req, res) {
   res.sendfile( 'dist/pages/user_profile.html')
+});*/
+
+app.get('/profile/:id', function ( req, res) {
+  var query = new Parse.Query(Parse.User);
+  query.equalTo("objectId", req.params.id);
+  query.find({
+    success: function(user) {
+      res.render('../pages/user_profile', {profile: user});
+      console.log("users", user[0].get('username'));
+    }
+  });
+
+  //res.sendfile( 'dist/pages/user_profile.html')
 });
 
 app.get('/company', function ( req, res) {
@@ -130,6 +159,23 @@ app.get('/signup-company', function ( req, res) {
 
 app.get('/signup-user', function ( req, res) {
   res.sendfile( 'dist/pages/login/user.html')
+});
+
+app.post('/signup-user', function ( req, res) {
+  var user = new Parse.User();
+  user.set('username', req.body.name);
+  user.set('password', req.body.pass);
+  user.set('email', req.body.email);
+
+  user.signUp(null, {
+    success: function(user) {
+      res.redirect("/");
+    },
+    error: function(user, error) {
+      console.log("Error: " + error.code + " " + error.message);
+      res.json({error: error.message});
+    }
+  });
 });
 
 app.get('/signup-manager', function ( req, res) {
