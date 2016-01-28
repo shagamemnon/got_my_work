@@ -1,4 +1,5 @@
 .manager-panel
+	border-top: 62px solid transparent
 	max-width: 1000px
 	margin: auto
 	background-color: #eee
@@ -7,7 +8,12 @@
 	a
 		span(1/6)
 		cursor: pointer
+		display: inline-block
 		paragraph()
 
 		&:hover, &:focus
 			text-decoration: underline
+
+	span
+		span(1/6)
+		display: inline-block

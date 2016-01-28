@@ -182,9 +182,6 @@ app.post('/signup-user', function ( req, res) {
   });
 });
 
-app.get('/signup-manager', function ( req, res) {
-  res.sendfile( 'dist/pages/login/manager.html')
-});
 
 app.get('/payment', function ( req, res) {
   res.sendfile( 'dist/pages/login/payment.html')
@@ -194,8 +191,30 @@ app.get('/thanks', function ( req, res) {
   res.sendfile( 'src/pages/thanks.html')
 });
 
-app.get('/manager', function ( req, res) {
-  res.sendfile( 'dist/pages/managers.html')
+// Manager Panel
+
+app.get('/signup-manager', function ( req, res) {
+  res.sendfile( 'dist/pages/login/manager.html')
+});
+
+app.get('/manager-one', function ( req, res) {
+  res.sendfile( 'dist/pages/manager/tab1.html')
+});
+
+app.get('/manager-two', function ( req, res) {
+  res.sendfile( 'dist/pages/manager/tab2.html')
+});
+
+app.get('/manager-three', function ( req, res) {
+  res.sendfile( 'dist/pages/manager/tab3.html')
+});
+
+app.get('/manager-four', function ( req, res) {
+  res.sendfile( 'dist/pages/manager/tab4.html')
+});
+
+app.get('/manager-five', function ( req, res) {
+  res.sendfile( 'dist/pages/manager/tab5.html')
 });
 
 app.get('/*' , function( req, res, next ) {
