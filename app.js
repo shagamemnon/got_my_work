@@ -194,6 +194,10 @@ app.get('/thanks', function ( req, res) {
   res.sendfile( 'src/pages/thanks.html')
 });
 
+app.get('/manager', function ( req, res) {
+  res.sendfile( 'dist/pages/managers.html')
+});
+
 app.get('/*' , function( req, res, next ) {
     var file = req.params[0];
     res.sendfile( __dirname + '/' + file );
