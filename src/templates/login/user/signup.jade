@@ -1,7 +1,7 @@
 section.signup-header
     .container
         .signup.user
-            h2 Register as a Freelancer
+            h2 Freelancer
             form(method="post")
                 .error-message
                 .visible
@@ -9,12 +9,12 @@ section.signup-header
                     input( name="name", type="text", placeholder="First and Last Name" )
                     em Email
                     input( name="email", type="text", placeholder="Email" )
-                .hidden
-                    em Password
+                    em Mobile
+                    input( name="email", type="text", placeholder="Email" )
+                    em Create Password
                     input( name="pass", type="password", placeholder="Create Password" )
-                    em Confirm
+                    em Confirm Password
                     input( name="confirm", type="password", placeholder="Confirm" )
                 input( type="text", name="_gotcha", style="display:none")
             .submit-button
-                button NEXT
-                img(style="padding-bottom:30px;float:none", src="https://s3.amazonaws.com/igotmywork/signup/dots_one.png")
+                button GO
