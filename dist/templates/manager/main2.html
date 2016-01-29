@@ -1,41 +1,39 @@
 
-<nav class="top-nav opacit">
-  <div class="background"></div>
-  <div class="menu-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" viewBox="0 0 25 25" version="1.1" x="0px" y="0px" class="hamburger-icon">
-      <g stroke="none" stroke-width="1" sketch:type="MSPage">
-        <g sketch:type="MSArtboardGroup">
-          <path d="M0,4 C0,2.8954305 0.889763236,2 2.00359486,2 L22.9964051,2 C24.10296,2 25,2.88772964 25,4 C25,5.1045695 24.1102368,6 22.9964051,6 L2.00359486,6 C0.897039974,6 0,5.11227036 0,4 L0,4 Z M0,12 C0,10.8954305 0.889763236,10 2.00359486,10 L22.9964051,10 C24.10296,10 25,10.8877296 25,12 C25,13.1045695 24.1102368,14 22.9964051,14 L2.00359486,14 C0.897039974,14 0,13.1122704 0,12 L0,12 Z M0,20 C0,18.8954305 0.889763236,18 2.00359486,18 L22.9964051,18 C24.10296,18 25,18.8877296 25,20 C25,21.1045695 24.1102368,22 22.9964051,22 L2.00359486,22 C0.897039974,22 0,21.1122704 0,20 L0,20 Z" sketch:type="MSShapeGroup"></path>
-        </g>
-      </g>
-    </svg>
-  </div>
-  <div class="top-nav-container"><a href="/" class="logo"><img src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png"/></a>
-    <div class="mobile-logo"><a href="/"><img src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png"/></a></div>
-    <div class="nav-links">
-      <div class="background"></div><a href="/" class="home nav-link">
-        <div class="text">HOME
-          <div class="underline"></div>
-        </div></a><a href="/get-started" class="nav-link mobile">
-        <div class="text">SIGN UP
-          <div class="underline"></div>
-        </div></a><a href="/pricing" class="nav-link">
-        <div class="text">PRICING
-          <div class="underline"></div>
-        </div></a><a href="/about" class="nav-link">
-        <div class="text">ABOUT
-          <div class="underline"></div>
-        </div></a><a href="/contact" class="nav-link desktop">
-        <div class="text">CONTACT
-          <div class="underline"></div>
-        </div></a><a href="/get-started" class="nav-link square-border">
-        <div class="button">
-          <div class="background-button"></div>
-          <div class="text">SIGN UP</div>
-        </div></a>
+<html>
+  <div class="manager-panel">
+    <div class="table-title"><img style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px" src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png"/>
+      <h3>Manager Dashboard</h3>
     </div>
+    <table class="table-fill">
+      <thead>
+        <tr>
+          <th class="text-left"><a href="/manager-one">Freelancers</a></th>
+          <th class="text-left active"><a href="/manager-two">Companies</a></th>
+          <th class="text-left"><a href="/manager-three">Projects</a></th>
+          <th class="text-left"><a href="/manager-four">Requests</a></th>
+          <th class="text-left"><a href="/manager-five">Messages</a></th>
+        </tr>
+      </thead>
+    </table>
+    <table class="table-fill">
+      <thead>
+        <tr>
+          <td class="text-left subhead">Company Name</td>
+          <td class="text-left subhead">Contact Name</td>
+          <td class="text-left subhead">Status</td>
+          <td class="text-left subhead">Email</td>
+          <td class="text-left subhead">Completed Projects</td>
+        </tr>
+      </thead>
+      <tbody class="table-hover">
+        <tr>
+          <td class="text-left">VironIT</td>
+          <td class="text-left">Vadim Kastritsky</td>
+          <td class="text-left">Active</td>
+          <td class="text-left">vadim@vironit.com</td>
+          <td class="text-left">10</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</nav>
-<div class="manager-panel"><a href="/manager-one">Freelancers</a><a href="/manager-two">Companies</a><a href="/manager-three">Requests</a><a href="/manager-four">Messages</a><a href="/manager-five">Projects</a>
-  <div class="row-headings"><span>Company Name</span><span>Contact Full Name</span><span>Token ID</span></div>
-</div>
+</html>

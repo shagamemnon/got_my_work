@@ -1,31 +1,128 @@
 .manager-panel
-	border: 3px solid #ccc
-	margin: 40px
+	background-color #3e94ec
+	font-family "Roboto", helvetica, arial, sans-serif
+	font-size 16px
+	font-weight 400
+	text-rendering optimizeLegibility
+	padding: 20px 0 120px
 
-	.information
-		max-width: 1000px
-		margin: 80px auto
-		background-color: white
-		padding: 40px
+	div
+		&.table-title
+			display block
+			margin auto
+			max-width 900px
+			padding 40px 40px 60px
+			width 100%
 
-		a
-			span(1/5)
-			display: inline-block
+	.table-title
+		h3
+			color #fafafa
+			font-family: $HeaderFont
+			font-size 36px
+			font-weight 400
+			font-style normal
+			text-shadow -1px -1px 1px rgba(0, 0, 0, 0.1)
+			text-transform uppercase
 
-		a
-			font-size: 16px
-			color: #222
-			text-decoration: none
-			cursor: pointer
-	 		&:hover, &:focus
-				text-decoration: underline
+	.table-fill
+		background white
+		border-radius 3px
+		border-collapse collapse
+		height 320px
+		margin auto
+		max-width 900px
+		padding 5px
+		width 100%
+		box-shadow 0 5px 10px rgba(0, 0, 0, 0.1)
+		animation float 5s infinite
 
-		p
-			span(1/5)
-			padding: 30px 0
-			margin: 0
-			background-color: white
-			paragraph()
+	th
+		color #D5DDE5
+		background #1b1e24
+		border-bottom 20px solid #3e94ec
+		font-size 23px
+		font-weight 100
+		padding 24px
+		text-align left
+		text-shadow 0 1px 1px rgba(0, 0, 0, 0.1)
+		vertical-align middle
+		opacity 0.5
+		&.active
+			opacity 1
+		&:hover
+			background #333
+			cursor pointer
+		&:first-child
+			border-top-left-radius 3px
+		&:last-child
+			border-top-right-radius 3px
+			border-right none
+		&.text-left
+			text-align left
+		&.text-center
+			text-align center
+		&.text-right
+			text-align right
+
+	a
+		cursor pointer
+		color white
+		text-decoration none
+
+	tr
+		border-top 1px solid #C1C3D1
+		border-bottom- 1px solid #C1C3D1
+		color #666B85
+		font-size 14px
+		font-weight normal
+		text-shadow 0 1px 1px rgba(256, 256, 256, 0.1)
+		&:hover
+			td
+				background #4E5066
+				color #FFFFFF
+				border-top 1px solid #22262e
+				border-bottom 1px solid #22262e
+		&:first-child
+			border-top none
+		&:last-child
+			border-bottom none
+			td
+				&:first-child
+					border-bottom-left-radius 3px
+				&:last-child
+					border-bottom-right-radius 3px
+		&:nth-child(odd)
+			td
+				background #EBEBEB
+		&:nth-child(odd):hover
+			td
+				background #4E5066
+
+	td
+		background #FFFFFF
+		padding 10px 20px
+		height: 50px
+		text-align left
+		vertical-align middle
+		font-weight 300
+		font-size 14px
+		text-shadow -1px -1px 1px rgba(0, 0, 0, 0.1)
+		border-right 1px solid #C1C3D1
+		&:last-child
+			border-right 0px
+		&.text-left
+			text-align left
+		&.text-center
+			text-align center
+		&.text-right
+			text-align right
+		&.subhead
+			background #555
+			padding 16px
+			border-bottom 2px solid #9ea7af
+			font-size 16px
 			font-weight: 500
-	 		&:hover, &:focus
-				text-decoration: none
+			font-family: Helvetica
+			color #333
+			cursor default
+
