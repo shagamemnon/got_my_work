@@ -1,0 +1,36 @@
+html
+  .manager-panel
+    .table-title
+      img(style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px", src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
+      h3 Manager Dashboard
+    table.table-fill
+      thead
+        tr
+          th.text-left
+            a(href='/manager-one') Freelancers
+          th.text-left
+            a(href='/manager-two') Companies
+          th.text-left
+            a(href='/manager-three') Projects
+          th.text-left.active
+            a(href='/manager-four') Requests
+          th.text-left
+            a(href='/manager-five') Messages
+    table.table-fill
+      thead
+        tr
+          td.text-left.subhead Full Name
+          td.text-left.subhead User Type
+          td.text-left.subhead Date
+          td.text-left.subhead Request Type
+      tbody.table-hover
+        tr
+          td.text-left Frank Taylor
+          td.text-left Premium Freelancer
+          td.text-left 01/29/2015
+          td.text-left Signup Approval
+        tr
+          td.text-left Sterling Forest
+          td.text-left Paid Freelancer
+          td.text-left 01/28/2015
+          td.text-left Cancel Project

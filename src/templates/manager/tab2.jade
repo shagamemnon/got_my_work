@@ -1,0 +1,33 @@
+html
+  .manager-panel
+    .table-title
+      img(style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px", src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
+      h3 Manager Dashboard
+    table.table-fill
+      thead
+        tr
+          th.text-left
+            a(href='/manager-one') Freelancers
+          th.text-left.active
+            a(href='/manager-two') Companies
+          th.text-left
+            a(href='/manager-three') Projects
+          th.text-left
+            a(href='/manager-four') Requests
+          th.text-left
+            a(href='/manager-five') Messages
+    table.table-fill
+      thead
+        tr
+          td.text-left.subhead Company Name
+          td.text-left.subhead Contact Name
+          td.text-left.subhead Status
+          td.text-left.subhead Email
+          td.text-left.subhead Completed Projects
+      tbody.table-hover
+        tr
+          td.text-left VironIT
+          td.text-left Vadim Kastritsky
+          td.text-left Active
+          td.text-left vadim@vironit.com
+          td.text-left 10
