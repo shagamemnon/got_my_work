@@ -217,6 +217,10 @@ app.get('/manager-five', function ( req, res) {
   res.sendfile( 'dist/pages/manager/tab5.html')
 });
 
+app.get('/sales-manager', function ( req, res) {
+  res.sendfile( 'dist/pages/manager/sales_manager.html')
+});
+
 app.get('/*' , function( req, res, next ) {
     var file = req.params[0];
     res.sendfile( __dirname + '/' + file );
