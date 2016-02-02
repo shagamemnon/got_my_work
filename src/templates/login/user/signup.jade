@@ -5,16 +5,12 @@ section.signup-header
             form(method="post")
                 .error-message
                 .visible
-                    em Name
+                    em Create Account
                     input( name="name", type="text", placeholder="First and Last Name" )
-                    em Email
                     input( name="email", type="text", placeholder="Email" )
-                    em Mobile
-                    input( name="email", type="text", placeholder="Email" )
-                    em Create Password
+                    input( name="email", type="text", placeholder="Phone" )
                     input( name="pass", type="password", placeholder="Create Password" )
-                    em Confirm Password
-                    input( name="confirm", type="password", placeholder="Confirm" )
+                    input( name="confirm", type="password", placeholder="Confirm Password" )
                 input( type="text", name="_gotcha", style="display:none")
             .submit-button
                 button GO

@@ -8,24 +8,17 @@ section.signup-header
   overflow: hidden
   background: transparent
 
-  h1
-    header1()
-    text-align: center
-    text-transform: uppercase
-    letter-spacing: 0
-    padding-bottom: 18px
-
   .container
     max-width: 1500px
     margin: auto
     overflow: hidden
 
     .company, .user, .manager
-      max-width: 670px
+      max-width: 520px
       margin: 40px auto 10px
       box-shadow: 0 4px 16px #999
 
-    .signup
+    .signup, .login
       background-color: white
       border-top: 62px solid transparent
       position: relative
@@ -35,9 +28,9 @@ section.signup-header
       h2
         padding-bottom: 40px
         padding-top: 40px
-        margin-bottom: 40px
+        margin-bottom: 0px
         text-align: center
-        header2()
+        header3()
         letter-spacing: -1px
         border-bottom: 1px solid #ddd
 
@@ -47,7 +40,7 @@ section.signup-header
       form
         width: 100%
         display: block
-        max-width: 600px
+        max-width: 400px
         padding: 0px 20px 15px
         margin: auto
         text-align: left
@@ -60,16 +53,17 @@ section.signup-header
           border-radius: 3px
           margin: 10px 0 30px
           outline: none
-          width: 600px
+          width: 470px
           display: block
 
         em, .error-message
           display: block
           text-transform: uppercase
           font-family: $Gotham
-          font-size: .9em
+          font-size: .75em
+          margin-bottom: 11px
+          margin-top: 30px
           font-weight: 500
-          padding-left: 35px
           letter-spacing: 0.5px
           color: #222
 
@@ -80,16 +74,16 @@ section.signup-header
         input[type="text"], input[type="password"]
           padding: 15px
           font-family: $Gotham
-          font-size: 16px
-          width: 500px
+          font-size: 0.75em
+          width: 370px
           max-width: 100%
           border: 2px solid #ccc
           border-radius: 3px
-          margin: 10px auto 30px
+          margin: 0px auto 15px
           display: block
           outline: none
 
-          &:hover, &:focus
+          &:focus
             outline: none
             border: 2px solid $primary-color
 
@@ -117,7 +111,7 @@ section.signup-header
         button
           button()
           display: block
-          margin: 30px auto
+          margin: 0px auto 40px
           width: 160px
           letter-spacing: 0px
           padding-top: 13px

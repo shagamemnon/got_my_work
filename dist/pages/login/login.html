@@ -4,15 +4,14 @@
     <script src="https://use.typekit.net/vzc0ynf.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <link rel="stylesheet" href="dist/css/login.css">
-    <script src="vendor/jquery-latest.min.js"></script>
-    <script src="vendor/lightbox.js"></script>
-    <script src="vendor/lightbox-user.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css">
-    <title>Signup</title>
+    <script src="vendor/jquery-latest.min.js"></script>
+    <script src="vendor/login.js"> </script>
+    <title>Signup | Freelancer</title>
     <meta name="description" content="India's Biggest Freelance Portal">
   </head>
   <body>
@@ -54,69 +53,23 @@
           </div>
         </div>
       </nav>
-      <section class="selection">
-        <div class="select">
-          <h2>Make a Connection.</h2>
-          <div class="half"><img src="https://s3.amazonaws.com/igotmywork/signup/company.png">
-            <h5>We're a company</h5>
-            <p>Find quality freelance engineers to do any job, big or small</p><a id="open" href="#">
-              <button>Post Projects</button></a><a href="/signup-company" class="mobile">
-              <button>Post Projects</button></a>
-          </div>
-          <div class="half right"><img src="https://s3.amazonaws.com/igotmywork/signup/engineer.png">
-            <h5>I'm an Engineer</h5>
-            <p>Apply for jobs that want to do. All from the comfort of home.</p><a id="open-user" href="#">
-              <button>Find Projects</button></a><a href="/signup-user" class="mobile">
-              <button>Find Projects</button></a>
+      <section class="signup-header login">
+        <div class="container">
+          <div class="signup user">
+            <h2>Log In</h2>
+            <form method="post">
+              <div class="error-message"></div>
+              <div class="visible"><em></em>
+                <input name="email" type="text" placeholder="Email"><em></em>
+                <input name="pass" type="password" placeholder="Password">
+              </div>
+            </form>
+            <div class="submit-button">
+              <button>GO</button>
+            </div>
           </div>
         </div>
       </section>
-      <div id="overlay"></div>
-      <div id="info"><img id="close" src="https://s3.amazonaws.com/igotmywork/signup/close.png">
-        <section class="signup-header">
-          <div class="container">
-            <div class="signup company">
-              <h2>Company</h2>
-              <form method="post"><em>Enter Company Info</em>
-                <input name="email" type="text" placeholder="Company Name">
-                <input name="email" type="text" placeholder="Full Name">
-                <input name="name" type="text" placeholder="Phone"><em>Create Account</em>
-                <input name="email" type="text" placeholder="Email">
-                <input name="name" type="text" placeholder="Create Password">
-                <input name="name" type="text" placeholder="Confirm Password">
-                <input type="text" name="_gotcha" style="display:none">
-              </form>
-              <div class="submit-button">
-                <button>Go</button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div id="overlay-user"></div>
-      <div id="info-user"><img id="close-user" src="https://s3.amazonaws.com/igotmywork/signup/close.png">
-        <section class="signup-header">
-          <div class="container">
-            <div class="signup user">
-              <h2>Freelancer</h2>
-              <form method="post">
-                <div class="error-message"></div>
-                <div class="visible"><em>Create Account</em>
-                  <input name="name" type="text" placeholder="First and Last Name">
-                  <input name="email" type="text" placeholder="Email">
-                  <input name="email" type="text" placeholder="Phone">
-                  <input name="pass" type="password" placeholder="Create Password">
-                  <input name="confirm" type="password" placeholder="Confirm Password">
-                </div>
-                <input type="text" name="_gotcha" style="display:none">
-              </form>
-              <div class="submit-button">
-                <button>GO</button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
       <footer>
         <section>
           <div class="tiles-container">

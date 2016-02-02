@@ -77,6 +77,7 @@ module.exports = function (grunt) {
         },
         files: {
           'dist/css/landing_page.css': 'src/styl/pages/landing_page/main.styl',
+          'dist/css/how-it-works.css': 'src/styl/pages/how-it-works/main.styl',
           'dist/css/about.css': 'src/styl/pages/about/main.styl',
           'dist/css/project_index.css': 'src/styl/pages/project_index/main.styl',
           'dist/css/project_listing.css': 'src/styl/pages//project_listing/main.styl',
