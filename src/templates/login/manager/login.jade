@@ -1,0 +1,14 @@
+section.signup-header
+  br
+  .container
+    .signup.company
+      h2 Manager Panel
+      form(method="post")
+        em Name
+        input( name="email", type="text", placeholder="First and Last Name" )
+        em Token
+        input( name="name", type="text", placeholder="Enter ID Number" )
+        input( type="text", name="_gotcha", style="display:none")
+      .submit-button
+        a(href="/manager-one")
+          button LOGIN

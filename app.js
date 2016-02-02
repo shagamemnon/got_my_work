@@ -193,7 +193,7 @@ app.get('/thanks', function ( req, res) {
 
 // Manager Panel
 
-app.get('/signup-manager', function ( req, res) {
+app.get('/manager-login', function ( req, res) {
   res.sendfile( 'dist/pages/login/manager.html')
 });
 
