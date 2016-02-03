@@ -1,65 +1,38 @@
-#header-section
-  max-width: 100%
-  margin: auto
-  padding: auto
-  position: relative
+.landing-header
+  min-width: 0px
+  width: 100%
+  overflow: none
+  height: 464px
 
-  .step-container
-    border-top: 0
-    background-image: url( 'https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_header_bg.png')
-    background-size: auto auto
-    background-position: center
-    overflow: hidden
-    height: 680px
+  .header-text
+    position: absolute
+    top: 110px
+    display: block
+    margin: auto
+    z-index: 2
+    width: 100%
 
-    .step
-      max-width: 1100px
-      margin: auto
-      padding-left: 20px
-      padding-right: 20px
-      @media (max-width: 1023px)
-        padding-top: 40px
-        padding-bottom: 20px
-        max-width: 900px
+    .quotes
+      display: none
 
-  .text-container
-    stack()
-    height: auto
-    margin: 0px auto 10px
-
-    img
-      padding-top: 50px
+    h1
       display: block
-      margin: auto
-      padding-bottom: 50px
+      font-size: 3em
+      margin: 0 auto
+      letter-spacing: 0.5px
 
-    h2
-      position: relative
-      text-align: center
-      max-width: 100%
-      font-size: 1.7em
+// Top Text
 
-    p
-      max-width: 100%
-      text-align:  center
-      paragraph()
-      margin-bottom: 0px
-      padding-bottom: 0px
-      line-height: 1.5
+.top-text
+  background: white
+  padding: 60px 10px
 
-  .image-container
-    stack()
-    display: none
-    max-width: 100%
-    height: auto
-    float: right
-    text-align: right
-    opacity: 1
-    margin: 0px auto 10px
+  h2
+    header3()
+    color: #444
+    line-height: 1.2
+    letter-spacing: 0
+    padding: 0px 5px
 
-    img
-      display: block
-      float: right
-      width: 100%
-      margin-top: 40px
-      border-radius: 3px
+.desktop
+  display: none

@@ -1,6 +1,6 @@
 .top-nav
   position: fixed
-  background-color: #222
+  background-color: #323232
   top: 0
   left: 0
   right: 0
@@ -54,16 +54,16 @@
 
   .nav-link
     position: relative
-    font-size: 12px
+    font-size: 11px
     font-family: $Gotham
-    font-weight: 500
+    font-weight: 300
     display: block
     float: left
     text-decoration: none
     color: #F9F9FA
     padding: 19px 25px 17px 25px
     margin: 0 10px
-    letter-spacing: 1.2px
+    letter-spacing: 0.5px
 
     &.home
       display: none
@@ -90,18 +90,21 @@
         single-transition( opacity )
 
     &.square-border
-      padding: 14px 35px 30px 25px
-      font-size: 12px
+      padding: 16px 35px 30px 25px
+      font-size: 11px
+      
       .button
         padding: 0
-        width: 145px
-        height: 32px
+        width: 100px
+        height: 30px
         letter-spacing: 1px
         line-height: 32px
         text-align: center
-        border: solid 1px #F9F9FA
         border-radius: 3px
         position: relative
+      
+      .two
+        background-color: $primary-color
 
       .text
         position: absolute
@@ -109,8 +112,8 @@
         width: 100%
         text-align: center
         padding: 0
-        top: 0
-        line-height: 33px
+        top: 0px
+        line-height: 30px
 
     .background-button
       position: absolute
@@ -118,13 +121,9 @@
       left: 0
       height: 100%
       width: 100%
-      background-color: #282828
+      background-color: $primary-color
       border-radius: 3px
       opacity: 0
-      single-transition( opacity )
-
-    &:hover .background-button
-      opacity: 0.9
       single-transition( opacity )
 
   .mobile

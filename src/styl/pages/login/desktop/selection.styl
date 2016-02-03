@@ -1,15 +1,20 @@
 section.selection
   border-top: 62px solid transparent
   max-width: 880px
-  margin: 80px auto
+  margin: 120px auto
   min-height: 800px
 
   h2
     header2()
-    letter-spacing: -2px
-    color: #444
+    center()
+    font-weight: 700
+    margin: auto auto 80px
+    max-width: 100%
+    z-index: 1
     text-align: center
-    margin-bottom: 80px
+    color: #323232
+    line-height: 1
+    letter-spacing: -2px
 
   .half
     col(1/2)
@@ -55,14 +60,14 @@ section.selection
         margin: auto
 
   .right
-    box-shadow: -1px 0 0px 0 #ccc
+    box-shadow: -1px 0 0px 0 #90DCD9
 
     a
       button
-        background: #888
+        background: $orange-color
 
         &:hover
-          background: #999
+          background: #db5220
 
   .mobile
     display: none

@@ -1,63 +1,68 @@
 // Header Styles
 
 .landing-header
-  background-image: url( 'https://s3.amazonaws.com/igotmywork/igotmywork_landing_bg.png' )
+  background-image: url( 'https://s3.amazonaws.com/igotmywork/chart-background.jpg' )
   background-size: cover
   background-position: 50% 0%
-  height: 700px
+  height: 500px
   width: 100%
   display: block
   margin: auto
-  padding-bottom: 94px
+  padding-top: 0px
   border-top: 62px solid #111
   overflow: hidden
   position: relative
 
-  .landing-header-inner
-    width: 100%
-    height: 100%
-    margin: 0 auto
-    position: relative
+.landing-header-inner
+  width: 100%
+  height: 100%
+  margin: 0 auto
+  position: relative
+  z-index: -1
 
-  .header-text
-    position: absolute
-    top: 240px
-    display: block
-    margin: auto
-    z-index: 2
-    width: 100%
+.header-text
+  position: absolute
+  top: 140px
+  display: block
+  margin: auto
+  z-index: 2
+  width: 100%
+  -webkit-filter: blur(0px)
+  -moz-filter: blur(0px)
+  -o-filter: blur(0px)
+  -ms-filter: blur(0px)
+  filter: blur(0px)
 
-    .quotes
-      display: none
+  .quotes
+    display: none
 
-    h1
-      header1()
-      color: white
-      text-align: center
-      text-transform: uppercase
+  h1
+    header1()
+    color: white
+    text-align: center
 
-    .header-buttons
-      text-align: center
+  .header-buttons
+    text-align: center
 
-      button
-        button()
-        background-color: #FF6363
-        margin: 40px 10px 0
-        display: inline
+    button
+      button()
+      background-color: #FF6363
+      margin: 40px 20px 0
+      display: inline
 
-      .company
-        background-color: #3F8CD8
+    .company
+      background-color: #3F8CD8
 
-        &:hover, &.active
-          background-color: #3273b5
-          single-transition( background-color )
+      &:hover, &.active
+        background-color: #3273b5
+        single-transition( background-color )
 
-      .engineer
-        background-color: #888
+    .engineer
+      background-color: #FF5B1F
 
-        &:hover, &.active
-          background-color: #999
-          single-transition( background-color )
+      &:hover, &.active
+        background-color: #db5220
+        single-transition( background-color )
 
 // Top Text
 

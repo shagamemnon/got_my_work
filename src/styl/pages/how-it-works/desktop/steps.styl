@@ -3,6 +3,10 @@
 	margin: auto
 	padding: auto
 	position: relative
+	center()
+	
+	hr
+		border-top: 1px solid #ddd
 
 	.background-color.mobile
 		display: none
@@ -11,126 +15,144 @@
 		background-color: #F0F0F0
 		width: 100%
 
-		.center-pad
-			background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_ipad_02.png')
-			background-repeat: no-repeat
-			background-size: auto 650px
-			height: 700px
-			background-position: center
-			-webkit-background-repeat: no-repeat
-			-webkit-background-size: auto 650px
-			-webkit-background-position: center
-			border-bottom: 3px solid #ccc
-
-		.center-pad.two
-			background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_02.png')
-			background-size: cover
-			background-attachment: fixed
-			height: 550px
-			border: none
-
-		.center-pad.three
-			background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_03.png')
-			background-size: cover
-			background-attachment: fixed
-			height: 550px
-			border-top: 3px solid #ccc
-			border-bottom: none
-
-		.center-pad.four
-			background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_android.png')
-			background-size: 700px auto
-			height: 700px
-			border: none
-
-		.center-pad.six
-			display: none
-
-	h3
-		margin-top: 216px
-		font-family: $Gotham
-		font-size: 2.1em
-		font-weight: 300
-		margin-bottom: 20px
-		width: 400px
-		letter-spacing: 0.2px
-		line-height: 45px
-
-	p
-		width: 330px
-		paragraph()
-		margin-bottom: 0px
-		padding-bottom: 0px
-		line-height: 1.5
-
-	.image-container
-		col(3/5)
-		clearfix()
-		background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_ipad_01.png')
-		height: 507px
-		background-size: cover
-		float: right
-		opacity: 1
-		margin: 95px auto 10px
-		overflow: hidden
-
 	.step-container
-		center()
 		background-color: white
-		height: 700px
-		display: block
+		height: 500px
 		margin: auto
+		padding-top: 50px
 		overflow: hidden
 		max-width: 100%
 
 		.step
-			width: 1220px
+			width: 980px
 			overflow: hidden
 			margin: auto
-			padding-left: 40px
-			padding-right: 20px
-			@media (max-width: 1023px)
-				padding-top: 40px
-				padding-bottom: 20px
+
+		.left-container
+			col(1/2)
+			clearfix()
+
+		.right-container
+			col(1/2)
+			clearfix()
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/profile.png')
+			height: 270px
+			background-size: auto 270px
+			background-repeat: no-repeat
+			background-position: center
+			opacity: 1
+			margin: 100px 0 10px
+		
+		.four
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/benefits.png')
+
+	a
+		text-decoration: none
+
+	button
+		button()
+		max-width: 100%
+		margin: 40px auto 100px
+		text-transform: uppercase
+		letter-spacing: 0.5px
+		font-weight: 300
+		background-color: #FF5B1F
+		
+		&:hover
+			background-color: #db5220
+
+	h3
+		header3()
+		letter-spacing: 0
+		font-weight: 600
+		margin-bottom: 15px
+
+	.text-block
+		display: block
+		width: 500px
+		margin-top: 70px
+
+		span
+			span(2/3)
+			header3()
+			font-weight: 600
+			margin-bottom: 20px
+			letter-spacing: 0px
+			display: block
+			
+		button
+			button()
+			span(1/4)
+			text-align: center
+			background-color: $primary-color
+			text-transform: uppercase
+			letter-spacing: 0.5px
+			font-size: 10px
+			font-weight: 400
+			padding: 1px 11px 1px
+			height: 27px
+			display: block
+			margin: 0
+			border-radius: 3px
+
+	p
+		paragraph()
+		display: block
+		width: 450px
+		margin-bottom: 0px
+		padding-bottom: 8px
+		line-height: 1.5
+	
+	em
+		header6()
+		display: block
+		font-weight: 500
+		color: $primary-color
+		margin-top: 8px
 
 	.step-container.right
 		background-color: white
 		position: relative
 		max-width: 100%
 		margin: auto
+		
+		.text-block
+			display: table-block
+			
+			span
+				display: table-cell
+				vertical-align: middle
+				
+			button
+				display: table-cell
+				vertical-align: middle
+		
+		p
+			margin-top: 40px
 
 		.step
-			width: 1220px
+			width: 980px
 			overflow: hidden
 			margin: auto
-			padding-right: 20px
-			padding-left: 0
 
-		.image-container
-			col(2/5)
+		.right-container
+			col(1/2)
 			background-image: none
 			background-color: white
-			height: 700px
+			height: 400px
 			opacity: 1
-			float: right
-			position: relative
-			right: -60px
 			padding: 0
 			margin-top: 0px
-			@media(max-width: 1210px)
-				position: absolute
-				right: 20px
-				padding-left: 45px
 
-		.text-container
-			col(3/5)
+		.left-container
+			col(1/2)
 			clearfix()
-			background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_desktop.png')
-			height: 557px
-			background-size: cover
-			float: left
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/membership.png')
+			height: 240px
+			background-size: auto 240px
+			background-repeat: no-repeat
 			opacity: 1
-			margin: 70px auto 10px
+			margin: 100px 0px 0 0px
 			overflow: hidden
 
 		h4
@@ -138,16 +160,5 @@
 			padding: 13px 4px 10px
 			text-align: center
 
-	.step-container.three
-		background-color: #f7f7f7
-
-	.evaluate-form
-		@media(max-width: 1024px)
-			position: relative
-			left: 18px
-			margin-right: 0px
-
-	.input-container
-		col(1/3)
-		clearfix()
-		margin-top: 0px
+		.three
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/monitor.png')

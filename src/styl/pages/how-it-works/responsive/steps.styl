@@ -3,53 +3,46 @@
 	margin: auto
 	padding: auto
 	position: relative
+	
+	hr
+		display: none
 
 	.background-color.mobile
 		display: block
 
 	.background-color
-		background-color: #F0F0F0
-		width: 100%
+		background-color: white
 
 		.center-pad
-			background-size: 120% auto
-			height: 400px
-
-		.center-pad.two
-			height: 400px
-
-		.center-pad.three
-			height: 300px
-
-		.center-pad.four
-			background-size: 370px auto
-			height: 500px
-
-		.center-pad.six
-			background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_ipad_01.png')
-			display: block
-			background-size: 91%
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/membership.png')
+			background-repeat: no-repeat
+			background-size: 65% auto
+			background-position: center
+			-webkit-background-repeat: no-repeat
+			-webkit-background-size: 65% auto
+			-webkit-background-position: center
+			border-bottom: 1px solid #ccc
 			height: 340px
 
-		.seven
-			background-size: 92%
-			background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/saks/saks_desktop.png')
+		.center-pad.two
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/profile.png')
+
+		.center-pad.three
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/monitor.png')
+
+		.center-pad.four
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/benefits.png')
+			border: none
 
 	h3
 		padding-top: 40px
-		font-family: $Gotham
-		font-size: 2em
-		font-weight: 300
 		margin-bottom: 20px
-		text-align: center
-		max-width: 100%
 		margin-top: 0
+		margin-left: 5%
 
-	p
-		max-width: 100%
-		margin: auto
-		text-align: center
-		paragraph()
+	p, em
+		max-width: 90%
+		margin: 5px auto 0
 
 	.image-container
 		stack()
@@ -63,56 +56,13 @@
 		center()
 		display: none
 
-		.step
-			display: none
-			width: 1220px
-			overflow: hidden
-			margin: auto
-			padding-left: 40px
-			padding-right: 20px
-			@media (max-width: 1023px)
-				padding-top: 40px
-				padding-bottom: 20px
+	.step
+		display: none
+		width: 1220px
+		overflow: hidden
+		margin: auto
+		padding-left: 40px
+		padding-right: 20px
 
 	.step-container.right
-		background-color: white
-		position: relative
-		max-width: 100%
-		margin: auto
-		height: 800px
 		display: none
-
-		.step
-			width: 1220px
-			overflow: hidden
-			margin: auto
-			padding-right: 20px
-			padding-left: 0
-
-		.image-container
-			stack()
-
-		.text-container
-			stack()
-			background-size: 300px auto
-			background-repeat: no-repeat
-			float: left
-			height: 300px
-
-		h4
-			background-color: #F46060
-			padding: 13px 4px 10px
-			text-align: center
-
-	.step-container.three
-		background-color: #f7f7f7
-
-	.evaluate-form
-		@media(max-width: 1024px)
-			position: relative
-			left: 18px
-			margin-right: 0px
-
-	.input-container
-		stack()
-		float: none

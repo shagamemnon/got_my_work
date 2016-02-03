@@ -7,7 +7,7 @@ section.about_body
     width: 100%
     z-index: 1
     background-color: #222
-    height: 500px
+    height: 300px
     background-image: url("https://s3.amazonaws.com/igotmywork/about/about_bg.png")
     background-repeat: no-repeat
     background-size: cover
@@ -21,7 +21,6 @@ section.about_body
       header1()
       margin: 0 auto
       text-align: center
-      text-transform: uppercase
 
     p
       paragraph()
@@ -32,6 +31,7 @@ section.about_body
       z-index: 1
       padding: 20px 12px
       text-align: center
+      display: none
 
   .team-container
     z-index: 4
@@ -49,7 +49,7 @@ section.about_body
       padding-top: 50px
 
     h2
-      header2()
+      header3()
       text-transform: uppercase
       line-height: 1.3
       margin: 0 auto 100px
@@ -75,7 +75,7 @@ section.about_body
         display: table-cell
         vertical-align: middle
         width: auto
-        height: 240px
+        height: 210px
         @media (min-width: 770px)
           col(1/3)
           width: auto
@@ -88,7 +88,7 @@ section.about_body
       float: right
       margin-top: 0px
       display: inline-block
-      padding: 30px 20px 50px
+      padding: 25px 20px 50px
       @media (min-width: 770px)
         max-width: 470px
         col(2/3)
@@ -115,11 +115,9 @@ section.about_body
           padding-top: 20px
 
       h6
-        font-size: 23px
+        header4()
         font-family: $Gotham
-        font-weight: 500
         color: #222
-        text-transform: uppercase
         margin-top: -20px
         @media (max-width: 770px)
           text-align: center
@@ -127,7 +125,7 @@ section.about_body
           top: 10px
 
       em
-        font-size: 21px
+        header5()
         font-family: $Gotham
         font-weight: 300
         color: #222
@@ -141,5 +139,6 @@ section.about_body
           text-align: center
 
       p
+        paragraph()
         padding-top: 15px
         color: #222
