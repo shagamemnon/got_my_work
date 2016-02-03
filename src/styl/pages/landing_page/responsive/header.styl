@@ -4,35 +4,37 @@
   overflow: none
   height: 464px
 
-  .header-text
-    position: absolute
-    top: 110px
+.header-text
+  position: absolute
+  top: 70px
+  display: block
+  margin: auto
+  z-index: 2
+  width: 100%
+
+  .quotes
+    display: none
+
+  h1
+    header2()
+    color: white
     display: block
-    margin: auto
-    z-index: 2
-    width: 100%
+    margin: 0 10px
+    letter-spacing: -0.5px
 
-    .quotes
-      display: none
+  .hr
+    max-width: 200px
 
-    h1
-      display: block
-      font-size: 3em
-      margin: 0 auto
-      letter-spacing: 0.5px
-
-// Top Text
-
-.top-text
-  background: white
-  padding: 60px 10px
-
-  h2
-    header3()
-    color: #444
-    line-height: 1.2
+  p
+    header6()
+    font-weight: 400
+    color: white
     letter-spacing: 0
-    padding: 0px 5px
+    max-width: 280px
+    margin: auto
 
-.desktop
-  display: none
+  .header-buttons
+    margin-top: 20px
+
+    button
+      margin-top: 15px
