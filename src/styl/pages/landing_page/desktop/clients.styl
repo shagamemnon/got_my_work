@@ -1,14 +1,15 @@
 section#clients
-	background-color: $primary-color
+	background-color: #eee
+	border-top: 2px solid #bbb
 	position: relative
-	height: 370px
+	height: 400px
 	padding-top: 75px
 
 	h2
-		header3()
-		color: white
+		header2()
+		letter-spacing: -2px
 		text-align: center
-		padding-bottom: 75px
+		padding-top: 75px
 
 	.clients-table
 		padding: 0 0 18px
@@ -16,22 +17,26 @@ section#clients
 		margin: auto
 		display: block
 		text-align: center
+  
+	.signup-buttons
+		text-align: center
 
-		.tile
-			col(1/4)
-			clearfix()
+		button
+			button()
+			background-color: #FF6363
+			margin: 40px 20px 0
+			display: inline
 
-			p
-				header5()
-				padding-top: 32px
-				text-align: center
-				color: white
+		.company
+			background-color: #3F8CD8
 
-			img
-				height: 85px
+			&:hover, &.active
+				background-color: #3273b5
+				single-transition( background-color )
 
-			.ganesh
+		.engineer
+			background-color: #FF5B1F
 
-				img
-					height: 50px
-					padding-bottom: 12px
+			&:hover, &.active
+				background-color: #db5220
+				single-transition( background-color )

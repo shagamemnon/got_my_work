@@ -100,6 +100,10 @@ app.get('/admin', function (req, res) {
 // });
 
 /** Static && Marketing Routes **/
+app.get('/how-it-works', function (req, res) {
+  res.sendfile( 'dist/pages/how_it_works.html' );
+});
+
 app.get('/pricing', function (req, res) {
   res.sendfile( 'dist/pages/pricing.html' );
 });
@@ -155,6 +159,10 @@ app.get('/company', function ( req, res) {
 
 app.get('/get-started', function ( req, res) {
   res.sendfile( 'dist/pages/login/selection.html')
+});
+
+app.get('/login', function ( req, res) {
+  res.sendfile( 'dist/pages/login/login.html')
 });
 
 app.get('/signup-company', function ( req, res) {

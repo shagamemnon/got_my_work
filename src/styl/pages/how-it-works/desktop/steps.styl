@@ -1,0 +1,164 @@
+#steps-section
+	max-width: 100%
+	margin: auto
+	padding: auto
+	position: relative
+	center()
+	
+	hr
+		border-top: 1px solid #ddd
+
+	.background-color.mobile
+		display: none
+
+	.background-color
+		background-color: #F0F0F0
+		width: 100%
+
+	.step-container
+		background-color: white
+		height: 500px
+		margin: auto
+		padding-top: 50px
+		overflow: hidden
+		max-width: 100%
+
+		.step
+			width: 980px
+			overflow: hidden
+			margin: auto
+
+		.left-container
+			col(1/2)
+			clearfix()
+
+		.right-container
+			col(1/2)
+			clearfix()
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/profile.png')
+			height: 270px
+			background-size: auto 270px
+			background-repeat: no-repeat
+			background-position: center
+			opacity: 1
+			margin: 100px 0 10px
+		
+		.four
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/benefits.png')
+
+	a
+		text-decoration: none
+
+	button
+		button()
+		max-width: 100%
+		margin: 40px auto 100px
+		text-transform: uppercase
+		letter-spacing: 0.5px
+		font-weight: 300
+		background-color: #FF5B1F
+		
+		&:hover
+			background-color: #db5220
+
+	h3
+		header3()
+		letter-spacing: 0
+		font-weight: 600
+		margin-bottom: 15px
+
+	.text-block
+		display: block
+		width: 500px
+		margin-top: 70px
+
+		span
+			span(2/3)
+			header3()
+			font-weight: 600
+			margin-bottom: 20px
+			letter-spacing: 0px
+			display: block
+			
+		button
+			button()
+			span(1/4)
+			text-align: center
+			background-color: $primary-color
+			text-transform: uppercase
+			letter-spacing: 0.5px
+			font-size: 10px
+			font-weight: 400
+			padding: 1px 11px 1px
+			height: 27px
+			display: block
+			margin: 0
+			border-radius: 3px
+
+	p
+		paragraph()
+		display: block
+		width: 450px
+		margin-bottom: 0px
+		padding-bottom: 8px
+		line-height: 1.5
+	
+	em
+		header6()
+		display: block
+		font-weight: 500
+		color: $primary-color
+		margin-top: 8px
+
+	.step-container.right
+		background-color: white
+		position: relative
+		max-width: 100%
+		margin: auto
+		
+		.text-block
+			display: table-block
+			
+			span
+				display: table-cell
+				vertical-align: middle
+				
+			button
+				display: table-cell
+				vertical-align: middle
+		
+		p
+			margin-top: 40px
+
+		.step
+			width: 980px
+			overflow: hidden
+			margin: auto
+
+		.right-container
+			col(1/2)
+			background-image: none
+			background-color: white
+			height: 400px
+			opacity: 1
+			padding: 0
+			margin-top: 0px
+
+		.left-container
+			col(1/2)
+			clearfix()
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/membership.png')
+			height: 240px
+			background-size: auto 240px
+			background-repeat: no-repeat
+			opacity: 1
+			margin: 100px 0px 0 0px
+			overflow: hidden
+
+		h4
+			background-color: #F46060
+			padding: 13px 4px 10px
+			text-align: center
+
+		.three
+			background-image: url('https://s3.amazonaws.com/igotmywork/how_it_works/monitor.png')
