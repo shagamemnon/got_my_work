@@ -1,0 +1,92 @@
+.user-dashboard
+  max-width: 1000px
+  margin: auto
+  padding: 100px 0
+
+  .user-info
+    display: block
+    margin-bottom: 50px
+    height: 120px
+
+    img.avatar
+      col(1/7)
+      height: auto
+      border-radius: 100%
+
+    article
+      col(5/7)
+
+      h2
+        header2()
+        font-weight: 700
+        margin-bottom: 3px
+        margin-top: 6px
+
+      h5
+        header4()
+        font-size: 1.2em
+        font-weight: 300
+        color: #666
+        margin-bottom: 25px
+
+      h6
+        paragraph()
+        font-weight: 700
+
+    img.feedback
+      col(1/7)
+      float: right
+      text-align: center
+      border-radius: 100%
+
+  .dashboard-container
+    display: block
+    height: 1000px
+
+    .sidebar
+      span(1/4)
+      background-color: $primary-color
+      border-top: 25px solid $teal
+      padding-top: 50px
+      height: 800px
+
+      span
+        display: inline-block
+        height: 80px
+        padding-left: 37px
+
+        .select
+          display: inline
+          height: 15px
+          border-top: 3px solid yellow
+          width: 15px
+          background-color: yellow
+
+        h6
+          paragraph()
+          display: inline
+          color: white
+          font-weight: 400
+
+        img
+          height: 10px
+          display: inline
+          padding-right: 10px
+
+    .content
+      span(3/4)
+      box-shadow: 0 -1px 0 0 yellow, 0 1px 0 0 yellow, 1px 0 0 0 yellow, -1px 0 0 0 yellow
+      padding-top: 70px
+      height: 800px
+
+      h4
+        header4()
+        padding-left: 50px
+        padding-right: 50px
+        padding-bottom: 37px
+
+      p
+        paragraph()
+        padding-left: 50px
+        padding-right: 50px
+        padding-bottom: 25px

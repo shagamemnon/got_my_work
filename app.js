@@ -136,9 +136,13 @@ app.get('/dashboard', function ( req, res) {
   res.sendfile( 'dist/pages/project_dashboard.html')
 });
 
-/*app.get('/profile', function ( req, res) {
+app.get('/user', function ( req, res) {
+  res.sendfile( 'dist/pages/project_dashboard.html')
+});
+
+app.get('/profile', function ( req, res) {
   res.sendfile( 'dist/pages/user_profile.html')
-});*/
+});
 
 app.get('/profile/:id', function ( req, res) {
   var query = new Parse.Query(Parse.User);
