@@ -140,7 +140,7 @@ app.get('/user', function ( req, res) {
   res.sendfile( 'dist/pages/project_dashboard.html')
 });
 
-app.get('/profile', function ( req, res) {
+app.get('/profile-interface', function ( req, res) {
   res.sendfile( 'dist/pages/user_profile.html')
 });
 
