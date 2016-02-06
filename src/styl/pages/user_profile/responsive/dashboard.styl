@@ -16,11 +16,10 @@
     article
       stack()
 
-      h2
-        header2()
-        font-weight: 700
-        margin-bottom: 3px
-        margin-top: 6px
+      .span
+
+        h2
+          header2()
 
       h5
         header4()
@@ -45,23 +44,10 @@
 
     .sidebar
       stack()
-      background-color: $primary-color
-      border-top: 25px solid $teal
-      padding-top: 50px
-      height: auto
 
       span
         col(1/3)
-        height: 80px
-        padding-left: 0px
-        text-align: center
 
-        .select
-          display: none
-          height: 15px
-          border-top: 3px solid yellow
-          width: 15px
-          background-color: yellow
 
         h6
           stack()
@@ -72,24 +58,6 @@
 
         img
           stack()
-          height: 10px
-          display: none
-          padding-right: 10px
 
     .content
       stack()
-      box-shadow: 0 -1px 0 0 yellow, 0 1px 0 0 yellow, 1px 0 0 0 yellow, -1px 0 0 0 yellow
-      padding-top: 70px
-      height: auto
-
-      h4
-        header4()
-        padding-left: 50px
-        padding-right: 50px
-        padding-bottom: 37px
-
-      p
-        paragraph()
-        padding-left: 50px
-        padding-right: 50px
-        padding-bottom: 25px
