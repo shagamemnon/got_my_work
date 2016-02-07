@@ -140,22 +140,22 @@ app.get('/user', function ( req, res) {
   res.sendfile( 'dist/pages/project_dashboard.html')
 });
 
-app.get('/profile-interface', function ( req, res) {
+app.get('/profile', function ( req, res) {
   res.sendfile( 'dist/pages/user_profile.html')
 });
 
-app.get('/profile/:id', function ( req, res) {
-  var query = new Parse.Query(Parse.User);
-  query.equalTo("objectId", req.params.id);
-  query.find({
-    success: function(user) {
-      res.render('../pages/user_profile', {profile: user});
-      console.log("users", user[0].get('username'));
-    }
-  });
+// app.get('/profile/:id', function ( req, res) {
+//   var query = new Parse.Query(Parse.User);
+//   query.equalTo("objectId", req.params.id);
+//   query.find({
+//     success: function(user) {
+//       res.render('../pages/user_profile', {profile: user});
+//       console.log("users", user[0].get('username'));
+//     }
+//   });
 
-  //res.sendfile( 'dist/pages/user_profile.html')
-});
+//   res.sendfile( 'dist/pages/user_profile.html')
+// });
 
 app.get('/company', function ( req, res) {
   res.sendfile( 'dist/pages/company_profile.html')

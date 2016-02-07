@@ -2,6 +2,8 @@
 <html>
   <head>
     <link rel="stylesheet" href="/dist/css/user_profile.css">
+    <script src="vendor/jquery-latest.min.js"></script>
+    <script src="vendor/tabs.js"> </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
@@ -61,25 +63,41 @@
             </div>
             <h5>Freelancer, Web | Perl, PHP, Java</h5>
             <h6>Brooklyn, New York, USA</h6>
-          </article><img src="https://s3.amazonaws.com/igotmywork/95%25.png" class="feedback">
+          </article>
+          <div class="feedback"><img src="https://s3.amazonaws.com/igotmywork/95%25.png">
+            <h6>Positive Feedback</h6>
+          </div>
         </div>
         <div class="dashboard-container">
-          <div class="sidebar"><span class="select">
-              <p class="select">•</p><img src="https://s3.amazonaws.com/igotmywork/user_profile/overview.png">
-              <h6>OVERVIEW</h6></span><span><img src="https://s3.amazonaws.com/igotmywork/user_profile/technical.png">
-              <h6>TECH SKILLS</h6></span><span><img src="https://s3.amazonaws.com/igotmywork/user_profile/mouse.png">
-              <h6>WORK HISTORY</h6></span><span><img src="https://s3.amazonaws.com/igotmywork/user_profile/ribbon.png">
-              <h6>ACHIEVEMENTS</h6></span><span><img src="https://s3.amazonaws.com/igotmywork/user_profile/feedback.png">
-              <h6>FEEDBACK</h6></span></div>
+          <div class="sidebar"><span class="active"><a href="#tab1"><img src="https://s3.amazonaws.com/igotmywork/user_profile/overview.png">
+                <h6>OVERVIEW</h6></a></span><span><a href="#tab2"><img src="https://s3.amazonaws.com/igotmywork/user_profile/technical.png">
+                <h6>TECH SKILLS</h6></a></span><span><a href="#tab3"><img src="https://s3.amazonaws.com/igotmywork/user_profile/mouse.png">
+                <h6>WORK HISTORY</h6></a></span><span><a href="#tab4"><img src="https://s3.amazonaws.com/igotmywork/user_profile/ribbon.png">
+                <h6>ACHIEVEMENTS</h6></a></span><span><a href="#tab5"><img src="https://s3.amazonaws.com/igotmywork/user_profile/feedback.png">
+                <h6>FEEDBACK</h6></a></span></div>
           <div class="content">
-            <h4>OVERVIEW</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.</p>
-            <p>Integer accumsan mi non bibendum rutrum. Nam consequat velit nec ultricies hendrerit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum dictum augue sit amet mollis accumsan. Suspendisse rhoncus ac ante non tempor. Vivamus ut eleifend mi, non consequat quam. Aliquam porta, mauris sed scelerisque rutrum.</p>
-            <p>Cras vehicula, nunc sed malesuada tincidunt, mauris neque sollicitudin leo, nec mollis metus augue vel ex. Pellentesque luctus suscipit velit, ac consequat quam varius at. Suspendisse urna mauris, tempor a suscipit eget, aliquam sit amet ex.</p>
-            <p>What I'm best at:</p>
-            <p>• General technical consulting</p>
-            <p>• Web security</p>
-            <p>• WordPress development</p>
+            <div id="tab1" class="tab active">
+              <h4>OVERVIEW</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.</p>
+              <p>Integer accumsan mi non bibendum rutrum. Nam consequat velit nec ultricies hendrerit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum dictum augue sit amet mollis accumsan. Suspendisse rhoncus ac ante non tempor. Vivamus ut eleifend mi, non consequat quam. Aliquam porta, mauris sed scelerisque rutrum.</p>
+              <p>Cras vehicula, nunc sed malesuada tincidunt, mauris neque sollicitudin leo, nec mollis metus augue vel ex. Pellentesque luctus suscipit velit, ac consequat quam varius at. Suspendisse urna mauris, tempor a suscipit eget, aliquam sit amet ex.</p>
+              <p>What I'm best at:</p>
+              <p>• General technical consulting</p>
+              <p>• Web security</p>
+              <p>• WordPress development</p>
+            </div>
+            <div id="tab2" class="tab">
+              <h4>TEAM SKILLS</h4>
+            </div>
+            <div id="tab3" class="tab">
+              <h4>WORK HISTORY</h4>
+            </div>
+            <div id="tab4" class="tab">
+              <h4>ACHIEVEMENTS</h4>
+            </div>
+            <div id="tab5" class="tab">
+              <h4>FEEDBACK</h4>
+            </div>
           </div>
         </div>
       </div>

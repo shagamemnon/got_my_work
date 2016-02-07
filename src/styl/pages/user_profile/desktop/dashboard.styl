@@ -1,11 +1,12 @@
 .user-dashboard
   max-width: 1000px
+  border-top: 62px solid transparent
   margin: auto
-  padding: 100px 0
+  padding: 80px 0
 
   .user-info
     display: block
-    margin-bottom: 50px
+    margin-bottom: 80px
     height: 120px
 
     img.avatar
@@ -22,6 +23,7 @@
 
         h2
           header2()
+          letter-spacing: -1px
           display: inline
           font-weight: 700
 
@@ -36,47 +38,68 @@
         paragraph()
         font-weight: 700
 
-    img.feedback
+    .feedback
       col(1/7)
       float: right
       text-align: center
       border-radius: 100%
+      
+      img
+        display: block
+        max-height: 94px
+        center()
+      
+      h6
+        display: block
+        paragraph()
+        center()
+        font-size: 0.7em
+        font-weight: 700
+        padding-top: 8px
 
   .dashboard-container
     display: block
     height: 1000px
-
+    
     .sidebar
       span(1/4)
       background-color: $primary-color
       border-top: 25px solid $teal
       padding-top: 50px
       height: 800px
-
-      span.select
-        background-color: #087cc9
-        height: 50px
-        padding-top: 20px
-        padding-bottom: 0
-        margin-bottom: 10px
+      display: block
 
       span
-        display: block
-        height: 50px
-        padding-top: 15px
+        background-color: #087cc9
         padding-bottom: 0
-        margin-bottom: 15px
+        margin-bottom: 0px
+        margin-left: 3px
+    
+      span.active
+        
+        a
+          box-shadow: inset 5px 0 0px 0 $teal
+          opacity: 1
+          background: #087cc9
+
+      a
+        display: block
+        text-decoration: none
+        height: 40px
+        padding-top: 10px
+        padding-bottom: 0
+        margin-bottom: 0px
         cursor: pointer
         padding-left: 50px
-        opacity: 0.9
+        opacity: 0.7
         single-transition( opacity )
         
-        &:hover
+        &:hover, &:active
           single-transition( opacity )
           opacity: 1
           background-color: #087cc9
 
-        p.select
+        p
           font-size: 1.2em
           position: relative
           margin-left: -15px
@@ -98,11 +121,19 @@
           position: relative
           padding-right: 10px
 
+      &:after
+        display: block
+        clear: both
+        content: ''
+   
     .content
       span(3/4)
       box-shadow: 0 -1px 0 0 yellow, 0 1px 0 0 yellow, 1px 0 0 0 yellow
       padding-top: 74px
       height: 800px
+
+      .tab
+        display: none
 
       h4
         header4()
@@ -115,3 +146,6 @@
         padding-left: 50px
         padding-right: 50px
         padding-bottom: 25px
+
+      .tab.active
+        display: block
