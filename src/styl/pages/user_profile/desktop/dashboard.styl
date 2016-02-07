@@ -53,10 +53,28 @@
       padding-top: 50px
       height: 800px
 
+      span.select
+        background-color: #087cc9
+        height: 50px
+        padding-top: 20px
+        padding-bottom: 0
+        margin-bottom: 10px
+
       span
-        display: table
-        height: 80px
-        padding-left: 37px
+        display: block
+        height: 50px
+        padding-top: 15px
+        padding-bottom: 0
+        margin-bottom: 15px
+        cursor: pointer
+        padding-left: 50px
+        opacity: 0.9
+        single-transition( opacity )
+        
+        &:hover
+          single-transition( opacity )
+          opacity: 1
+          background-color: #087cc9
 
         p.select
           font-size: 1.2em

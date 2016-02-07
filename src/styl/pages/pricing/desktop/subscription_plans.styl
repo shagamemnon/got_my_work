@@ -131,10 +131,12 @@ section.subscription-plans
         outline: none
         border-radius: 2px
         letter-spacing: 1px
+        opacity: 0.8
+        single-transition( opacity )
 
         &:hover
+          single-transition( opacity )
           opacity: 1
-          background-color: $primary-color
           color: white
 
         a

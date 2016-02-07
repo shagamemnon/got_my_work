@@ -173,11 +173,11 @@ app.get('/signup-company', function ( req, res) {
   res.sendfile( 'dist/pages/login/company.html')
 });
 
-app.get('/signup-user', function ( req, res) {
-  res.sendfile( 'dist/pages/login/user.html')
-});
+// app.get('/signup-user', function ( req, res) {
+//   res.sendfile( 'dist/pages/login/user.html')
+// });
 
-app.post('/signup-user', function ( req, res) {
+app.post('#signup-user', function ( req, res) {
   var user = new Parse.User();
   user.set('username', req.body.name);
   user.set('password', req.body.pass);
