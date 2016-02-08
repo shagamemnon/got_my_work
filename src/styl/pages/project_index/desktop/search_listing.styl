@@ -117,6 +117,43 @@
       padding-top: 50px
       height: 800px
 
+      .search-section
+        display: block
+        height: 100px
+
+        em
+          col(1/9)
+          shift(1/30)
+          font-size: 12px
+          text-align: right
+          padding-top: 14px
+
+        select
+          col(3/10)
+          shift(1/21)
+          height: 42px
+          font-family: $Gotham
+          font-size: 13px
+          border-radius: 0px
+          box-shadow: inset 0 0 0 1px #ccc
+          outline: none
+          clearfix()
+          background: white
+          color: #666
+        
+        button
+          col(2/9)
+          shift(1/21)
+          button()
+          clearfix()
+          border: none
+          max-width: 120px
+          height: 42px
+          padding-top: 12px
+          text-align: center
+          background-color: $primary-color
+          
+
       .tab
         display: none
 
@@ -131,23 +168,31 @@
         padding: 25px
 
         h4
-          header3()
-          padding-bottom: 20px
+          header4()
+          letter-spacing: 0
+          display: block
+          padding-bottom: 15px
 
         em
-          span(1/5)
-          padding-bottom: 10px
-          font-size: 11px
+          display: inline
+          height: 25px
+          font-size: 0.7em
+          padding-right: 9px
+          color: #FF5B1F
+          font-weight: 500
 
         p
           paragraph()
-          padding-bottom: 20px
+          padding-top: 4px
+          padding-bottom: 15px
 
         span
           col(1/5)
-          color: #444
-          font-weight: 300
-          font-size: 0.7em
+          margin-top: 15px
+          color: #222
+          font-weight: 500
+          font-size: 0.6em
           text-align: center
           background-color: #ddd
-          box-shadow: 0px 5px 0 0 #ddd, 0px 5px 0 0 #ddd, 0px -5px 0 0 #ddd, 0px 0px 0 0 #ddd
+          box-shadow: 0px 10px 0 0 #ddd, 0px 10px 0 0 #ddd, 0px -10px 0 0 #ddd, 0px 10px 0 0 #ddd
+          border-radius: 1px
