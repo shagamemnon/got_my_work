@@ -2,38 +2,30 @@
   max-width: 1000px
   border-top: 62px solid transparent
   margin: auto
-  padding: 80px 0
+  padding: 40px 0
 
-  .user-info
+  .project-title
     display: block
-    margin-bottom: 80px
-    height: 120px
+    margin-bottom: 0px
+    height: 80px
 
-    img.avatar
-      col(1/7)
-      height: auto
-      border-radius: 100%
-
-    article
-      col(5/7)
-
-      h2
-        header2()
-        letter-spacing: -1px
-        display: inline
-        font-weight: 700
+    h2
+      header2()
+      letter-spacing: -1px
+      display: inline
+      font-weight: 700
 
     .feedback
       col(1/7)
       float: right
       text-align: center
       border-radius: 100%
-      
+
       img
         display: block
         max-height: 94px
         center()
-      
+
       h6
         display: block
         paragraph()
@@ -45,49 +37,56 @@
   .dashboard-container
     display: block
     height: 1000px
-    
+
+    .check-box
+      width: 20px
+      position: relative
+      display: inline
+      margin: 20px auto
+      label
+        width: 20px
+        height: 20px
+        cursor: pointer
+        position: absolute
+        top: -3px
+        left: 0
+        border: 2px solid $teal
+        background: transparent
+        border-radius: 2px
+        &:after
+          content: ''
+          width: 9px
+          height: 5px
+          position: absolute
+          top: 4px
+          left: 4px
+          border: 3px solid $teal
+          border-top: none
+          border-right: none
+          background: transparent
+          opacity: 0
+          transform: rotate(-45deg)
+
+        &:hover::after
+          opacity: 0.3
+
+    .check-box input[type=checkbox]
+      visibility: hidden
+      &:checked + label:after
+        opacity: 1
+
     .sidebar
-      col(1/4)
+      col(1/3, gutter: 0.1)
       background-color: transparent
-      padding-top: 50px
+      padding-top: 0px
       height: 800px
 
-      .check-box
-        width 28px
-        height 28px
-        background #fcfff4
-        background linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%)
-        margin 20px auto
-        box-shadow inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5)
-        position relative
-        
-        label
-          cursor pointer
-          position absolute
-          width 20px
-          height 20px
-          left 4px
-          top 4px
-          box-shadow inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1)
-          background linear-gradient(top, #222 0%, #45484d 100%)
- 
-          &:after
-            opacity 0
-            content ''
-            position absolute
-            width 16px
-            height 16px
-            background #00bf00
-            background linear-gradient(top, #00bf00 0%, #009400 100%)
-            top 2px
-            left 2px
-            box-shadow inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5)
-      
-      span.active
-        a
-          box-shadow: inset 5px 0 0px 0 $teal
-          opacity: 1
-          background: #087cc9
+      h2
+        header4()
+        margin-top: 40px
+        padding-bottom: 20px
+        display: block
+        text-transform: uppercase
 
       a
         display: block
@@ -95,63 +94,60 @@
         height: 40px
         padding-top: 10px
         padding-bottom: 0
+        padding-left: 20px
         margin-bottom: 0px
         cursor: pointer
-        padding-left: 50px
-        opacity: 0.7
         single-transition( opacity )
-        
-        &:hover, &:active
-          single-transition( opacity )
-          opacity: 1
-          background-color: #087cc9
 
-        p
-          font-size: 1.2em
-          position: relative
-          margin-left: -15px
-          color: #00FF00
+        h5
           display: inline
-          padding-right: 5px
-
-        h6
-          paragraph()
-          font-size: 0.7em
-          display: inline
-          font-weight: 400
-
-        img
-          height: 20px
-          display: inline
-          top: 5px
-          position: relative
-          padding-right: 10px
+          font-size: 14px
+          color: #000
+          padding-left: 10px
+          font-weight: 500
 
       &:after
         display: block
         clear: both
         content: ''
-   
+
     .content
-      col(3/4)
+      col(2/3, gutter: .1)
       box-shadow: 0 -1px 0 0 yellow, 0 1px 0 0 yellow, 1px 0 0 0 yellow, -1px 0 0 0 yellow
-      padding-top: 74px
+      padding-top: 50px
       height: 800px
 
       .tab
         display: none
 
-      h4
-        header4()
-        padding-left: 50px
-        padding-right: 50px
-        padding-bottom: 37px
-
-      p
-        paragraph()
-        padding-left: 50px
-        padding-right: 50px
-        padding-bottom: 25px
-
       .tab.active
         display: block
+
+      .project-listing
+        max-width: 575px
+        margin: auto
+        padding-left: 25px
+        border-top: 1px solid #ddd
+        padding: 25px
+
+        h4
+          header3()
+          padding-bottom: 20px
+
+        em
+          span(1/5)
+          padding-bottom: 10px
+          font-size: 11px
+
+        p
+          paragraph()
+          padding-bottom: 20px
+
+        span
+          col(1/5)
+          color: #444
+          font-weight: 300
+          font-size: 0.7em
+          text-align: center
+          background-color: #ddd
+          box-shadow: 0px 5px 0 0 #ddd, 0px 5px 0 0 #ddd, 0px -5px 0 0 #ddd, 0px 0px 0 0 #ddd
