@@ -285,7 +285,8 @@ app.get('/company/:id', function ( req, res) {
       console.log("getting error", error);
     }
   });
-  res.json("got");
+  res.redirect("/company");
+  // res.json("got");
 });
 
 /* company update by id */
@@ -307,7 +308,8 @@ app.put('/company/:id', function ( req, res) {
       console.log("getting error", error);
     }
   });
-  res.json("got");
+  res.redirect("/company");
+  // res.json("got");
 });
 
 /* company delete by id */
