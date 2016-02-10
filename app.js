@@ -7,13 +7,13 @@ var port = process.env.PORT || 3000
   , mailer = require('express-mailer')
   , device = require('express-device')
   , bodyParser = require('body-parser')
-  , config = require('./vendor/apps_config')
+  , config = require('./config')
   , Parse = require('parse').Parse;
 
-Parse.initialize(config.parse.appId, config.parse.JSKey);
+Parse.initialize(config.parse.appId, config.parse.JSKey, config.parse.MsKey);
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
+app.use(bodyParser.json({limit: '50mb'}));
 
 var path = require('path');
 app.configure(function() {
@@ -128,8 +128,104 @@ app.get('/contact', function ( req, res) {
   res.sendfile( 'dist/pages/contact.html')
 });
 
+//app.get('/projects', function ( req, res) {
+//  res.sendfile( 'dist/pages/project_index.html')
+//});
+
+app.get('/projects-dashboard', function ( req, res) {
+  res.sendfile( 'dist/pages/project_dashboard.html')
+});
+
 app.get('/projects', function ( req, res) {
-  res.sendfile( 'dist/pages/project_index.html')
+  var Project = Parse.Object.extend("Project"),
+    query = new Parse.Query(Project);
+  query.limit(8);
+  query.find({
+    success: function(results){
+      var projects = [];
+      results.map(function(project) {
+        projects.push(project);
+      });
+      res.render( '../pages/project_index', {"projects": projects});
+    },
+    error: function(obj, error){
+      res.json("error");
+      console.log("adding error", error);
+    }
+  });
+});
+
+/* inserting new project */
+app.post('/projects', function (req, res) {
+  var Project = Parse.Object.extend("Project"),
+    query = new Project();
+  query.set("Title", req.params.title);
+  query.save(null, {
+    success: function(project){
+      console.log("project", project);
+    },
+    error: function(obj, error){
+      console.log("adding error", error)
+    }
+  });
+  res.json("got");
+});
+
+/* project get by id */
+app.get('/projects/:id', function ( req, res) {
+  var query = new Parse.Query("Project");
+  query.get(req.params.id, {
+    success: function(project) {
+      console.log("project", project);
+    },
+    error: function(object, error) {
+      console.log("getting error", error);
+    }
+  });
+  res.json("got");
+});
+
+/* project update by id */
+app.put('/projects/:id', function ( req, res) {
+  var query = new Parse.Query("Project");
+  query.get(req.params.id, {
+    success: function(project) {
+      project.set("Title", "New");
+      project.save({
+        success: function(item){
+          console.log("project", item);
+        },
+        error: function(item, error){
+          console.log("saving error", error);
+        }
+      });
+    },
+    error: function(object, error) {
+      console.log("getting error", error);
+    }
+  });
+  res.json("got");
+});
+
+/* project delete by id */
+app.delete('/projects/:id', function ( req, res) {
+  var query = new Parse.Query("Project");
+  query.get(req.params.id, {
+    success: function(results) {
+      results.destroy({
+        success: function(project){
+          console.log("deleted", project);
+        },
+        error: function(error){
+          console.log("deleting error", error);
+        }
+      });
+    },
+    error: function(object, error) {
+      console.log("getting error", error);
+    }
+  });
+  res.json("got");
 });
 
 app.get('/dashboard', function ( req, res) {
@@ -149,16 +245,90 @@ app.get('/profile/:id', function ( req, res) {
   query.equalTo("objectId", req.params.id);
   query.find({
     success: function(user) {
-      res.render('../pages/user_profile', {profile: user});
       console.log("users", user[0].get('username'));
+      res.render('../pages/user_profile', {profile: user});
+    },
+    error: function(user, error){
+
     }
   });
-
-  res.sendfile( 'dist/pages/user_profile.html')
 });
 
 app.get('/company', function ( req, res) {
   res.sendfile( 'dist/pages/company_profile.html')
+});
+
+/* inserting new project */
+app.post('/company', function (req, res) {
+  var Company = Parse.Object.extend("Company"),
+      query = new Company();
+  query.set("Name", req.params.name);
+  query.save(null, {
+    success: function(company){
+      console.log("company", company);
+    },
+    error: function(obj, error){
+      console.log("adding error", error)
+    }
+  });
+  res.json("got");
+});
+
+/* company get by id */
+app.get('/company/:id', function ( req, res) {
+  var query = new Parse.Query("Company");
+  query.get(req.params.id, {
+    success: function(company) {
+      console.log("company", company);
+    },
+    error: function(object, error) {
+      console.log("getting error", error);
+    }
+  });
+  res.json("got");
+});
+
+/* company update by id */
+app.put('/company/:id', function ( req, res) {
+  var query = new Parse.Query("Company");
+  query.get(req.params.id, {
+    success: function(company) {
+      project.set("Title", "New");
+      project.save({
+        success: function(item){
+          console.log("company", item);
+        },
+        error: function(item, error){
+          console.log("saving error", error);
+        }
+      });
+    },
+    error: function(object, error) {
+      console.log("getting error", error);
+    }
+  });
+  res.json("got");
+});
+
+/* company delete by id */
+app.delete('/company/:id', function ( req, res) {
+  var query = new Parse.Query("Company");
+  query.get(req.params.id, {
+    success: function(results) {
+      results.destroy({
+        success: function(company){
+          console.log("deleted", company);
+        },
+        error: function(object, error){
+          console.log("deleting error", error);
+        }
+      });
+    },
+    error: function(object, error) {
+      console.log("getting error", error);
+    }
+  });
+  res.json("got");
 });
 
 app.get('/get-started', function ( req, res) {
@@ -169,8 +339,77 @@ app.get('/login', function ( req, res) {
   res.sendfile( 'dist/pages/login/login.html')
 });
 
+app.post('/login', function( req, res ){
+  Parse.User.enableUnsafeCurrentUser();
+  console.log(Parse.User.current());
+  Parse.User.logIn(req.body.email, req.body.pass, {
+    success: function(user) {
+      console.log(user.isCurrent());
+      console.log(Parse.User.current());
+      res.redirect("/");
+    },
+    error: function(user, error) {
+      console.log("error", error);
+      res.sendfile( 'dist/pages/login/login.html')
+    }
+  });
+});
+
 app.get('/signup-company', function ( req, res) {
   res.sendfile( 'dist/pages/login/company.html')
+});
+
+app.post('/signup-company', function ( req, res) {
+  var user = new Parse.User(),
+    Company = Parse.Object.extend("Company"),
+    query = new Company();
+  query.set("Name", req.body.companyName);
+
+  var stripe = require("stripe")(config.stripe);
+
+  user.set('username', req.body.email);
+  user.set('password', req.body.password);
+  //user.set('password', req.body.password);
+  user.set('email', req.body.email);
+  user.set('phone', req.body.phone);
+  user.set('fullName', req.body.userName);
+  user.set('userRole', "developer");
+  user.set('AccountType', "company");
+
+  user.signUp(null, {
+    success: function(user) {
+      query.set('userId', user.id);
+      query.save(null, {
+        success: function(company){
+          stripe.charges.create({
+            amount: config.accounts.company.payment * 100, /* amount should be in cents */
+            currency: config.currency,
+            source: req.body.stripeToken, // obtained with Stripe.js
+            description: "Charge for company account on igotmyworks.com"
+          }, function(err, charge) {
+            if (!err) {
+              console.log(charge);
+              query.set('chargeId', charge.id);
+              query.set('chargeId', charge.id);
+              query.set('chargeId', charge.id);
+              res.redirect("/");
+            } else {
+              res.redirect("/");
+            }
+          });
+
+        },
+        error: function(obj, error){
+          res.json({error: error.message});
+          console.log("adding company error", error);
+        }
+      });
+    },
+    error: function(user, error) {
+      console.log("Error: " + error.code + " " + error.message);
+      res.json({error: error.message});
+    }
+  });
 });
 
 // app.get('/signup-user', function ( req, res) {
@@ -193,7 +432,6 @@ app.post('/signup-user', function ( req, res) {
     }
   });
 });
-
 
 app.get('/payment', function ( req, res) {
   res.sendfile( 'dist/pages/login/payment.html')

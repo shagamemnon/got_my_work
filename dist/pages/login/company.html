@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" href="dist/css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script src="vendor/jquery-latest.min.js"></script>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet" type="text/css">
@@ -16,13 +17,21 @@
         <div class="container">
           <div class="signup company">
             <h2>Company</h2>
-            <form method="post"><em>Enter Company Info</em>
-              <input name="email" type="text" placeholder="Company Name">
-              <input name="email" type="text" placeholder="Full Name">
-              <input name="name" type="text" placeholder="Phone"><em>Create Account</em>
+            <form id="payment-form" method="post" action="/signup-company"><em>Enter Company Info</em>
+              <input name="companyName" type="text" placeholder="Company Name">
+              <input name="userName" type="text" placeholder="Full Name">
+              <input name="phone" type="text" placeholder="Phone"><em>Create Account</em>
               <input name="email" type="text" placeholder="Email">
-              <input name="name" type="text" placeholder="Create Password">
-              <input name="name" type="text" placeholder="Confirm Password">
+              <input name="password" type="text" placeholder="Create Password">
+              <input name="confirm" type="text" placeholder="Confirm Password">
+              <input type="text" name="_gotcha" style="display:none">
+              <script src="https://js.stripe.com/v2/"></script>
+              <script src="/vendor/payment.js"></script>
+              <div class="error-message payment"></div><em>Cardholder Full Name</em>
+              <input name="cardHolder" type="text" placeholder="First and Last Name"><em class="inline">Payment Card Number</em>
+              <input name="payment-card" type="text" placeholder="XXXX XXXX XXXX XXXX"><em class="inline">Expiration
+                <input name="expiration" type="text" placeholder="XX/XX"></em><em class="inline">CVV
+                <input name="cvv" type="text" placeholder="XXX"></em>
               <input type="text" name="_gotcha" style="display:none">
             </form>
             <div class="submit-button">

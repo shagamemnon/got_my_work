@@ -32,7 +32,8 @@
     "express-mailer": "~0.3.0",
     "jade": "1.11.0",
 
-    "parse": "~1.5.0"
+    "parse": "~1.5.0",
+    "stripe": "~4.2.0"
   },
   "engines": {
     "node": "0.10.x"

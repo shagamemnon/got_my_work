@@ -41,17 +41,21 @@
   <div class="container">
     <div class="signup user">
       <h2>Enter Payment Information</h2>
-      <form method="post"><em>Full Name</em>
-        <input name="name" type="text" placeholder="First and Last Name"/><em class="inline">Payment Card Number
-          <input name="payment-card" type="text" style="width: 205px" placeholder="XXXX XXXX XXXX XXXX"/></em><em class="inline">Expiration
-          <input name="expiration" type="text" placeholder="XXX"/></em><em class="inline">CVV
-          <input name="cvv" type="text" placeholder="XXX"/></em>
+      <form id="payment-form" method="post">
+        <script src="https://js.stripe.com/v2/"></script>
+        <script src="/vendor/payment.js"></script>
+        <div class="error-message payment"></div><em>Cardholder Full Name</em>
+        <input name="cardHolder" type="text" placeholder="First and Last Name"/><em class="inline">Payment Card Number</em>
+        <input name="payment-card" type="text" placeholder="XXXX XXXX XXXX XXXX"/><em class="inline">Expiration
+          <input name="expiration" type="text" placeholder="XX/XX"/></em><em class="inline">CVV
+          <input name="cvv" type="text" placeholder="XXX"/>
+          <div class="payment-errors"></div><img style="padding-top:30px;height:10px" src="https://s3.amazonaws.com/igotmywork/signup/dots_three.png"/>
+          <div class="submit-button">
+            <button>SUBMIT</button>
+          </div></em>
         <input type="text" name="_gotcha" style="display:none"/>
       </form>
     </div>
-  </div><img style="padding-top:30px;height:10px" src="https://s3.amazonaws.com/igotmywork/signup/dots_three.png"/>
-  <div class="submit-button">
-    <button>SUBMIT</button>
   </div>
 </section>
 <footer>

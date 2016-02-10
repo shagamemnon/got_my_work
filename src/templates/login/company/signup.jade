@@ -2,15 +2,16 @@ section.signup-header
   .container
     .signup.company
       h2 Company
-      form(method="post")
+      form#payment-form(method="post", action="/signup-company")
         em Enter Company Info
-        input( name="email", type="text", placeholder="Company Name" )
-        input( name="email", type="text", placeholder="Full Name" )
-        input( name="name", type="text", placeholder="Phone" )
+        input( name="companyName", type="text", placeholder="Company Name" )
+        input( name="userName", type="text", placeholder="Full Name" )
+        input( name="phone", type="text", placeholder="Phone" )
         em Create Account
         input( name="email", type="text", placeholder="Email" )
-        input( name="name", type="text", placeholder="Create Password" )
-        input( name="name", type="text", placeholder="Confirm Password" )
+        input( name="password", type="text", placeholder="Create Password" )
+        input( name="confirm", type="text", placeholder="Confirm Password" )
         input( type="text", name="_gotcha", style="display:none")
+        include ../payment/form
       .submit-button
         button Go
