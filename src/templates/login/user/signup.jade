@@ -1,9 +1,11 @@
+script(src="/vendor/login.js")
+
 #signup-user
 section.signup-header
     .container
         .signup.user
             h2 Freelancer
-            form(method="post")
+            form(method="post", action="/signup-user")
                 .error-message
                 .visible
                     em Create Account

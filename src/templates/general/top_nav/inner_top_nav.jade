@@ -27,11 +27,15 @@
       .text HOW IT WORKS
         .underline
 
-    a.nav-link( href="/login" )
-      .text LOGIN
-        .underline
-
-    a.nav-link.square-border( href="/get-started" )
-      .button.two
-        .background-button
-        .text SIGN UP
+    if !logged
+      a.nav-link( href="/login" )
+        .text LOGIN
+          .underline
+      a.nav-link.square-border( href="/get-started" )
+        .button.two
+          .background-button
+          .text SIGN UP
+    else
+      a.nav-link( href="/logout" )
+        .text LOGOUT
+          .underline

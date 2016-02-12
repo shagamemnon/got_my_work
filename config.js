@@ -1,9 +1,9 @@
 var config = {};
 
 config.parse = {
-    appId:  "twqir8iySLnWPUlcjsm4fPCQnUtw4FKC5KO3gz6Z",//"ZowTKUYLhAaotnClMdlMrrPnG0xiQVHPWnHWuAf3",
-    JSKey: "3aMFsko8xI84k1fdWMmiexsj8eNidaTemHYGPULe", //"n3U6xyK4bcJ1O9WPDh1rcADiY7C84UeRyebo096
-    MsKey: "ORon0LBiI5wxG0RgbYzGirpmPdOXXB6x6FQhNEHH"
+    appId:  "xn6TXoZf5faH4PmG2zjdDqZfbkpYWojWoguouRZl", //"twqir8iySLnWPUlcjsm4fPCQnUtw4FKC5KO3gz6Z",//"ZowTKUYLhAaotnClMdlMrrPnG0xiQVHPWnHWuAf3",
+    JSKey: "gPdPLvcYtNW3zNtoVZOizuZp29etRwOffAebK007", //"3aMFsko8xI84k1fdWMmiexsj8eNidaTemHYGPULe", //"n3U6xyK4bcJ1O9WPDh1rcADiY7C84UeRyebo096
+    MsKey: "G29wx7YjlZ1q9gL7gfS0wzTMELlGbi6V6VISgb6k" //"ORon0LBiI5wxG0RgbYzGirpmPdOXXB6x6FQhNEHH"
 };
 
 config.accounts = {

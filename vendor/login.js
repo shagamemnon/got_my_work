@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
     $('.signup-header').on("click", "button", function(){
         var block = $('.signup-header'),
-            form = block.find('form'),
+            form = block.find('.signup.user form'),
 			error = block.find('.error-message');
         form.find('input').removeClass('error');
 		error.text("");

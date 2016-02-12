@@ -8,12 +8,23 @@ var port = process.env.PORT || 3000
   , device = require('express-device')
   , bodyParser = require('body-parser')
   , config = require('./config')
-  , Parse = require('parse').Parse;
+  , Parse = require('parse').Parse
+  , path = require('path')
+  , session = require('express-session');
+
+var logged = false;
 
 Parse.initialize(config.parse.appId, config.parse.JSKey, config.parse.MsKey);
 
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 app.use(bodyParser.json({limit: '50mb'}));
+
+app.set('trust proxy', 1); // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}));
 
 var path = require('path');
 app.configure(function() {
@@ -47,8 +58,9 @@ console.log('\nϟϟϟ Serving on port ' + port + ' ϟϟϟ\n');
 /** Uses Backbone Base **/
 
 app.get('/', function (req, res) {
-  device_path = req.device.type == 'desktop' ? 'desktop' : 'mobile'
-  res.sendfile( 'dist/pages/' + device_path + '/landing_page.html' );
+  device_path = req.device.type == 'desktop' ? 'desktop' : 'mobile';
+  //res.sendfile( 'dist/pages/' + device_path + '/landing_page.html' );
+  res.render('../pages/' + device_path + '/landing_page', {logged: logged});
 });
 
 app.post('/', function (request, res ) {
@@ -245,7 +257,6 @@ app.get('/profile/:id', function ( req, res) {
   query.equalTo("objectId", req.params.id);
   query.find({
     success: function(user) {
-      console.log("users", user[0].get('username'));
       res.render('../pages/user_profile', {profile: user});
     },
     error: function(user, error){
@@ -339,13 +350,19 @@ app.get('/login', function ( req, res) {
   res.sendfile( 'dist/pages/login/login.html')
 });
 
+app.get('/logout', function ( req, res) {
+  req.session.destroy();
+  logged = false;
+  res.redirect( '/');
+});
+
 app.post('/login', function( req, res ){
   Parse.User.enableUnsafeCurrentUser();
   console.log(Parse.User.current());
   Parse.User.logIn(req.body.email, req.body.pass, {
     success: function(user) {
-      console.log(user.isCurrent());
-      console.log(Parse.User.current());
+      req.session.user = { id: user.id, attributes: user.attributes };
+      logged = true;
       res.redirect("/");
     },
     error: function(user, error) {
@@ -363,7 +380,7 @@ app.post('/signup-company', function ( req, res) {
   var user = new Parse.User(),
     Company = Parse.Object.extend("Company"),
     query = new Company();
-  query.set("Name", req.body.companyName);
+  query.set("name", req.body.companyName);
 
   var stripe = require("stripe")(config.stripe);
 
@@ -373,8 +390,8 @@ app.post('/signup-company', function ( req, res) {
   user.set('email', req.body.email);
   user.set('phone', req.body.phone);
   user.set('fullName', req.body.userName);
-  user.set('userRole', "developer");
-  user.set('AccountType', "company");
+  user.set('userRole', "user");
+  user.set('accountType', "company");
 
   user.signUp(null, {
     success: function(user) {
@@ -389,9 +406,6 @@ app.post('/signup-company', function ( req, res) {
           }, function(err, charge) {
             if (!err) {
               console.log(charge);
-              query.set('chargeId', charge.id);
-              query.set('chargeId', charge.id);
-              query.set('chargeId', charge.id);
               res.redirect("/");
             } else {
               res.redirect("/");
@@ -418,9 +432,12 @@ app.post('/signup-company', function ( req, res) {
 
 app.post('/signup-user', function ( req, res) {
   var user = new Parse.User();
-  user.set('username', req.body.name);
+  user.set('username', req.body.email);
+  user.set('fullName', req.body.name);
   user.set('password', req.body.pass);
   user.set('email', req.body.email);
+  user.set('userRole', "user");
+  user.set('accountType', "free");
 
   user.signUp(null, {
     success: function(user) {
@@ -428,7 +445,7 @@ app.post('/signup-user', function ( req, res) {
     },
     error: function(user, error) {
       console.log("Error: " + error.code + " " + error.message);
-      res.json({error: error.message});
+      res.redirect("/");
     }
   });
 });
@@ -472,6 +489,10 @@ app.get('/sales-manager', function ( req, res) {
 });
 
 app.get('/*' , function( req, res, next ) {
-    var file = req.params[0];
+  if (req.session.user)
+    logged = true;
+  else
+    logged = false;
+  var file = req.params[0];
     res.sendfile( __dirname + '/' + file );
 });
