@@ -2,12 +2,11 @@ script(src="https://js.stripe.com/v2/")
 script(src="/vendor/payment.js")
 
 .error-message.payment
-em Cardholder Full Name
+em Enter Payment Info
 input( name="cardHolder", type="text", placeholder="First and Last Name" )
-em.inline Payment Card Number
-input( name="payment-card", type="text", placeholder="XXXX XXXX XXXX XXXX" )
-em.inline Expiration
-    input( name="expiration", type="text", placeholder="XX/XX" )
-em.inline CVV
-    input( name="cvv", type="text", placeholder="XXX" )
+input( name="payment-card", type="text", placeholder="•••• •••• •••• ••••" )
+em.inline
+    input( name="expiration", type="text", placeholder="MM/YY" )
+em.inline
+    input( name="cvv", type="text", placeholder="CVV" )
 input( type="text", name="_gotcha", style="display:none")

@@ -7,11 +7,11 @@
       <form id="payment-form" method="post">
         <script src="https://js.stripe.com/v2/"></script>
         <script src="/vendor/payment.js"></script>
-        <div class="error-message payment"></div><em>Cardholder Full Name</em>
-        <input name="cardHolder" type="text" placeholder="First and Last Name"/><em class="inline">Payment Card Number</em>
-        <input name="payment-card" type="text" placeholder="XXXX XXXX XXXX XXXX"/><em class="inline">Expiration
-          <input name="expiration" type="text" placeholder="XX/XX"/></em><em class="inline">CVV
-          <input name="cvv" type="text" placeholder="XXX"/>
+        <div class="error-message payment"></div><em>Enter Payment Info</em>
+        <input name="cardHolder" type="text" placeholder="First and Last Name"/>
+        <input name="payment-card" type="text" placeholder="•••• •••• •••• ••••"/><em class="inline">
+          <input name="expiration" type="text" placeholder="MM/YY"/></em><em class="inline">
+          <input name="cvv" type="text" placeholder="CVV"/>
           <div class="payment-errors"></div><img style="padding-top:30px;height:10px" src="https://s3.amazonaws.com/igotmywork/signup/dots_three.png"/>
           <div class="submit-button">
             <button>SUBMIT</button>
