@@ -1,20 +1,5 @@
 section.project_index
-  padding: 0px 0 80px
-  border-top: 62px solid transparent
   background-color: #eee
-
-  h1.project-title
-    display: block
-    margin-bottom: 0px
-    padding-top: 80px
-    padding-bottom: 40px
-    height: 80px
-    header1()
-    letter-spacing: -1px
-    display: block
-    font-weight: 700
-    background-color: white
-    text-align: center
 
   .dashboard-container
     display: block
@@ -67,6 +52,7 @@ section.project_index
       height: 800px
       background-color: white
       float: left
+      box-shadow: 0 0 6px 1px rgba(0,0,0,0.2)
 
       h2
         header4()
@@ -104,90 +90,14 @@ section.project_index
       padding-top: 0px
       height: 1000px
       background-color: white
-      padding-top: 40px
       float: right
-
-      .search-bar
-        display: block
-        height: auto
-        text-align: center
-        center()
-        max-width: 600px
-        background-color: #ddd
-        margin-top: 0px
-        box-shadow: 0px 0px 0px 1px #ddd
-        margin-bottom: 40px
-
-        form
-          max-width:600px
-          margin: 0px auto
-          outline: none
-          display: block
-
-        input
-          width: 578px
-          padding-top: 20px
-          padding-bottom: 20px
-          padding-left: 20px
-          padding-right: 0
-          font-size: 18px
-          outline: none
-          border: 1px solid transparent
-          border-bottom-color: #ddd
-
-          &:focus
-            border: 1px solid $primary-color
-            box-shadow: 0 0 0 0
-
-        .search
-          padding:8px 15px
-          background:rgba(50, 50, 50, 0.2)
-          border:0px solid #dbdbdb
-
-        .button
-          position:relative
-          padding:6px 15px
-          left:-8px
-          border:2px solid #207cca
-          background-color:#207cca
-          color:#fafafa
-
-          &:hover
-            background-color:#fafafa
-            color:#207cca
-
-        select
-          span(3/10)
-          border: 1px solid transparent
-          height: 42px
-          font-family: $Gotham
-          font-size: 14px
-          font-weight: 300
-          margin-left: 14px
-          border-radius: 0px
-          outline: none
-          clearfix()
-          background: #ddd
-          color: #666
-
-        button
-          col(2/9)
-          shift(1/21)
-          button()
-          clearfix()
-          border: none
-          max-width: 120px
-          height: 42px
-          padding-top: 12px
-          text-align: center
-          background-color: $primary-color
+      box-shadow: 0 0 6px 1px rgba(0,0,0,0.2)
 
       .tab
         display: none
 
       .tab.active
         display: block
-        border-top: 30px solid #eee
 
       .project-listing
         max-width: 575px
