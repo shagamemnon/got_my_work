@@ -23,11 +23,10 @@
       .text PRICING
         .underline
 
-    a.nav-link( href="/how-it-works" )
-      .text HOW IT WORKS
-        .underline
-
     if !logged
+      a.nav-link( href="/how-it-works" )
+        .text HOW IT WORKS
+          .underline
       a.nav-link( href="/login" )
         .text LOGIN
           .underline
@@ -36,6 +35,12 @@
           .background-button
           .text SIGN UP
     else
+      a.nav-link( href="/projects" )
+        .text PROJECTS
+          .underline
+      a.nav-link( href="/logout" )
+        .text PROFILE
+          .underline
       a.nav-link( href="/logout" )
         .text LOGOUT
           .underline
