@@ -3,12 +3,9 @@
   <head>
     <link rel="stylesheet" href="/dist/css/user_profile.css">
     <script src="vendor/jquery-latest.min.js"></script>
-    <script src="vendor/tabs.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <script src="/node_modules/underscore/underscore-min.js"></script>
-    <script data-main="dist/main" src="vendor/require.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css">
+    <script src="vendor/jquery/input-skill.js"></script>
+    <script src="vendor/jquery/input-location.js"></script>
+    <script src="vendor/jquery/tabs.js"></script>
     <script src="/vendor/jquery-latest.min.js"></script>
     <title>Profile</title>
     <meta name="description" content="India's Biggest Freelance Portal">
@@ -58,11 +55,15 @@
             <div class="span">
               <h2>Chirag Patel</h2>
               <h2 style="color: #00FF00">•</h2>
+            </div><a id="open-skill" href="#" class="input-container">
+              <h5>Add Your Skills</h5><img height="11px" src="https://s3.amazonaws.com/igotmywork/user_profile/pencil.png"></a><a id="open-location" href="#" class="input-container">
+              <h6>Add Your Location</h6><img height="11px" src="https://s3.amazonaws.com/igotmywork/user_profile/pencil.png"></a>
+            <div id="input-skill">
+              <input type="text" name="skill" autofocus="1"><img id="close-skill" height="13px" src="https://s3.amazonaws.com/igotmywork/signup/close.png"><img height="13px" src="https://s3.amazonaws.com/igotmywork/user_profile/check.png">
             </div>
-            <div class="input-container"></div>
-            <input placeholder="Add Your Skills"><img height="13px" src="https://s3.amazonaws.com/igotmywork/user_profile/pencil.png">
-            <div class="input-container"></div>
-            <input placeholder="Add Your Location" class="two"><img height="11px" src="https://s3.amazonaws.com/igotmywork/user_profile/pencil.png">
+            <div id="input-location">
+              <input type="text" name="location" autofocus="2"><img id="close-location" height="13px" src="https://s3.amazonaws.com/igotmywork/signup/close.png"><img id="keep-location" height="13px" src="https://s3.amazonaws.com/igotmywork/user_profile/check.png" class="success">
+            </div>
           </article>
           <div class="feedback"><img src="https://s3.amazonaws.com/igotmywork/95%25.png">
             <h6>Positive Feedback</h6>

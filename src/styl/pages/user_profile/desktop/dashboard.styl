@@ -29,25 +29,32 @@
           display: inline
           font-weight: 700
 
-      .input-container
+      a.input-container
         display: block
+        margin-bottom: 30px
+        text-decoration: none
 
-      input
-        margin-bottom: 25px
+      input, h5, h6
         font-size: 1.1em
         font-weight: 300
-        color: #555
+        color: #666
+        border: none
+      
+      h5, h6
         opacity: 1
         cursor: pointer
-        margin-top: 1px
-        display: inline-block
-        border: none
+        margin-top: 3px
+        display: inline
         border-bottom: 1px dotted #555
-        opacity: 0.8
+      
+      h6
+        paragraph()
+        color: #333
+        font-weight: 700
         
-        img
-          display: inline
-          padding-left: 9px
+      img
+        display: inline
+        padding-left: 9px
 
         &:focus
           outline: none
@@ -259,3 +266,27 @@
       
     .tab.active
       display: block
+
+#input-skill, #input-location
+  background-color: white
+  position: absolute
+  z-index: 50
+  display: none
+  top: 190px
+  opacity: 1
+  height: 24px
+  border-bottom: 1px dotted #555
+  
+  input
+    background-color: white
+    opacity: 1
+    display: inline
+    outline: none
+  
+  img
+    display: inline
+    cursor: pointer
+
+#input-location
+  top: 236px
+  z-index: 51
