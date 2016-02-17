@@ -10,11 +10,26 @@
     display: block
     margin-bottom: 80px
     height: 120px
-
-    img.avatar
+      
+    .profile-picture
       col(1/7)
-      height: auto
+      cursor: pointer
       border-radius: 100%
+      display: block
+
+      .avatar
+        display: block
+        text-align: center
+
+        img
+          width: 118px
+          opacity: 0.7
+          height: auto
+          border-radius: 100%
+          cursor: pointer
+          
+          &:hover
+            opacity: 1
 
     article
       col(5/7)
@@ -29,16 +44,35 @@
           display: inline
           font-weight: 700
 
-      h5
-        header4()
-        font-size: 1.2em
+      a#open-skill, #open-location
+        display: block
+        margin-bottom: 30px
+        margin-left: 3px
+        text-decoration: none
+        visibility: visible
+        
+        img
+          padding-left: 5px
+
+      input[name="skill"], h5
+        font-size: 1.1em
         font-weight: 300
         color: #666
-        margin-bottom: 25px
-
-      h6
+        border: none
+        cursor: pointer
+        display: inline
+      
+      input[name="location"], h6
+        cursor: pointer
+        margin-top: 0px
+        display: inline
         paragraph()
+        color: #333
         font-weight: 700
+        border: none
+      
+      h5, h6
+        visibility: visible
 
     .feedback
       col(1/7)
@@ -240,3 +274,34 @@
       
     .tab.active
       display: block
+
+#input-skill, #input-location
+  background-color: white
+  position: absolute
+  z-index: 50
+  display: none
+  top: 190px
+  opacity: 1
+  height: 24px
+  border-bottom: 1px dotted #555
+  
+  input
+    background-color: white
+    padding-left: 3px
+    opacity: 1
+    display: inline
+    outline: none
+    z-index: 51
+    background-image: url('https://s3.amazonaws.com/igotmywork/user_profile/pencil.png')
+    background-size: auto 13px
+    background-repeat: no-repeat
+    background-position: right
+  
+  img
+    display: inline
+    padding-left: 8px
+    cursor: pointer
+
+#input-location
+  top: 236px
+  z-index: 51
