@@ -102,7 +102,7 @@ section.project_index
 
     .content
       #tab1.tab.active
-        .project-listing
+        a.project-listing(href="#")#open
           h4 Small Web Design Project
           em Posted 1 day ago
           em -&nbsp;&nbsp;Hourly
@@ -116,7 +116,7 @@ section.project_index
           span HTML/CSS
           span jQuery
           span SEO
-        .project-listing
+        a.project-listing(href="#")
           h4 Small Web Design Project
           em Posted 1 day ago
           em -&nbsp;&nbsp;Hourly
@@ -130,13 +130,8 @@ section.project_index
           span HTML/CSS
           span jQuery
           span SEO
-      #tab2.tab
-        h4 BIO
-      #tab3.tab
-        h4 TEAM SKILLS
-      #tab4.tab
-        h4 WORK HISTORY
-      #tab5.tab
-        h4 ACHIEVEMENTS
-      #tab6.tab
-        h4 FEEDBACK
+
+#overlay
+#info
+  img#close(src="https://s3.amazonaws.com/igotmywork/signup/close.png")
+  include ../project_listing/main

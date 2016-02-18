@@ -99,7 +99,9 @@ section.project_index
       .tab.active
         display: block
 
-      .project-listing
+      a.project-listing
+        text-decoration: none
+        color: #222
         max-width: 575px
         margin: 60px auto 0
         padding: 40px 30px 20px
@@ -126,7 +128,7 @@ section.project_index
           paragraph()
           padding-top: 5px
           padding-bottom: 10px
-
+        
         span
           col(1/5)
           margin-top: 15px
@@ -137,3 +139,34 @@ section.project_index
           background-color: #ddd
           box-shadow: 0px 10px 0 0 #ddd, 0px 10px 0 0 #ddd, 0px -10px 0 0 #ddd, 0px 10px 0 0 #ddd
           border-radius: 1px
+#overlay
+  opacity: 0
+  background-color: #fff
+  position: absolute
+  top: 0px
+  left: 0px
+  z-index: 50
+  padding-top: 120px
+  width: 100%
+  height: 100%
+  visibility: hidden
+
+#info
+  opacity: 0
+  top: 0
+  margin: -200px auto 0
+  padding: 0px 20px
+  width:920px
+  height: auto
+  background: transparent
+  z-index: 51
+  position: absolute
+  visibility: hidden
+
+  img#close
+    float: right
+    position: absolute
+    cursor: pointer
+    top: 0px
+    right: 0px
+    height: 50px
