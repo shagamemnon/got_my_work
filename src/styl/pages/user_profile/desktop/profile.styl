@@ -16,6 +16,7 @@
       cursor: pointer
       border-radius: 100%
       display: block
+      cursor: pointer
 
       .avatar
         display: block
@@ -23,13 +24,29 @@
 
         img
           width: 118px
-          opacity: 0.7
+          opacity: 1
           height: auto
           border-radius: 100%
+          cursor: pointer
+          z-index: -1
+        
+        input[name="pic"]
+          background-color: white
+          border-radius: 100%
+          color: white
+          text-align: center
+          padding-left: 25px
+          bottom: 390px
+          position: absolute
+          opacity: 0
+          font-size: 11px
+          color: transparent
+          font-family: $Gotham
           cursor: pointer
           
           &:hover
             opacity: 1
+            
 
     article
       col(5/7)
