@@ -1,128 +1,310 @@
 .profile-container
-  border-top: 65px solid #111
-  background-color: #eee
-  height: auto
-  padding-bottom: 100px
-  z-index: 1
+  max-width: 1000px
+  border-top: 62px solid transparent
+  margin: auto
+  padding: 80px 0
+  display: block
+  height: 900px
 
-  .user-profile
-    background-color: white
-    border-top: 62px solid transparent
-    position: relative
-    z-index: 2
-    max-width: 700px
-    margin: 40px auto 0
-    border-radius: 5px
-    border: 1px solid #ddd
+  .user-info
+    display: block
+    margin-bottom: 80px
+    height: 120px
+      
+    .profile-picture
+      col(1/7)
+      cursor: pointer
+      border-radius: 100%
+      display: block
 
-    h2
-      padding-bottom: 40px
-      padding-top: 40px
-      margin-bottom: 40px
+      .avatar
+        display: block
+        text-align: center
+        padding-top: 20px
+        height: 60px
+        border-right: 1px solid #ddd
+
+        img
+          width: 100px
+          margin-right: 10px
+          opacity: 1
+          height: auto
+          cursor: pointer
+          
+          &:hover
+            opacity: 1
+
+    article
+      col(5/7)
+
+      .span
+        padding-top: 6px
+        padding-bottom: 3px
+
+        h2
+          header2()
+          letter-spacing: -1px
+          display: inline
+          font-weight: 700
+
+      a#open-skill, #open-location
+        display: block
+        margin-bottom: 30px
+        margin-left: 3px
+        text-decoration: none
+        visibility: visible
+        
+        img
+          padding-left: 5px
+
+      input[name="skill"], h5
+        font-size: 1.1em
+        font-weight: 300
+        color: #666
+        border: none
+        cursor: pointer
+        display: inline
+      
+      input[name="location"], h6
+        cursor: pointer
+        margin-top: 0px
+        display: inline
+        paragraph()
+        color: #333
+        font-weight: 700
+        border: none
+      
+      h5, h6
+        visibility: visible
+
+    .feedback
+      col(1/7)
+      float: right
       text-align: center
-      header3()
-      border-bottom: 1px solid #ddd
+      border-radius: 100%
+      
+      img
+        display: block
+        max-height: 94px
+        center()
+      
+      h6
+        display: block
+        paragraph()
+        center()
+        font-size: 0.7em
+        font-weight: 700
+        padding-top: 8px
+    
+  .sidebar
+    span(1/4)
+    background-color: $teal
+    border-top: 25px solid $primary-color
+    padding-top: 50px
+    height: 600px
 
-    .hr
-    	height: 1px
-    	background-color: #ddd
-    	margin-bottom: 38px
+    span
+      background-color: $primary-color
+      padding-bottom: 0
+      margin-bottom: 0px
+      margin-left: 3px
+  
+    span.active
+      
+      a
+        box-shadow: inset 5px 0 0px 0 #4da09c
+        opacity: 1
+        background: #76bcb9
+
+    a
+      display: block
+      text-decoration: none
+      height: 40px
+      padding-top: 10px
+      padding-bottom: 0
+      margin-bottom: 0px
+      cursor: pointer
+      padding-left: 50px
+      opacity: 1
+      single-transition( opacity )
+      
+      &:hover, &:active
+        single-transition( opacity )
+        opacity: 1
+        background-color: #76bcb9
+
+      p
+        font-size: 1.2em
+        position: relative
+        margin-left: -15px
+        color: #00FF00
+        display: inline
+        padding-right: 5px
+
+      h6
+        paragraph()
+        font-size: 0.7em
+        display: inline
+        color: white
+        font-weight: 400
+
+      img
+        height: 20px
+        display: inline
+        top: 5px
+        position: relative
+        padding-right: 10px
+
+    &:after
+      display: block
+      clear: both
+      content: ''
+ 
+  .user-profile
+    span(3/4)
+    box-shadow: 0 -1px 0 0 yellow, 0 1px 0 0 yellow, 1px 0 0 0 yellow
+    padding-top: 74px
+    height: 600px
 
     .info-row
-    	max-width: 600px
-    	width: 100%
-    	margin: auto
-    	display: inline-block
-    	padding-bottom: 40px
-    	line-height: 20px
-    	padding-left: 55px
+      display: block
+      
+    h4
+      header4()
+      padding-left: 50px
+      padding-right: 50px
+      padding-bottom: 37px
 
-    	em
-    		span(1/4)
-    		text-transform: uppercase
-    		color: #333
-    		font-size: 0.80em
-    		font-weight: 500
+    p
+      paragraph()
+      padding-left: 50px
+      padding-right: 50px
+      padding-bottom: 25px
 
-    	p
-    		span(3/5)
-    		color: #555
-    		paragraph()
-    		text-transform: uppercase
-    		letter-spacing: 0.2px
+    em
+      span(1/4)
+      text-transform: uppercase
+      color: #333
+      font-size: 0.80em
+      font-weight: 500    
 
-    	input
-    		span(3/5)
-    		border: none
-    		outline: none
-    		font-size: 0.9em
-    		color: #555
-    		text-decoration: italic
+    p
+      span(3/5)
+      color: #555
+      paragraph()
+      text-transform: uppercase
+      letter-spacing: 0.2px
 
-    	a
-    		span(1/7)
-    		text-decoration: none
-    		color: $primary-color
-    		text-align: right
-    		cursor: pointer
+    input
+      span(3/5)
+      border: none
+      outline: none
+      font-size: 0.9em
+      color: #555
+      text-decoration: italic
 
-	    img
-	    	span(3/5)
-	    	shift(.15)
-	    	height: 155px
-	    	width: auto
+    a
+      span(1/7)
+      text-decoration: none
+      color: $primary-color
+      text-align: right
+      cursor: pointer
 
-	    select
-        span(3/5)
-        height: 42px
-        font-family: $Gotham
-        font-size: 13px
+    img
+      height: 155px
+      width: auto
+
+    select
+      span(3/5)
+      height: 42px
+      font-family: $Gotham
+      font-size: 13px
+      max-width: 100%
+      margin-top: -10px
+      border: 2px solid #ccc
+      border-radius: 3px
+      outline: none
+      display: inline-block
+      clearfix()
+      background: white
+      color: #ccc
+
+    button
+      button()
+      height: 40px
+      border-color: transparent
+      float: right
+      max-width: 150px
+      border-color: Transparent 
+      border-radius: 3px
+      background: $primary-color
+      color: white 
+      display: inline-block
+      font-family: $Gotham
+      font-weight: 400
+      cursor: pointer
+      font-size: 12px
+      single-transition( background-color )
+
+      &:hover, &.active
+        background: #306eff
+        single-transition( background-color )
+
+    .add-technology
+      display: block
+      margin: auto
+
+      button
+        width: 100%
+        height: 50px
+        border-top-left-radius: 0px
+        border-top-right-radius: 0px
+        border-bottom-right-radius: 2px
+        border-bottom-left-radius: 2px
+        border-top: 0px
+        border-left: 1px
+        border-right: 1px
+        border-bottom: 1px
+        border-color: #ddd
+        font-size: 14px
+        font-weight: 500
+        background-color: #f9faff
         max-width: 100%
-        margin-top: -10px
-        border: 2px solid #ccc
-        border-radius: 3px
-        outline: none
-        display: inline-block
-        clearfix()
-        background: white
-        color: #ccc
+        cursor: pointer
 
-	    button
-	      span(1/5)
-	      shift(.30)
-	      button()
-	      border-radius: 3px
-	      background: $primary-color
-	      color: white
-	      display: inline-block
-	      font-family: $Gotham
-	      font-weight: 400
-	      cursor: pointer
-	      font-size: 12px
-	      single-transition( background-color )
+    .tab
+      display: none
+      
+    .tab.active
+      display: block
 
-	      &:hover, &.active
-	        background: #306eff
-	        single-transition( background-color )
+#input-skill, #input-location
+  background-color: white
+  position: absolute
+  z-index: 50
+  display: none
+  top: 190px
+  opacity: 1
+  height: 24px
+  border-bottom: 1px dotted #555
+  
+  input
+    background-color: white
+    padding-left: 3px
+    opacity: 1
+    display: inline
+    outline: none
+    z-index: 51
+    background-image: url('https://s3.amazonaws.com/igotmywork/user_profile/pencil.png')
+    background-size: auto 13px
+    background-repeat: no-repeat
+    background-position: right
+  
+  img
+    display: inline
+    padding-left: 8px
+    cursor: pointer
 
-	.add-technology
-		display: block
-		margin: auto
-
-		button
-			width: 100%
-			height: 50px
-			border-top-left-radius: 0px
-			border-top-right-radius: 0px
-			border-bottom-right-radius: 2px
-			border-bottom-left-radius: 2px
-			border-top: 0px
-			border-left: 1px
-			border-right: 1px
-			border-bottom: 1px
-			border-color: #ddd
-			font-size: 14px
-			font-weight: 500
-			background-color: #f9faff
-			max-width: 100%
-			cursor: pointer
+#input-location
+  top: 236px
+  z-index: 51
