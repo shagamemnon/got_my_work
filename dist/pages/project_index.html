@@ -2,11 +2,11 @@
 <html>
   <head>
     <link rel="stylesheet" href="dist/css/project_index.css">
+    <script src="vendor/jquery-latest.min.js"></script>
+    <script src="vendor/projects/lightbox.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css">
     <script src="/vendor/jquery-latest.min.js"></script>
     <title>Projects</title>
     <meta name="description" content="India's Biggest Freelance Portal">
@@ -167,34 +167,31 @@
                 <h5>Android</h5></a></span>
           </div>
           <div class="content">
-            <div id="tab1" class="tab active">
-              <div class="project-listing">
+            <div id="tab1" class="tab active"><a href="#" id="open" class="project-listing">
                 <h4>Small Web Design Project</h4><em>Posted 1 day ago</em><em>-&nbsp;&nbsp;Hourly</em><em>-&nbsp;&nbsp;$$</em><em>-&nbsp;&nbsp;2 weeks</em><em>-&nbsp;&nbsp;20 hours/week</em><em>&nbsp;</em>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.</p><span style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px">Skills</span><span>Web Design</span><span>HTML/CSS</span><span>jQuery</span><span>SEO</span>
-              </div>
-              <div class="project-listing">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.</p><span style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px">Skills</span><span>Web Design</span><span>HTML/CSS</span><span>jQuery</span><span>SEO</span></a><a href="#" class="project-listing">
                 <h4>Small Web Design Project</h4><em>Posted 1 day ago</em><em>-&nbsp;&nbsp;Hourly</em><em>-&nbsp;&nbsp;$$</em><em>-&nbsp;&nbsp;2 weeks</em><em>-&nbsp;&nbsp;20 hours/week</em><em>&nbsp;</em>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.</p><span style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px">Skills</span><span>Web Design</span><span>HTML/CSS</span><span>jQuery</span><span>SEO</span>
-              </div>
-            </div>
-            <div id="tab2" class="tab">
-              <h4>BIO</h4>
-            </div>
-            <div id="tab3" class="tab">
-              <h4>TEAM SKILLS</h4>
-            </div>
-            <div id="tab4" class="tab">
-              <h4>WORK HISTORY</h4>
-            </div>
-            <div id="tab5" class="tab">
-              <h4>ACHIEVEMENTS</h4>
-            </div>
-            <div id="tab6" class="tab">
-              <h4>FEEDBACK</h4>
-            </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.</p><span style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px">Skills</span><span>Web Design</span><span>HTML/CSS</span><span>jQuery</span><span>SEO</span></a></div>
           </div>
         </div>
       </section>
+      <div id="overlay"></div>
+      <div id="info"><img id="close" src="https://s3.amazonaws.com/igotmywork/signup/close.png">
+        <section class="signup-header">
+          <div class="container">
+            <div class="project-listing">
+              <h4>Small Web Design Project</h4><em>Posted 1 day ago</em><em>-&nbsp;&nbsp;Hourly</em><em>-&nbsp;&nbsp;$$</em><em>-&nbsp;&nbsp;2 weeks</em><em>-&nbsp;&nbsp;20 hours/week</em><em>&nbsp;</em>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.</p>
+              <div class="tags"><span style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px">Skills</span><span>Web Design</span><span>HTML/CSS</span><span>jQuery</span><span>SEO</span></div>
+            </div>
+            <div class="bottom-row">
+              <div class="company-logo"><img src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png"></div>
+              <button>Request</button>
+            </div>
+          </div>
+        </section>
+      </div>
       <footer>
         <section>
           <div class="tiles-container">
