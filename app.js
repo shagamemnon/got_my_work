@@ -140,9 +140,9 @@ app.get('/contact', function ( req, res) {
   res.sendfile( 'dist/pages/contact.html')
 });
 
-//app.get('/projects', function ( req, res) {
-//  res.sendfile( 'dist/pages/project_index.html')
-//});
+app.get('/project_index', function ( req, res) {
+  res.sendfile( 'dist/pages/project_index.html')
+});
 
 app.get('/projects-dashboard', function ( req, res) {
   res.sendfile( 'dist/pages/project_dashboard.html')

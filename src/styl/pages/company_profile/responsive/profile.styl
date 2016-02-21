@@ -1,0 +1,128 @@
+.profile-container
+  margin: auto
+  padding: 50px 0
+
+  .user-info
+    display: block
+    margin-bottom: 50px
+    height: auto
+    padding: 0 25px
+
+    .profile-picture
+      stack()
+      
+      .avatar
+        text-align: center
+        display: block
+        margin: auto
+        width: auto
+        margin-bottom: 10px
+        
+        img
+          min-width: 120px
+          display: block
+          max-width: 200px
+          width: 100%
+          margin: auto
+      
+    article
+      stack()
+      text-align: center
+
+      .span
+
+        h2
+          header4()
+
+      a.input-container
+        margin-bottom: 5px
+        margin-top: 5px
+      
+      h5
+        header5()
+        font-size: 1em
+        margin-bottom: 3px
+
+      h6
+        paragraph()
+        font-weight: 700
+        margin-bottom: 37px
+        max-width: 200px
+        margin: auto
+
+    .feedback
+      stack()
+      margin-top: 37px
+      text-align: center
+      border-radius: 100%
+
+  .sidebar
+    stack()
+    border-top: none
+    padding-top: 0
+    height: auto
+
+    span.active
+      
+      a
+        box-shadow: inset 0px 4px 0px 0 $teal
+        opacity: 1
+        background: #087cc9
+
+    span
+      span(1/3)
+      height: 80px
+
+      h6
+        stack()
+        font-size: 0.5em
+        display: block
+        text-align: center
+        padding-top: 15px
+
+      img
+        stack()
+        center()
+        height: 30px
+        width: auto
+    
+    a
+      padding-left: 0
+
+  .user-profile
+    border-radius: 0px
+    box-shadow: none
+    height: 1000px
+    
+  .content
+    stack()
+    padding-top: 50px
+
+    h4
+      padding-left: 25px
+      padding-right: 25px
+      padding-bottom: 25px
+    
+    p
+      padding-top: 0px
+      padding-left: 25px
+      padding-right: 25px
+
+#input-skill, #input-location
+  text-align: center
+  margin: auto
+  top: 320px
+  max-width: 320px
+  
+  input
+    width: 250px
+    max-width: 250px
+    text-align: center
+    display: inline-block
+    margin: auto
+  
+  img
+    display: inline-block
+
+#input-location
+  top: 342px
