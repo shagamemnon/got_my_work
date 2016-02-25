@@ -21,32 +21,37 @@
       .avatar
         display: block
         text-align: center
+        background-image: url('https://s3.amazonaws.com/igotmywork/user_profile/upload_image.png')
+        height: 118px
+        background-size: 118px auto
+        background-repeat: no-repeat
+        background-position: center
 
-        img
-          width: 118px
-          opacity: 1
-          height: auto
-          border-radius: 100%
-          cursor: pointer
-          z-index: -1
+      img
+        width: 118px
+        opacity: 1
+        height: auto
+        border-radius: 100%
+        cursor: pointer
+
+      .uploadimgbtn
+        font-size: 0px
+        background-color: #333
+        position: absolute
+        height: 118px
+        width: 118px
+        cursor: pointer
+        background-image: url('https://s3.amazonaws.com/igotmywork/user_profile/upload_image.png')
+        background-size: 80px auto
+        background-repeat: no-repeat
+        background-position: center
+        border-radius: 100%
+        opacity: 0
+        single-transition( opacity )
         
-        input[name="pic"]
-          background-color: white
-          border-radius: 100%
-          color: white
-          text-align: center
-          padding-left: 25px
-          bottom: 390px
-          position: absolute
-          opacity: 0
-          font-size: 1px
-          color: transparent
-          font-family: $Gotham
-          cursor: pointer
-          
-          &:hover
-            opacity: 1
-            
+        &:hover, &:active, &:focus, &:after
+          opacity: 0.9
+                
     article
       col(5/7)
 
