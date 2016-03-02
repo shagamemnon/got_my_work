@@ -4,29 +4,27 @@
   .user-info
     .profile-picture
       .avatar
-        .uploadimgbtn(onclick="getFile()") upload
+        img(src= profile && profile.attributes.avatar ? profile.attributes.avatar : '', id="avatar")
+        .uploadimgbtn(onclick='getFile()') upload
         article(style='height: 0px;width: 0px; overflow:hidden')
-          input(id="upfile", type="file", value="upload", onchange="sub(this)", accept="image/*", class="upload-image")
-        -if ( profile )
-          img(src=#{profile.attributes.avatar}, id="avatar")
+            input(name="avatar", id="upfile", type="file", value="upload",accept="image/*", class="upload-image")
     article
       .span
-        -if ( profile )
-          h2= profile.attributes.username
+        h2= profile ? profile.attributes.fullName : ""
         h2(style="color: #00FF00") •
       a#open-skill(href="#")
-        h5 Add Your Skills
+        h5= profile && profile.attributes.skill ? profile.attributes.skill : "Add Your Skills"
         img(height="11px", src="https://s3.amazonaws.com/igotmywork/user_profile/pencil.png")
       form#input-skill(href="#")
-        input#edit-skill(type="text", name="skill", autofocus)
+        input#edit-skill(type="text", name="skill", value= profile && profile.attributes.skill ? profile.attributes.skill : "", placeholder="Add Your Skills", autofocus)
         img#close-skill(height="13px", src="https://s3.amazonaws.com/igotmywork/signup/close.png")
         img#save-skill(height="13px", src="https://s3.amazonaws.com/igotmywork/user_profile/check.png")
       
       a#open-location(href="#")
-        h6 Add Your Location
+        h6= profile && profile.attributes.adress ? profile.attributes.adress : "Add Your Location"
         img(height="11px", src="https://s3.amazonaws.com/igotmywork/user_profile/pencil.png")
       form#input-location
-        input#edit-location(type="text", name="location", autofocus)
+        input#edit-location(type="text", name="location", value= profile && profile.attributes.adress ? profile.attributes.adress : "", placeholder="Add Your Location", autofocus)
         img#close-location(height="13px", src="https://s3.amazonaws.com/igotmywork/signup/close.png")
         img#save-location(height="13px", src="https://s3.amazonaws.com/igotmywork/user_profile/check.png")
     .feedback

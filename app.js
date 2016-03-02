@@ -1,3 +1,4 @@
+'use strict';
 var port = process.env.PORT || 3000
   , express = require('express')
   , app = express()
@@ -8,13 +9,20 @@ var port = process.env.PORT || 3000
   , device = require('express-device')
   , bodyParser = require('body-parser')
   , config = require('./config')
-  , Parse = require('parse').Parse
   , path = require('path')
-  , session = require('express-session');
+  , Parse = require('parse').Parse
+  , session = require('express-session')
+  , ws = require('express-ws')(app)
+  , auth = require('./modules/auth')
+  , parseQuery = require('./modules/parseQuery');
 
-var logged = false;
+GLOBAL._ = require('lodash');
 
 Parse.initialize(config.parse.appId, config.parse.JSKey, config.parse.MsKey);
+
+var chat  =  require("./vendor/model/chat").init(Parse,function(error){
+  console.error('Chat error: ',error)
+});
 
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 app.use(bodyParser.json({limit: '50mb'}));
@@ -23,18 +31,19 @@ app.set('trust proxy', 1); // trust first proxy
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true
 }));
 
 var path = require('path');
-app.configure(function() {
-	app.use(express.static(path.join(__dirname, '../dist')));
-  //app.use(express.static(__dirname + '/dist'));
-});
-//app.use(express.static(path.join(__dirname, '../dist')));
+//app.configure(function() {
+//	app.use(express.static(path.join(__dirname, '../dist')));
+//  //app.use(express.static(__dirname + '/dist'));
+//});
+
+app.use("/dist", express.static(path.join(__dirname, '/dist')));
 //app.use("/dist", express.static(path.join(__dirname, '../dist')));
 
-app.use(express.favicon('./assets/images/favicon.ico'));
+app.use(favicon('./assets/images/favicon.ico'));
 app.use( device.capture() );
 
 app.set('views', __dirname + '/src/templates');
@@ -52,15 +61,41 @@ mailer.extend( app, {
   }
 });
 
-server.listen(port);
+app.listen(port);
 console.log('\nϟϟϟ Serving on port ' + port + ' ϟϟϟ\n');
 
-/** Uses Backbone Base **/
+app.ws('/chatgate/', function(ws, req) {
+  if(!req.session || !req.session.user) {
+    ws.close();
+    return;
+  }
+  var user = req.session.user;
+  chat.addConnection(user,ws);
+  ws.on('message', function(msg) {
+    chat.in(user.id,msg,function(answer){
+      ws.send(answer);
+    });
+  });
+  ws.on('error', function(msg) {
+   // console.log(msg)
+  });
+  ws.on('close', function() {
+    chat.closeConnection(req.query.id);
+  });
 
-app.get('/', function (req, res) {
-  device_path = req.device.type == 'desktop' ? 'desktop' : 'mobile';
-  //res.sendfile( 'dist/pages/' + device_path + '/landing_page.html' );
-  res.render('../pages/' + device_path + '/landing_page', {logged: logged});
+
+});
+
+/** Uses Backbone Base **/
+app.all('/*',(req, res, next)=>{
+  res.isLogged = req.session.user ? true : false;
+  next();
+});
+
+app.get('/', (req, res) => {
+  let device_path = req.device.type == 'desktop' ? 'desktop' : 'mobile';
+  //res.sendFile(__dirname + '/dist/pages/' + device_path + '/landing_page.html' );
+  res.render('../pages/' + device_path + '/landing_page', {logged: res.isLogged});
 });
 
 app.post('/', function (request, res ) {
@@ -103,396 +138,302 @@ app.post('/', function (request, res ) {
   }
 });
 
-app.get('/admin', function (req, res) {
-  res.sendfile( 'dist/pages/base.html' );
-});
+app.get('/admin', (req, res) => 
+  res.sendFile(__dirname + '/dist/pages/base.html')
+);
 
-// app.get('/settings', function (req, res) {
-//   res.sendfile( 'dist/pages/settings.html')
-// });
+// app.get('/settings', (req, res) => 
+//   res.sendFile( 'dist/pages/settings.html')
+// );
 
 /** Static && Marketing Routes **/
-app.get('/how-it-works', function (req, res) {
-  res.sendfile( 'dist/pages/how_it_works.html' );
-});
+app.get('/how-it-works', (req, res) => 
+  res.sendFile(__dirname + '/dist/pages/how_it_works.html')
+);
 
-app.get('/pricing', function (req, res) {
-  res.sendfile( 'dist/pages/pricing.html' );
-});
+app.get('/pricing', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/pricing.html')
+);
 
-app.get('/about', function (req, res) {
-  res.sendfile( 'dist/pages/about.html' );
-});
+app.get('/about', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/about.html')
+);
 
-app.get('/terms-of-service', function (req, res) {
-  res.sendfile( 'dist/pages/terms_of_service.html' );
-});
+app.get('/terms-of-service', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/terms_of_service.html')
+);
 
-app.get('/privacy-policy', function (req, res) {
-  res.sendfile( 'dist/pages/privacy_policy.html' );
-});
+app.get('/privacy-policy', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/privacy_policy.html')
+);
 
-app.get('/listing', function ( req, res) {
-  res.sendfile( 'dist/pages/project_listing.html')
-});
+app.get('/listing', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/project_listing.html')
+);
 
-app.get('/contact', function ( req, res) {
-  res.sendfile( 'dist/pages/contact.html')
-});
+app.get('/contact', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/contact.html')
+);
 
 app.get('/project_index', function ( req, res) {
   res.sendfile( 'dist/pages/project_index.html')
 });
 
-app.get('/projects-dashboard', function ( req, res) {
-  res.sendfile( 'dist/pages/project_dashboard.html')
-});
+app.get('/projects-dashboard', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
+);
 
-app.get('/projects', function ( req, res) {
-  var Project = Parse.Object.extend("Project"),
-    query = new Parse.Query(Project);
-  query.limit(8);
-  query.find({
-    success: function(results){
-      var projects = [];
-      results.map(function(project) {
-        projects.push(project);
-      });
-      res.render( '../pages/project_index', {"projects": projects});
-    },
-    error: function(obj, error){
-      res.json("error");
-      console.log("adding error", error);
-    }
-  });
-});
-
-/* inserting new project */
-app.post('/projects', function (req, res) {
-  var Project = Parse.Object.extend("Project"),
-    query = new Project();
-  query.set("Title", req.params.title);
-  query.save(null, {
-    success: function(project){
-      console.log("project", project);
-    },
-    error: function(obj, error){
-      console.log("adding error", error)
-    }
-  });
-  res.json("got");
-});
-
-/* project get by id */
-app.get('/projects/:id', function ( req, res) {
-  var query = new Parse.Query("Project");
-  query.get(req.params.id, {
-    success: function(project) {
-      console.log("project", project);
-    },
-    error: function(object, error) {
-      console.log("getting error", error);
-    }
-  });
-  res.json("got");
-});
-
-/* project update by id */
-app.put('/projects/:id', function ( req, res) {
-  var query = new Parse.Query("Project");
-  query.get(req.params.id, {
-    success: function(project) {
-      project.set("Title", "New");
-      project.save({
-        success: function(item){
-          console.log("project", item);
-        },
-        error: function(item, error){
-          console.log("saving error", error);
+app.route('/projects')
+  .get(function ( req, res) {
+      parseQuery.getObjects({class: "Project", limit: 8}, function(answer){
+        if (answer.result == 'ok') {
+          console.log("projects", answer.object);
+          res.render('../pages/project_index', {"projects": answer.object});
+        } else {
+          console.log("getting projects error", answer.error);
+          res.json("error");
         }
       });
-    },
-    error: function(object, error) {
-      console.log("getting error", error);
-    }
-  });
-  res.json("got");
-});
-
-/* project delete by id */
-app.delete('/projects/:id', function ( req, res) {
-  var query = new Parse.Query("Project");
-  query.get(req.params.id, {
-    success: function(results) {
-      results.destroy({
-        success: function(project){
-          console.log("deleted", project);
-        },
-        error: function(error){
-          console.log("deleting error", error);
+  })
+  .post(function (req, res) { /* inserting new project */
+      parseQuery.updateObject({class: "Project", id: req.params.id}, function(answer){
+        if (answer.result == 'ok') {
+          console.log("updated project", project);
+          res.json("got");
+        } else {
+          console.log("updating projects error", answer.error);
+          res.json("error");
         }
       });
-    },
-    error: function(object, error) {
-      console.log("getting error", error);
-    }
   });
-  res.json("got");
-});
 
-app.get('/dashboard', function ( req, res) {
-  res.sendfile( 'dist/pages/project_dashboard.html')
-});
-
-app.get('/user', function ( req, res) {
-  res.sendfile( 'dist/pages/project_dashboard.html')
-});
-
-app.get('/profile-interface', function ( req, res) {
-  res.sendfile( 'dist/pages/user_profile.html')
-});
-
-app.get('/profile/:id', function ( req, res) {
-  var query = new Parse.Query(Parse.User);
-  query.equalTo("objectId", req.params.id);
-  query.find({
-    success: function(user) {
-      res.render('../pages/user_profile', {profile: user});
-    },
-    error: function(user, error){
-
-    }
-  });
-});
-
-app.get('/company', function ( req, res) {
-  res.sendfile( 'dist/pages/company_profile.html')
-});
-
-/* inserting new project */
-app.post('/company', function (req, res) {
-  var Company = Parse.Object.extend("Company"),
-      query = new Company();
-  query.set("Name", req.params.name);
-  query.save(null, {
-    success: function(company){
-      console.log("company", company);
-    },
-    error: function(obj, error){
-      console.log("adding error", error)
-    }
-  });
-  res.json("got");
-});
-
-/* company get by id */
-app.get('/company/:id', function ( req, res) {
-  var query = new Parse.Query("Company");
-  query.get(req.params.id, {
-    success: function(company) {
-      console.log("company", company);
-    },
-    error: function(object, error) {
-      console.log("getting error", error);
-    }
-  });
-  res.json("got");
-});
-
-/* company update by id */
-app.put('/company/:id', function ( req, res) {
-  var query = new Parse.Query("Company");
-  query.get(req.params.id, {
-    success: function(company) {
-      project.set("Title", "New");
-      project.save({
-        success: function(item){
-          console.log("company", item);
-        },
-        error: function(item, error){
-          console.log("saving error", error);
-        }
+app.route('/projects/:id')
+  .get(function ( req, res) { /* project get by id */
+      parseQuery.getObject({class:"Project", id: req.params.id}, function(answer){
+        if (answer.result == 'ok')
+          console.log("project", answer.object);
+        else
+          console.log("project", answer.error);
       });
-    },
-    error: function(object, error) {
-      console.log("getting error", error);
-    }
-  });
-  res.json("got");
-});
-
-/* company delete by id */
-app.delete('/company/:id', function ( req, res) {
-  var query = new Parse.Query("Company");
-  query.get(req.params.id, {
-    success: function(results) {
-      results.destroy({
-        success: function(company){
-          console.log("deleted", company);
-        },
-        error: function(object, error){
-          console.log("deleting error", error);
-        }
+  })
+  .put(function ( req, res) { /* project update by id */
+      parseQuery.updateObject({class: "Project", id: req.params.id, data: req.body}, function(answer){
+        if (answer.result == 'ok')
+          console.log("project", answer.object);
+        else
+          console.log("project", answer.error);
       });
-    },
-    error: function(object, error) {
-      console.log("getting error", error);
+  })
+  .delete(function ( req, res) { /* project delete by id */
+      parseQuery.deleteObject({class:"Project", id: req.params.id}, function(answer){
+        if (answer.result == 'ok')
+          console.log("project", answer.object);
+        else
+          console.log("project", answer.error);
+      });
+  });
+
+app.get('/dashboard', (req, res) =>
+  res.sendFile(__dirname + 'dist/pages/project_dashboard.html')
+);
+
+app.get('/user', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
+);
+
+app.get('/profile-interface', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/user_profile.html')
+);
+
+app.route('/profile')
+  .get((req, res) => {
+    if (res.isLogged)
+      parseQuery.getObject({class: "User", id: req.session.user.id},
+          (profile)=> {
+            res.render('../pages/user_profile', {logged: res.isLogged, profile: profile.object});
+            console.log("user", profile)
+          },
+          (profile)=> {
+            res.json('error');
+            console.log("user", profile)
+          }
+      );
+    else {
+      //res.render('../pages/user_profile');
+      res.redirect("/get-started")
+    }
+  }).post((req, res)=> {
+    if (res.isLogged) {
+      parseQuery.updateObject({class: "User", id: req.session.user.id, data: req.body},
+          (profile)=> {
+            //console.log("user up", profile);
+            res.json('ok');
+          },
+          (profile)=> {
+            //console.log("user up err", profile);
+            res.json('ok');
+          }
+      );
+    } else {
+      //console.log("user post err");
+      res.json({error: "error"});
     }
   });
-  res.json("got");
-});
 
-app.get('/get-started', function ( req, res) {
-  res.sendfile( 'dist/pages/login/selection.html')
-});
+app.get('/profile/:id', (req, res) =>
+  parseQuery.getObject({class: "User", id: req.params.id},
+      (answer)=>{
+        res.json('ok');
+        console.log("user", answer)
+      },
+      (answer)=>{
+        res.json('ok');
+        console.log("user", answer)
+      }
+  )
+);
 
-app.get('/login', function ( req, res) {
-  res.sendfile( 'dist/pages/login/login.html')
-});
+app.route('/company')
+  .get( (req, res) => {
+    res.sendFile(__dirname + '/dist/pages/company_profile.html')
+  })
+  .post( (req, res) => { /* inserting new company */
+    parseQuery.addObject({class: "Company", data: req.body},
+      (answer) =>
+        console.log("company!", answer),
+      (answer) =>
+        console.log("company?", answer.error)
+    );
+  });
 
-app.get('/logout', function ( req, res) {
+app.route('/company/:id')
+  .get( (req, res) => { /* company get by id */
+      parseQuery.getObject({class: "Company", id: req.params.id},
+        (answer) =>
+          console.log("company", answer.object),
+        (answer) =>
+          console.log("company", answer.error)
+      );
+  })
+  .put( (req, res) =>/* company update by id */
+      parseQuery.updateObject(
+          {class: "Company", id: req.params.id, data: req.body},
+          (answer)=>{
+            res.json('ok');
+            console.log("company", answer)
+          },
+          (answer)=>{
+            res.json('error');
+            console.log("company", answer)
+          }
+      )
+  )
+  .delete( (req, res) => { /* company delete by id */
+      parseQuery.deleteObject({class: "Company", id: req.params.id}, (answer) => {
+        if (answer.result == 'ok')
+          console.log("company", answer.object);
+        else
+          console.log("company", answer.error);
+      });
+  });
+
+app.get('/get-started', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/login/selection.html')
+);
+
+app.route('/login')
+  .get( (req, res) =>
+    res.sendFile(__dirname + '/dist/pages/login/login.html')
+  )
+  .post( (req, res ) => {
+    auth.loginUser(req.body,
+      (loginRes) => {
+        console.log(loginRes);
+        req.session.user = { id: loginRes.answer.id, attributes: loginRes.answer.attributes };
+        res.redirect('/');
+        //res.status(200).json({result: 'ok'});
+      },
+      (loginError) =>
+        res.render('../pages/login/login', {error:{result: loginError.error.message, email: req.body.email, pass: req.body.pass}})
+    );
+  });
+
+app.get('/logout', (req, res) => {
   req.session.destroy();
-  logged = false;
   res.redirect( '/');
 });
 
-app.post('/login', function( req, res ){
-  Parse.User.enableUnsafeCurrentUser();
-  console.log(Parse.User.current());
-  Parse.User.logIn(req.body.email, req.body.pass, {
-    success: function(user) {
-      req.session.user = { id: user.id, attributes: user.attributes };
-      logged = true;
-      res.redirect("/");
+app.post('/signup-user', (req, res) =>
+  auth.userSignUp(req.body,
+    (signUpRes) => {
+      console.log('1', signUpRes);
+      req.session.user = {id: signUpRes.answer.id, attributes: signUpRes.answer.attributes};
+      res.status(200).json({result: 'ok'});
     },
-    error: function(user, error) {
-      console.log("error", error);
-      res.sendfile( 'dist/pages/login/login.html')
+    (signUpError) => {
+      console.log("Error: " + signUpError.error.code + " " + signUpError.error.message);
+      res.status(400).send({code: signUpError.error.code, error: signUpError.error.message});
     }
-  });
-});
+  )
+);
 
-app.get('/signup-company', function ( req, res) {
-  res.sendfile( 'dist/pages/login/company.html')
-});
-
-app.post('/signup-company', function ( req, res) {
-  var user = new Parse.User(),
-    Company = Parse.Object.extend("Company"),
-    query = new Company();
-  query.set("name", req.body.companyName);
-
-  var stripe = require("stripe")(config.stripe);
-
-  user.set('username', req.body.email);
-  user.set('password', req.body.password);
-  //user.set('password', req.body.password);
-  user.set('email', req.body.email);
-  user.set('phone', req.body.phone);
-  user.set('fullName', req.body.userName);
-  user.set('userRole', "user");
-  user.set('accountType', "company");
-
-  user.signUp(null, {
-    success: function(user) {
-      query.set('userId', user.id);
-      query.save(null, {
-        success: function(company){
-          stripe.charges.create({
-            amount: config.accounts.company.payment * 100, /* amount should be in cents */
-            currency: config.currency,
-            source: req.body.stripeToken, // obtained with Stripe.js
-            description: "Charge for company account on igotmyworks.com"
-          }, function(err, charge) {
-            if (!err) {
-              console.log(charge);
-              res.redirect("/");
-            } else {
-              res.redirect("/");
-            }
-          });
-
-        },
-        error: function(obj, error){
-          res.json({error: error.message});
-          console.log("adding company error", error);
-        }
-      });
+app.post('/signup-company', (req, res) =>
+  auth.companySignUp(req.body,
+    (signUpRes) => {
+      console.log(signUpRes);
+      req.session.user = {id: signUpRes.user.answer.id, attributes: signUpRes.user.answer.attributes};
+      res.status(200).json({result: 'ok'})
     },
-    error: function(user, error) {
-      console.log("Error: " + error.code + " " + error.message);
-      res.json({error: error.message});
+    (signUpError) => {
+      console.log("Error: " + signUpError.error.code + " " + signUpError.error.message);
+      res.status(400).send({code: signUpError.error.code, error: signUpError.error.message});
     }
-  });
-});
+  )
+);
+
+app.get('/payment', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/login/payment.html')
+);
 
 // app.get('/signup-user', function ( req, res) {
 //   res.sendfile( 'dist/pages/login/user.html')
 // });
 
-app.post('/signup-user', function ( req, res) {
-  var user = new Parse.User();
-  user.set('username', req.body.email);
-  user.set('fullName', req.body.name);
-  user.set('password', req.body.pass);
-  user.set('email', req.body.email);
-  user.set('userRole', "user");
-  user.set('accountType', "free");
-
-  user.signUp(null, {
-    success: function(user) {
-      res.redirect("/");
-    },
-    error: function(user, error) {
-      console.log("Error: " + error.code + " " + error.message);
-      res.redirect("/");
-    }
-  });
-});
-
-app.get('/payment', function ( req, res) {
-  res.sendfile( 'dist/pages/login/payment.html')
-});
-
-app.get('/thanks', function ( req, res) {
-  res.sendfile( 'src/pages/thanks.html')
-});
+app.get('/thanks', (req, res) =>
+  res.sendFile(__dirname + '/src/pages/thanks.html')
+);
 
 // Manager Panel
 
-app.get('/manager-login', function ( req, res) {
-  res.sendfile( 'dist/pages/login/manager.html')
-});
+app.get('/manager-login', (req, res) =>
+  res.sendfile(__dirname + '/dist/pages/login/manager.html')
+);
 
-app.get('/manager-one', function ( req, res) {
-  res.sendfile( 'dist/pages/manager/tab1.html')
-});
+app.get('/manager-one', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/manager/tab1.html')
+);
 
-app.get('/manager-two', function ( req, res) {
-  res.sendfile( 'dist/pages/manager/tab2.html')
-});
+app.get('/manager-two', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/manager/tab2.html')
+);
 
-app.get('/manager-three', function ( req, res) {
-  res.sendfile( 'dist/pages/manager/tab3.html')
-});
+app.get('/manager-three', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/manager/tab3.html')
+);
 
-app.get('/manager-four', function ( req, res) {
-  res.sendfile( 'dist/pages/manager/tab4.html')
-});
+app.get('/manager-four', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/manager/tab4.html')
+);
 
-app.get('/manager-five', function ( req, res) {
-  res.sendfile( 'dist/pages/manager/tab5.html')
-});
+app.get('/manager-five', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/manager/tab5.html')
+);
 
-app.get('/sales-manager', function ( req, res) {
-  res.sendfile( 'dist/pages/manager/sales_manager.html')
-});
+app.get('/sales-manager', (req, res) =>
+  res.sendFile(__dirname + '/dist/pages/manager/sales_manager.html')
+);
 
-app.get('/*' , function( req, res, next ) {
-  if (req.session.user)
-    logged = true;
-  else
-    logged = false;
+app.get('/*' , (req, res, next) => {
   var file = req.params[0];
-    res.sendfile( __dirname + '/' + file );
+  res.sendFile( __dirname + '/' + file );
 });

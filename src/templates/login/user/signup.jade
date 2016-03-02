@@ -1,4 +1,4 @@
-script(src="/vendor/login.js")
+script(src="/vendor/signup.js")
 
 #signup-user
 section.signup-header
@@ -9,10 +9,10 @@ section.signup-header
                 .error-message
                 .visible
                     em Create Account
-                    input( name="name", type="text", placeholder="First and Last Name", autofocus )
+                    input( name="userName", type="text", placeholder="First and Last Name" )
                     input( name="email", type="text", placeholder="Email" )
                 .hidden
-                    input( name="pass", type="password", placeholder="Create Password", autofocus )
+                    input( name="password", type="password", placeholder="Create Password" )
                     input( name="confirm", type="password", placeholder="Confirm Password" )
             .submit-button
                 button#request GO

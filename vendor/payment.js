@@ -1,67 +1,73 @@
 Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
 
-$(document).ready(function() {
-    var $form = $('#payment-form'),
+function payment($form, result) {
+    var //$form = $('#payment-form'),
         card = $form.find('[name="payment-card"]'),
         cvc = $form.find('[name="cvv"]'),
         exp = $form.find('[name="expiration"]'),
         name = $form.find('[name="cardHolder"]'),
-        errorBlock = $form.find('.error-message.payment');
-    $form.find('input').on('blur', function(){
-        var that = $(this);
-        if ( that.val() != '' )
-            that.removeClass('error');
-    });
+        token = $form.find('[name="stripeToken"]'),
+        answer = token.length != 0 && token.val() != '' ? true : false;
+        //errorBlock = $form.find('.error-message.payment');
+
+    function errorBlockClear(form){
+        var error = form.find('.error-message');
+        error.empty();
+    }
+    function errorShow(form, message){
+        var error = form.find('.error-message');
+        error.text(message);
+        $("body,html").animate({"scrollTop":error.offset().top - 10});
+    };
     function stripeResponseHandler(status, response) {
         if (response.error) {
             var error = response.error;
             // Show the errors on the form
-            switch (error.param){
+            switch (error.param) {
                 case 'number':
                     card.addClass('error');
-                    errorBlock.text(error.message);
+                    errorShow($form, error.message);
                     break;
                 case 'exp_year':
                     exp.addClass('error');
-                    errorBlock.text(error.message);
+                    errorShow($form, error.message);
                     break;
                 case 'cvc':
                     cvc.addClass('error');
-                    errorBlock.text(error.message);
+                    errorShow($form, error.message);
                     break;
             }
-            $form.find('.payment-errors').text(response.error.message);
-            $form.find('button').prop('disabled', false);
+            errorShow($form, response.error.message);
         } else {
-            // response contains id and card, which contains additional card details
-            var token = response.id;
-            // Insert the token into the form so it gets submitted to the server
-            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-            // and submit
-            $form.get(0).submit();
+            $form.append($('<input type="hidden" name="stripeToken" />').val(response.id));
+            answer = true;
         }
     }
-    $('.submit-button').on('click', 'button', function () {
-        errorBlock.empty();
+    function paymentCheck() {
+        //errorBlockClear($form);
         $('.error').removeClass('error');
 
-        if ( card.val() == '' )
-            card.addClass('error');
-        if ( cvc.val() == '')
+        card.val() == '' ? card.addClass('error') : card.removeClass('error');
+        if (cvc.val() == '')
             cvc.addClass('error');
-        if ( exp.val() == '' )
+        if (exp.val() == '')
             exp.addClass('error');
-        if ( name.val() == '' )
+        if (name.val() == '')
             name.addClass('error');
 
-        if ( $form.find('.error').length == 0 )
+        if ($form.find('.error').length == 0) {
 
             Stripe.card.createToken({
                 number: card.val(),
                 cvc: cvc.val(),
                 exp: exp.val()
             }, stripeResponseHandler);
-        else
-            errorBlock.text("Fields shouldn't be empty");
-    });
-});
+        } else
+            errorShow($form, "Fields shouldn't be empty");
+    }
+    if ( !answer )
+        paymentCheck();
+
+    if(result)
+        result(answer)
+}

@@ -87,7 +87,8 @@ module.exports = function (grunt) {
           'dist/css/company_profile.css': 'src/styl/pages/company_profile/main.styl',
           'dist/css/pricing.css': 'src/styl/pages/pricing/main.styl',
           'dist/css/manager.css': 'src/styl/pages/manager/main.styl',
-          'dist/css/contact.css': 'src/styl/pages/contact/main.styl'
+          'dist/css/contact.css': 'src/styl/pages/contact/main.styl',
+          'dist/css/chat.css': 'src/styl/chat/chat.styl'
         }
       }
     },

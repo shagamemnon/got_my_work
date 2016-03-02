@@ -3,11 +3,11 @@ section.signup-header.login
         .signup.user
             h2 Log In
             form(method="post")
-                .error-message
+                .error-message= error ? error.result : ''
                 .visible
                     em
-                    input( name="email", type="text", placeholder="Email" )
+                    input( name="email", type="text", placeholder="Email", value= error ? error.email : '' )
                     em
-                    input( name="pass", type="password", placeholder="Password" )
+                    input( name="password", type="password", placeholder="Password", value= error ? error.pass : '' )
                 .submit-button
                     button GO

@@ -25,12 +25,12 @@ jQuery(document).ready(function() {
                     url: form.attr('action'),
                     dataType: "json",
                     data: form.serializeArray()
-                }).done(function (ans) {
+                }).done(function(ans) {
                     console.log(ans);
                     if (ans.error)
                         error.text(ans.error);
-					else
-						window.location = "/";
+                    else
+                        window.location = "/profile";
                 });
             else if ( form.find('.error').length == 0 && form.find('[name="pass"]').val() != form.find('[name="confirm"]').val() ) {
                 error.text("Password doesn't match");

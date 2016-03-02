@@ -1,0 +1,216 @@
+fontSize = 13px
+fontFamily = 'Gotham',Helvetica,sans-serif;
+messageFontFamily = Arial
+messageFontSize = 11
+backgroundColor = #f1f5f9
+blackColor = #323232
+labelColor = #898989
+backgroundInMessage = #ff5b1f;
+backgroundOutMessage = #3f8cd8;
+targetHeight = 50px
+messagesHeight = 200px
+contentHeight = 140px + targetHeight + messagesHeight
+width = 280px
+
+#chat
+  width: width;
+  background-color: blackColor;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  overflow: hidden;
+  position fixed;
+  bottom: 5px;
+  right: 5px;
+  font-size: fontSize;
+  font-family: fontFamily;
+  z-index: 1000;
+  border solid 2px #BCB5B9;
+  .bottomLine
+    border-bottom: solid 2px #fff;
+    z-index: 1;
+  .header
+    height: 34px;
+    > div.title
+      width: 39px;
+      height: 22px;
+      font-size: 18px;
+      color: #ffffff;
+      padding-top: 9px;
+      padding-left: 12px;
+      display: inline-block;
+    .actions
+      margin-top: 10px;
+      margin-right: 10px
+      float: right;
+      display: inline-block;
+      > div
+        display: inline-block;
+      .minimaze
+        width: 11px;
+        border-bottom: solid 3px #fff;
+        margin-right: 4px;
+        height: 15px;
+        cursor: pointer;
+      .exit
+        width: 15px;
+        height: 18px;
+        font-family: FontAwesome;
+        font-size: 18px;
+        line-height: 0.8;
+        color: #ffffff;
+        cursor: pointer;
+  > div.body
+    border = 5px;
+    width: width - border*2;
+    height: contentHeight;
+    background-color: backgroundColor;
+    padding-left: border;
+    padding-right: border;
+    .content
+      position: relative;
+    .avatar
+      border-radius: 50%
+      background: white;
+      overflow: hidden;
+      width: 45px;
+      height: 45px;
+    .simplebar-track
+      .simplebar-scrollbar
+        width: 4px;
+        border-radius: 0px;
+  > div.body.chat
+    .target
+      padding-top: 11px;
+      padding-bottom: 8px;
+      height: targetHeight;
+      > div
+        display: inline-block;
+      .infoBlock
+        vertical-align: top;
+        font-size: fontSize+1;
+        margin-top: 5px;
+        .label
+          color: labelColor;
+          margin-bottom: 3px;
+    .messages
+      borderMessageRadius = 20px
+      height: messagesHeight;
+      .message
+        margin-bottom: 10px;
+        font-family: messageFontFamily;
+        font-size: messageFontSize;
+        .title
+          margin-bottom: 8px;
+          > div
+            display: inline-block;
+          .avatar
+            border-radius: 50%
+            background: backgroundColor;
+            overflow: hidden;
+            margin-left: 3px;
+            width: 18px;
+            height: 18px;
+            position: relative;
+            top: 5px;
+          .name
+            font-weight: bold;
+          .time
+            color: #CFCFDE;
+            font-weight: bold;
+        .body
+          min-height: 20px;
+          width: 88%;
+          border-bottom-right-radius: borderMessageRadius;
+          border-bottom-left-radius: borderMessageRadius;
+          background-color: backgroundInMessage;
+          margin-left: 15px;
+          padding-left: 10px;
+          padding-top: 13px;
+          padding-bottom: 10px;
+          color: white;
+      .message.in
+        .body
+          border-top-right-radius: borderMessageRadius;
+          background-color: backgroundInMessage;
+      .message.out
+        .body
+          border-top-left-radius: borderMessageRadius;
+          background-color: backgroundOutMessage;
+        .title
+          text-align: right;
+          margin-right: 15px;
+  .sendBlock
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    textarea
+      width: 98%;
+      height: 54px;
+      resize: none;
+      border:0px;
+    div
+      margin-top: 4px;
+      font-family: Helvetica;
+      font-size: 15px;
+      color: white;
+      text-transform: uppercase;
+      background-color: #3f8cd8;
+      display: inline-block;
+      float: right;
+      height: 20px;
+      vertical-align: middle;
+      text-align: center;
+      padding-top: 6px;
+      padding-left: 5px;
+      padding-right: 5px;
+      border-radius: 7px;
+      cursor: pointer;
+    div:hover
+      background-color: #3273b5;
+
+  > div.body.contacts
+    .contactList
+      height: contentHeight;
+      padding-left: 10px;
+      padding-right: 10px;
+      .contact
+        width: 92%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        cursor: pointer;
+        > div
+          display: inline-block;
+          vertical-align: middle;
+        .avatar
+          margin-left: 4px;
+        .name
+          margin-left: 6px;
+
+.tabs
+    background: #ffffff;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    div
+      width: 50%;
+      height: 100%;
+      display: inline-block;
+      font-size: 18px;
+      color: #898989;
+      text-align: center;
+      line-height: 2;
+      cursor: pointer;
+      z-index 2;
+    div:hover
+      background: #EEE
+    .active
+      border-top: solid 3px #979797;
+
+
+
+
+
+
+
+
+
