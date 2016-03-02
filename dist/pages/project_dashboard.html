@@ -2,6 +2,10 @@
 <html>
   <head>
     <link rel="stylesheet" href="dist/css/project_dashboard.css">
+    <script src="vendor/jquery-latest.min.js"></script>
+    <script src="vendor/photo-upload.js"></script>
+    <script src="vendor/project_dashboard/mark.js"></script>
+    <script src="vendor/project_dashboard/tabs.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
@@ -66,11 +70,11 @@
             </div>
           </section>
           <section class="status"><em>Status</em>
-            <div id="complete" class="stage"><small>Waiting</small></div>
-            <div id="complete" class="stage"><small>Running</small></div>
-            <div id="active" class="stage"><small>Testing</small></div>
-            <div id="inactive" class="stage"><small>Complete</small></div>
-            <div id="inactive" class="stage"><small>Delivered</small></div>
+            <p id="complete" class="stage">&nbsp;<small>Waiting</small></p>
+            <p id="complete" class="stage">&nbsp;<small>Running</small></p>
+            <p id="active" class="stage">&nbsp;<small>Testing</small></p>
+            <p id="inactive" class="stage">&nbsp;<small>Complete</small></p>
+            <p id="inactive" class="stage">&nbsp;<small>Delivered</small></p>
           </section>
           <div class="key">
             <div class="dot start">
@@ -83,11 +87,9 @@
               <p>Due</p>
             </div>
           </div>
-          <div class="calendar">
-            <div class="header">
-              <div class="arrow-left">o</div>
-              <h2>July 2013</h2>
-              <div class="arrow-right">o</div>
+          <section id="january" class="calendar">
+            <div class="header"><a id="left" href="#december" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>January 2017</h2><a id="right" href="#february" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
             </div>
             <table>
               <tr>
@@ -145,15 +147,694 @@
                 <td class="future">2</td>
               </tr>
             </table>
-          </div>
+          </section>
+          <section id="february" class="calendar">
+            <div class="header"><a id="left" href="#january" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>February 2016</h2><a id="right" href="#march" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="march" class="calendar">
+            <div class="header"><a id="left" href="#february" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>March 2016</h2><a id="right" href="#april" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="april" class="calendar">
+            <div class="header"><a id="left" href="#march" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>July 2016</h2><a id="right" href="#may" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="may" class="calendar">
+            <div class="header"><a id="left" href="#april" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>May 2016</h2><a id="right" href="#june" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="june" class="calendar">
+            <div class="header"><a id="left" href="#may" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>June 2016</h2><a id="right" href="#july" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="july" class="calendar">
+            <div class="header"><a id="left" href="#june" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>July 2016</h2><a id="right" href="#august" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="august" class="calendar">
+            <div class="header"><a id="left" href="#july" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>July 2016</h2><a id="right" href="#september" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="september" class="calendar">
+            <div class="header"><a id="left" href="#august" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>September 2016</h2><a id="right" href="#october" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="october" class="calendar">
+            <div class="header"><a id="left" href="#september" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>October 2016</h2><a id="right" href="#november" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="november" class="calendar">
+            <div class="header"><a id="left" href="#october" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>November 2016</h2><a id="right" href="#december" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
+          <section id="december" class="calendar">
+            <div class="header"><a id="left" href="#november" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-left.png"></a>
+              <h2>July 2016</h2><a id="right" href="#january" class="arrow"><img src="https://s3.amazonaws.com/igotmywork/projects/arrow-right.png"></a>
+            </div>
+            <table>
+              <tr>
+                <td>SUN</td>
+                <td>MON</td>
+                <td>TUE</td>
+                <td>WED</td>
+                <td>THU</td>
+                <td>FRI</td>
+                <td>SAT</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="start">7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="today">14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td class="due">18</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="future">1</td>
+                <td class="future">2</td>
+              </tr>
+            </table>
+          </section>
           <section class="files-row">
             <div class="left"><em>Files</em><a>mpasve02.sql</a><small>10/22/2015</small></div>
-            <div class="right"><a>Upload</a></div>
+            <div class="right">
+              <div onclick="getFile()" class="uploadimgbtn">Upload</div>
+              <article style="height: 0px;width: 0px; overflow:hidden">
+                <input id="upfile" type="file" value="upload" onchange="sub(this)" accept="image/*" class="upload-image">
+              </article>
+            </div>
           </section>
           <div class="dashboard-buttons">
             <button class="cancel"><a href="#">Cancel Project</a></button>
             <button class="deliver"><a href="#">Deliver Project</a></button>
           </div>
+        </div>
+        <div id="alert">
+          <p>Request Submitted</p>
         </div>
       </div>
     </main>
