@@ -17,6 +17,7 @@
       border-radius: 100%
       display: block
       cursor: pointer
+      border: none
 
       .avatar
         display: block
@@ -27,32 +28,39 @@
         background-repeat: no-repeat
         background-position: center
         position: relative
-
-      img
-        width: 118px
-        height: 118px
-        opacity: 1
+        border: none
         border-radius: 100%
-        cursor: pointer
-
-      .uploadimgbtn
-        font-size: 0px
-        background-color: #eee
-        position: absolute
-        height: 118px
-        width: 118px
-        cursor: pointer
-        background-image: url('https://s3.amazonaws.com/igotmywork/user_profile/upload_image.png')
-        background-size: 80px auto
-        background-repeat: no-repeat
-        background-position: center
-        border-radius: 100%
-        opacity: 0
-        top: 0
-        single-transition( opacity )
         
-        &:hover, &:active, &:focus, &:after
-          opacity: 0.9
+        button
+          border: 1px solid transparent
+
+        img#avatar
+          width: 118px
+          height: 118px
+          opacity: 1
+          border-radius: 100%
+          cursor: pointer
+          visibility: hidden
+
+        .uploadimgbtn
+          font-size: 0px
+          background-color: #eee
+          position: absolute
+          height: 118px
+          width: 118px
+          cursor: pointer
+          background-image: url('https://s3.amazonaws.com/igotmywork/user_profile/upload_image.png')
+          background-size: 80px auto
+          background-repeat: no-repeat
+          background-position: center
+          border-radius: 100%
+          border: none
+          opacity: 0
+          top: 0
+          single-transition( opacity )
+          
+          &:hover, &:active, &:focus, &:after
+            opacity: 0.9
                 
     article
       col(5/7)
@@ -105,7 +113,7 @@
       
       img
         display: block
-        max-height: 94px
+        max-height: 110px
         center()
       
       h6
@@ -186,89 +194,47 @@
     padding-top: 74px
     height: 600px
 
+    .tab.active
+      h4
+        padding-left: 20px
+
     .info-row
       display: block
+
+    article
+      width: 100%
+      display: block
+
+      .span
+        padding-top: 6px
+        padding-bottom: 3px
+
+        h2
+          header2()
+          letter-spacing: -1px
+          display: inline
+          font-weight: 700
+
+      a#open-phone
+        display: block
+        margin-bottom: 30px
+        margin-left: 3px
+        text-decoration: none
+        visibility: visible
+        
+        img
+          padding-left: 5px
+
+      input[name="phone"], h5
+        font-size: 1.1em
+        font-weight: 300
+        color: #666
+        border: none
+        cursor: pointer
+        display: inline
       
-    h4
-      header4()
-      padding-left: 50px
-      padding-right: 50px
-      padding-bottom: 37px
-
-    p
-      paragraph()
-      padding-left: 50px
-      padding-right: 50px
-      padding-bottom: 25px
-
-    em
-      span(1/4)
-      text-transform: uppercase
-      color: #333
-      font-size: 0.80em
-      font-weight: 500    
-
-    p
-      span(3/5)
-      color: #555
-      paragraph()
-      text-transform: uppercase
-      letter-spacing: 0.2px
-
-    input
-      span(3/5)
-      border: none
-      outline: none
-      font-size: 0.9em
-      color: #555
-      text-decoration: italic
-
-    a
-      span(1/7)
-      text-decoration: none
-      color: $primary-color
-      text-align: right
-      cursor: pointer
-
-    img
-      height: 155px
-      width: auto
-
-    select
-      span(3/5)
-      height: 42px
-      font-family: $Gotham
-      font-size: 13px
-      max-width: 100%
-      margin-top: -10px
-      border: 2px solid #ccc
-      border-radius: 3px
-      outline: none
-      display: inline-block
-      clearfix()
-      background: white
-      color: #ccc
-
-    button
-      button()
-      height: 40px
-      border-color: transparent
-      float: right
-      max-width: 150px
-      border-color: Transparent 
-      border-radius: 3px
-      background: $primary-color
-      color: white 
-      display: inline-block
-      font-family: $Gotham
-      font-weight: 400
-      cursor: pointer
-      font-size: 12px
-      single-transition( background-color )
-
-      &:hover, &.active
-        background: #306eff
-        single-transition( background-color )
+      h5, h6
+        visibility: visible
 
     .add-technology
       display: block
@@ -294,9 +260,51 @@
 
     .tab
       display: none
+
+      textarea
+        margin-left: 30px
+        margin-top: 30px
+        padding: 15px
+        height: 150px
+        width: 450px
+        border: 2px solid #ddd
+        border-radius: 1px
+        font-size: 0.9em
+        outline: none
+        
+        &:focus
+          border: 2px solid $teal
+
+      h4.tab-title, em
+        padding-left: 30px
+      
+      em, a, p
+        margin-bottom: 30px
+        col(1/4)
+        font-size: 0.9em
+      
+      p
+        font-weight: 300
+        color: #666
+        border: none
+        cursor: pointer
+      
+      a
+        color: $primary-color
+        cursor: pointer
+        
+      
+      h4.tab-title
+        header4()
+        display: block
       
     .tab.active
       display: block
+          
+    .hidden
+      visibility: hidden
+
+
 
 #input-skill, #input-location
   background-color: white

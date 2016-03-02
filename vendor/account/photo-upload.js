@@ -34,5 +34,6 @@ function previewFile() {
 $(document).ready(function() {
   $('[name="avatar"]').on('change', function () {
     previewFile();
+  $('img#avatar').css('visibility', 'visible')
   });
 });

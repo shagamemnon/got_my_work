@@ -4,7 +4,7 @@
   margin: auto
   padding: 80px 0
   display: block
-  height: 900px
+  height: 600px
 
   .user-info
     display: block
@@ -34,8 +34,9 @@
           &:hover
             opacity: 1
 
-    article
+    article.data-change
       col(5/7)
+      width: 300px
 
       .span
         padding-top: 6px
@@ -73,9 +74,87 @@
         color: #333
         font-weight: 700
         border: none
-      
+
       h5, h6
         visibility: visible
+        text-decoration: none
+
+  .user-profile
+    span(3/4)
+    box-shadow: 0 -1px 0 0 yellow, 0 1px 0 0 yellow, 1px 0 0 0 yellow
+    padding-top: 74px
+    height: 600px
+    background-color: black
+          
+    em
+      span(1/3)
+      color: yellow
+    
+    p
+      span(1/3)
+
+    a
+      span(1/3)
+      text-decoration: none
+      color: $primary-color
+
+    select
+      span(3/5)
+      height: 42px
+      font-family: $Gotham
+      font-size: 13px
+      max-width: 100%
+      margin-top: -10px
+      border: 2px solid #ccc
+      border-radius: 3px
+      outline: none
+      display: inline-block
+      clearfix()
+      background: white
+      color: #ccc
+
+    button
+      button()
+      height: 40px
+      border-color: transparent
+      float: right
+      max-width: 150px
+      border-color: Transparent 
+      border-radius: 3px
+      background: $primary-color
+      color: white 
+      display: inline-block
+      font-family: $Gotham
+      font-weight: 400
+      cursor: pointer
+      font-size: 12px
+      single-transition( background-color )
+
+      &:hover, &.active
+        background: #306eff
+        single-transition( background-color )
+
+    .add-technology
+      display: block
+      margin: auto
+
+      button
+        width: 100%
+        height: 50px
+        border-top-left-radius: 0px
+        border-top-right-radius: 0px
+        border-bottom-right-radius: 2px
+        border-bottom-left-radius: 2px
+        border-top: 0px
+        border-left: 1px
+        border-right: 1px
+        border-bottom: 1px
+        border-color: #ddd
+        font-size: 14px
+        font-weight: 500
+        background-color: #f9faff
+        max-width: 100%
+        cursor: pointer
 
     .feedback
       col(1/7)
@@ -95,7 +174,7 @@
         font-size: 0.7em
         font-weight: 700
         padding-top: 8px
-    
+
   .sidebar
     span(1/4)
     background-color: $teal
@@ -159,118 +238,6 @@
       display: block
       clear: both
       content: ''
- 
-  .user-profile
-    span(3/4)
-    box-shadow: 0 -1px 0 0 yellow, 0 1px 0 0 yellow, 1px 0 0 0 yellow
-    padding-top: 74px
-    height: 600px
-
-    .info-row
-      display: block
-      
-    h4
-      header4()
-      padding-left: 50px
-      padding-right: 50px
-      padding-bottom: 37px
-
-    p
-      paragraph()
-      padding-left: 50px
-      padding-right: 50px
-      padding-bottom: 25px
-
-    em
-      span(1/4)
-      text-transform: uppercase
-      color: #333
-      font-size: 0.80em
-      font-weight: 500    
-
-    p
-      span(3/5)
-      color: #555
-      paragraph()
-      text-transform: uppercase
-      letter-spacing: 0.2px
-
-    input
-      span(3/5)
-      border: none
-      outline: none
-      font-size: 0.9em
-      color: #555
-      text-decoration: italic
-
-    a
-      span(1/7)
-      text-decoration: none
-      color: $primary-color
-      text-align: right
-      cursor: pointer
-
-    img
-      height: 155px
-      width: auto
-
-    select
-      span(3/5)
-      height: 42px
-      font-family: $Gotham
-      font-size: 13px
-      max-width: 100%
-      margin-top: -10px
-      border: 2px solid #ccc
-      border-radius: 3px
-      outline: none
-      display: inline-block
-      clearfix()
-      background: white
-      color: #ccc
-
-    button
-      button()
-      height: 40px
-      border-color: transparent
-      float: right
-      max-width: 150px
-      border-color: Transparent 
-      border-radius: 3px
-      background: $primary-color
-      color: white 
-      display: inline-block
-      font-family: $Gotham
-      font-weight: 400
-      cursor: pointer
-      font-size: 12px
-      single-transition( background-color )
-
-      &:hover, &.active
-        background: #306eff
-        single-transition( background-color )
-
-    .add-technology
-      display: block
-      margin: auto
-
-      button
-        width: 100%
-        height: 50px
-        border-top-left-radius: 0px
-        border-top-right-radius: 0px
-        border-bottom-right-radius: 2px
-        border-bottom-left-radius: 2px
-        border-top: 0px
-        border-left: 1px
-        border-right: 1px
-        border-bottom: 1px
-        border-color: #ddd
-        font-size: 14px
-        font-weight: 500
-        background-color: #f9faff
-        max-width: 100%
-        cursor: pointer
 
     .tab
       display: none

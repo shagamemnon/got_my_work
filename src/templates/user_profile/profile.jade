@@ -5,10 +5,10 @@
     .profile-picture
       .avatar
         img(src= profile && profile.attributes.avatar ? profile.attributes.avatar : '', id="avatar")
-        .uploadimgbtn(onclick='getFile()') upload
-        article(style='height: 0px;width: 0px; overflow:hidden')
+        .uploadimgbtn(onclick='getFile()')
+        article(style='height: 0px;width: 0px; overflow:hidden;border:none')
             input(name="avatar", id="upfile", type="file", value="upload",accept="image/*", class="upload-image")
-    article
+    article.data-change
       .span
         h2= profile ? profile.attributes.fullName : ""
         h2(style="color: #00FF00") •
@@ -27,18 +27,19 @@
         input#edit-location(type="text", name="location", value= profile && profile.attributes.adress ? profile.attributes.adress : "", placeholder="Add Your Location", autofocus)
         img#close-location(height="13px", src="https://s3.amazonaws.com/igotmywork/signup/close.png")
         img#save-location(height="13px", src="https://s3.amazonaws.com/igotmywork/user_profile/check.png")
+
     .feedback
-      svg(src="https://s3.amazonaws.com/igotmywork/feedback.svg")
+      img(src="https://s3.amazonaws.com/igotmywork/user_profile/feedback.png")
       h6 Positive Feedback
   .sidebar
     span.active
       a(href="#tab1")
         img(src="https://s3.amazonaws.com/igotmywork/user_profile/overview.png")
-        h6 PROFILE
+        h6 BIO
     span
       a(href="#tab2")
         img(src="https://s3.amazonaws.com/igotmywork/user_profile/bio.png")
-        h6 BIO
+        h6 PROFILE
     span
       a(href="#tab3")
         img(src="https://s3.amazonaws.com/igotmywork/user_profile/technical.png")
@@ -57,69 +58,71 @@
         h6 FEEDBACK
   .user-profile
     -if ( profile )
-      #tab1.tab
-        h4 OVERVIEW
-      #tab2.info-row.tab.active
-        h4 BIO
+      #tab1.tab.active
+        h4.tab-title OVERVIEW
 
-        em Token ID
-        p= profile.attributes.TokenID
-        a Edit
+        textarea(placeholder="Tell us a little about yourself.")
+      #tab2.tab
+        h4.tab-title PROFILE
+
+        em.hidden Token ID
+        p.hidden= profile.attributes.TokenID
+        a.hidden Edit
 
         em Phone
-        p= profile.attributes.Phone
+        p= profile && profile.attributes.Phone ? profile.attributes.Phone : "Add Your Mobile #"
         a Edit
 
         em Gender
-        p= profile.attributes.Gender
+        p= profile && profile.attributes.Gender ? profile.attributes.Gender : "Male or Female?"
         a Edit
 
         em Birthday
         - if ( profile.attributes.Birthday == '' )
           input(type="text", name="birthday", placeholder="Add Birthday")
         - else
-          p= profile.attributes.Birthday
+          p= profile && profile.attributes.Birthday ? profile.attributes.Birthday : "DOB"
         a Edit
 
         em Experience
-        - if ( !profile.attributes.Experience || profile.attributes.Experience == '' )
+        - if ( profile.attributes.Experience == '' )
           input(type="text", name="experience", placeholder="Add Experience")
         - else
-          p= profile.attributes.Experience
+          p= profile && profile.attributes.Experience ? profile.attributes.Experience : "Experience"
         a Edit
       #tab3.tab
-        .user-profile
-          -if ( profile.attributes.Technologies )
-            - each item, i in profile.attributes.Technologies
-              .info-row
-                em= i == "NET" ? ".NET" : i
-                select( name= i + "_skill", type="text" )
-                  - each level in levels
-                    option(selected= (level == item)) #{level}
-                a Edit
-            //.info-row
-            //  em .NET
-            //  select( name="skill", type="text" ) Skill
-            //    option( name="Novice", type="text" ) Novice
-            //    option( name="Intermediate", type="text" ) Intermediate
-            //    option( name="Expert", type="text" ) Expert
-            //  a Edit
-            //.info-row
-            //  em Magento
-            //  select( name="skill", type="text" ) Skill
-            //    option( name="Novice", type="text" ) Novice
-            //    option( name="Intermediate", type="text" ) Intermediate
-            //    option( name="Expert", type="text" ) Expert
-            //  a Edit
-            //.info-row
-            //  em Java
-            //  select( name="skill", type="text" ) Skill
-            //    option( name="Novice", type="text" ) Novice
-            //    option( name="Intermediate", type="text" ) Intermediate
-            //    option( name="Expert", type="text" ) Expert
-            //  a Edit
-            .add-technology
-              button Add Technology
+        //- .user-profile
+        //-   -if ( profile.attributes.Technologies )
+        //-     - each item, i in profile.attributes.Technologies
+        //-       .info-row
+        //-         em= i == "NET" ? ".NET" : i
+        //-         select( name= i + "_skill", type="text" )
+        //-           - each level in levels
+        //-             option(selected= (level == item)) #{level}
+        //-         a Edit
+        //-     //.info-row
+        //-     //  em .NET
+        //-     //  select( name="skill", type="text" ) Skill
+        //-     //    option( name="Novice", type="text" ) Novice
+        //-     //    option( name="Intermediate", type="text" ) Intermediate
+        //-     //    option( name="Expert", type="text" ) Expert
+        //-     //  a Edit
+        //-     //.info-row
+        //-     //  em Magento
+        //-     //  select( name="skill", type="text" ) Skill
+        //-     //    option( name="Novice", type="text" ) Novice
+        //-     //    option( name="Intermediate", type="text" ) Intermediate
+        //-     //    option( name="Expert", type="text" ) Expert
+        //-     //  a Edit
+        //-     //.info-row
+        //-     //  em Java
+        //-     //  select( name="skill", type="text" ) Skill
+        //-     //    option( name="Novice", type="text" ) Novice
+        //-     //    option( name="Intermediate", type="text" ) Intermediate
+        //-     //    option( name="Expert", type="text" ) Expert
+        //-     //  a Edit
+        //-     .add-technology
+        //-       button Add Technology
       #tab4.tab
         h4 WORK HISTORY
       #tab5.tab

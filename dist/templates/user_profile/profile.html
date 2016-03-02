@@ -3,13 +3,13 @@
   <div class="user-info">
     <div class="profile-picture">
       <div class="avatar"><img src="" id="avatar"/>
-        <div onclick="getFile()" class="uploadimgbtn">upload</div>
-        <article style="height: 0px;width: 0px; overflow:hidden">
+        <div onclick="getFile()" class="uploadimgbtn"></div>
+        <article style="height: 0px;width: 0px; overflow:hidden;border:none">
           <input name="avatar" id="upfile" type="file" value="upload" accept="image/*" class="upload-image"/>
         </article>
       </div>
     </div>
-    <article>
+    <article class="data-change">
       <div class="span">
         <h2></h2>
         <h2 style="color: #00FF00">•</h2>
@@ -23,14 +23,13 @@
         <input id="edit-location" type="text" name="location" value="" placeholder="Add Your Location" autofocus="autofocus"/><img id="close-location" height="13px" src="https://s3.amazonaws.com/igotmywork/signup/close.png"/><img id="save-location" height="13px" src="https://s3.amazonaws.com/igotmywork/user_profile/check.png"/>
       </form>
     </article>
-    <div class="feedback">
-      <svg src="https://s3.amazonaws.com/igotmywork/feedback.svg"></svg>
+    <div class="feedback"><img src="https://s3.amazonaws.com/igotmywork/user_profile/feedback.png"/>
       <h6>Positive Feedback</h6>
     </div>
   </div>
   <div class="sidebar"><span class="active"><a href="#tab1"><img src="https://s3.amazonaws.com/igotmywork/user_profile/overview.png"/>
-        <h6>PROFILE</h6></a></span><span><a href="#tab2"><img src="https://s3.amazonaws.com/igotmywork/user_profile/bio.png"/>
-        <h6>BIO</h6></a></span><span><a href="#tab3"><img src="https://s3.amazonaws.com/igotmywork/user_profile/technical.png"/>
+        <h6>BIO</h6></a></span><span><a href="#tab2"><img src="https://s3.amazonaws.com/igotmywork/user_profile/bio.png"/>
+        <h6>PROFILE</h6></a></span><span><a href="#tab3"><img src="https://s3.amazonaws.com/igotmywork/user_profile/technical.png"/>
         <h6>TECH SKILLS</h6></a></span><span><a href="#tab4"><img src="https://s3.amazonaws.com/igotmywork/user_profile/mouse.png"/>
         <h6>PROJECT HISTORY</h6></a></span><span><a href="#tab5"><img src="https://s3.amazonaws.com/igotmywork/user_profile/ribbon.png"/>
         <h6>ACHIEVEMENTS</h6></a></span><span><a href="#tab6"><img src="https://s3.amazonaws.com/igotmywork/user_profile/feedback.png"/>
