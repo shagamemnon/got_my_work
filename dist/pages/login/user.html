@@ -2,16 +2,15 @@
 <html>
   <head>
     <link rel="stylesheet" href="/dist/css/login.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script src="/vendor/jquery-latest.min.js"></script>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
-    <script src="/vendor/jquery-latest.min.js"></script>
     <title>Signup | Freelancer</title>
     <meta name="description" content="India's Biggest Freelance Portal">
   </head>
   <body>
     <main class="content">
-      <script src="/vendor/login.js"></script>
+      <script src="/vendor/signup.js"></script>
       <div id="signup-user"></div>
       <section class="signup-header">
         <div class="container">
@@ -20,11 +19,11 @@
             <form method="post" action="/signup-user">
               <div class="error-message"></div>
               <div class="visible"><em>Create Account</em>
-                <input name="name" type="text" placeholder="First and Last Name" autofocus>
+                <input name="userName" type="text" placeholder="First and Last Name">
                 <input name="email" type="text" placeholder="Email">
               </div>
               <div class="hidden">
-                <input name="pass" type="password" placeholder="Create Password" autofocus>
+                <input name="password" type="password" placeholder="Create Password">
                 <input name="confirm" type="password" placeholder="Confirm Password">
               </div>
             </form>

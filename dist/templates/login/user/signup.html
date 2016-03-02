@@ -1,5 +1,5 @@
 
-<script src="/vendor/login.js"></script>
+<script src="/vendor/signup.js"></script>
 <div id="signup-user"></div>
 <section class="signup-header">
   <div class="container">
@@ -8,11 +8,11 @@
       <form method="post" action="/signup-user">
         <div class="error-message"></div>
         <div class="visible"><em>Create Account</em>
-          <input name="name" type="text" placeholder="First and Last Name" autofocus="autofocus"/>
+          <input name="userName" type="text" placeholder="First and Last Name"/>
           <input name="email" type="text" placeholder="Email"/>
         </div>
         <div class="hidden">
-          <input name="pass" type="password" placeholder="Create Password" autofocus="autofocus"/>
+          <input name="password" type="password" placeholder="Create Password"/>
           <input name="confirm" type="password" placeholder="Confirm Password"/>
         </div>
       </form>
