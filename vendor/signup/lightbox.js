@@ -5,11 +5,13 @@ $(document).ready(function(){
      $('#overlay, #info').css('visibility','visible');
      $('#info').css({'left':(($(document).width()/2)-($('#info').width()/2))});
      $('#info').css({'top':(($(document).height()/2)-($('#info').height()/2)-50)});
+     $('footer').css('display','none');
   });
 
   $('#close').click(function(){
      $('#overlay, #info').animate({'opacity':'0'},300,'linear', function(){
      $('#overlay, #info').css('visibility','hidden');
+     $('footer').css('display','block');
    });
   });
 });

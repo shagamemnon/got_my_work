@@ -4,14 +4,12 @@ script(src="/vendor/signup.js")
 section.signup-header
     .container
         .signup.user
-            h2 Freelancer
+            h2 Get Started as a Freelancer.
             form(method="post", action="/signup-user")
                 .error-message
                 .visible
-                    em Create Account
                     input( name="userName", type="text", placeholder="First and Last Name" )
                     input( name="email", type="text", placeholder="Email" )
-                .hidden
                     input( name="password", type="password", placeholder="Create Password" )
                     input( name="confirm", type="password", placeholder="Confirm Password" )
             .submit-button

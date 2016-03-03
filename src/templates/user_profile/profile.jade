@@ -59,38 +59,39 @@
   .user-profile
     -if ( profile )
       #tab1.tab.active
-        h4.tab-title OVERVIEW
-
+        h4.tab-title Overview
         textarea(placeholder="Tell us a little about yourself.")
+        button SAVE
       #tab2.tab
-        h4.tab-title PROFILE
+        h4.tab-title Profile
 
         em.hidden Token ID
         p.hidden= profile.attributes.TokenID
         a.hidden Edit
 
         em Phone
-        p= profile && profile.attributes.Phone ? profile.attributes.Phone : "Add Your Mobile #"
+        p= profile && profile.attributes.Phone ? profile.attributes.Phone : "+•• ••• ••• ••••"
         a Edit
 
         em Gender
-        p= profile && profile.attributes.Gender ? profile.attributes.Gender : "Male or Female?"
+        p= profile && profile.attributes.Gender ? profile.attributes.Gender : "M/F"
         a Edit
 
         em Birthday
         - if ( profile.attributes.Birthday == '' )
           input(type="text", name="birthday", placeholder="Add Birthday")
         - else
-          p= profile && profile.attributes.Birthday ? profile.attributes.Birthday : "DOB"
+          p= profile && profile.attributes.Birthday ? profile.attributes.Birthday : "MM/DD/YYYY"
         a Edit
 
         em Experience
         - if ( profile.attributes.Experience == '' )
           input(type="text", name="experience", placeholder="Add Experience")
         - else
-          p= profile && profile.attributes.Experience ? profile.attributes.Experience : "Experience"
+          p= profile && profile.attributes.Experience ? profile.attributes.Experience : "Select"
         a Edit
       #tab3.tab
+        h4.tab-title Technologies
         //- .user-profile
         //-   -if ( profile.attributes.Technologies )
         //-     - each item, i in profile.attributes.Technologies
@@ -124,9 +125,9 @@
         //-     .add-technology
         //-       button Add Technology
       #tab4.tab
-        h4.tab-title WORK HISTORY
+        h4.tab-title Work History
       #tab5.tab
-        h4.tab-title ACHIEVEMENTS
+        h4.tab-title Achievements
       #tab6.tab
-        h4.tab-title FEEDBACK
+        h4.tab-title Feedback
 

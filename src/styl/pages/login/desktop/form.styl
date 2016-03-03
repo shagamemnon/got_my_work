@@ -14,9 +14,12 @@ section.signup-header
     overflow: hidden
 
     .company, .user, .manager
-      max-width: 520px
-      margin: 40px auto 10px
-      box-shadow: 0 4px 16px #999
+      max-width: 480px
+      margin: 0px auto 10px
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3)
+
+    .signup
+      margin-top: 40px
 
     .signup, .login
       background-color: white
@@ -26,8 +29,8 @@ section.signup-header
       border: 1px solid #ddd
 
       h2
-        padding-bottom: 40px
-        padding-top: 40px
+        padding-bottom: 30px
+        padding-top: 30px
         margin-bottom: 0px
         text-align: center
         header3()
@@ -40,7 +43,7 @@ section.signup-header
       form
         width: 100%
         display: block
-        max-width: 400px
+        max-width: 360px
         padding: 0px 20px
         margin: auto
         text-align: left
@@ -61,8 +64,8 @@ section.signup-header
           text-transform: uppercase
           font-family: $Gotham
           font-size: .75em
-          margin-bottom: 11px
-          margin-top: 33px
+          margin-bottom: 10px
+          margin-top: 20px
           font-weight: 500
           letter-spacing: 0.5px
           color: #222
@@ -75,11 +78,11 @@ section.signup-header
           padding: 15px
           font-family: $Gotham
           font-size: 0.75em
-          width: 370px
+          width: 320px
           max-width: 100%
           border: 2px solid #ccc
           border-radius: 3px
-          margin: 0px auto 30px
+          margin: 0px auto 15px
           display: block
           outline: none
 
@@ -96,7 +99,7 @@ section.signup-header
             width: 80px
         
         .hidden
-          display: none
+          display: block
 
         input.error
           border-color: #ff0000;
@@ -110,10 +113,10 @@ section.signup-header
         a
           text-decoration: none
 
-        button#request
+        button#request, button
           button()
           display: block
-          margin: 0px auto 40px
+          margin: 30px auto 30px
           width: 160px
           letter-spacing: 0px
           padding-top: 13px
