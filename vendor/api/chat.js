@@ -1,5 +1,5 @@
 (function(exports){
-	var  typeSet = {ok:0,message:1,getHistory:2,received:3,history:4,whoami:5,user:6,getContacts:7, contacts: 8};
+	var  typeSet = {ok:0,message:1,getHistory:2,received:3,history:4,whoami:5,user:6,getContacts:7, contacts: 8,contact:9};
 	exports.typeSet = typeSet;
 	exports.struct = {
 		User : function(id,name,avatar){
@@ -39,5 +39,10 @@
 	exports.Contacts = function(contacts){
 		this.type = typeSet.contacts;
 		this.contacts = contacts;
-	}
+	};
+	exports.Contact = function(id,name,avatar){
+		exports.struct.User.call(this,id,name,avatar);
+		this.type = typeSet.contact;
+	};
+
 })(typeof exports === 'undefined'? this['chat']={} : exports);

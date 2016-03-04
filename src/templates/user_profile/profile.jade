@@ -4,10 +4,12 @@
   .user-info
     .profile-picture
       .avatar
-        img(src= profile && profile.attributes.avatar ? profile.attributes.avatar : '', id="avatar")
-        .uploadimgbtn(onclick='getFile()') upload
-        article(style='height: 0px;width: 0px; overflow:hidden')
-            input(name="avatar", id="upfile", type="file", value="upload",accept="image/*", class="upload-image")
+        if (profile && profile.attributes.avatar)
+          img(src='' + profile.attributes.avatar, id="avatar")
+        else
+          .uploadimgbtn(onclick='getFile()') upload
+          article(style='height: 0px;width: 0px; overflow:hidden')
+            input(id="upfile", type="file", value="upload", onchange="sub(this)", accept="image/*", class="upload-image")
     article
       .span
         h2= profile ? profile.attributes.fullName : ""
@@ -64,6 +66,10 @@
 
         em Token ID
         p= profile.attributes.TokenID
+        a Edit
+
+        em Address
+        input(type="text", name="address", placeholder="Add Address")
         a Edit
 
         em Phone

@@ -1,0 +1,216 @@
+.manager-panel
+    .table-title
+        img(style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px", src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
+        h3 Super-Admin Dashboard
+    ul.tabs
+        li Targets
+        li Freelancers
+        li Companies
+        li Projects
+    .tab.active
+        main.add_target
+            block add_target
+            .table-title
+                div.input
+                    label(for='target', style='color:white; padding: 10px; margin: 10px') Target
+                    select#target(type='text', name='target', value='', tabindex='1', style=' margin: 10px')
+                          option(disabled selected="selected")
+                          option Enroll
+                          option Ensure
+                div.input
+                    label(for='amount', style='color:white; padding: 10px; margin: 10px') Amount
+                    input#amount(type='text', name='amount', value='', size='12', tabindex='2', style=' margin: 10px')
+                div.input
+                    label(for='type', style='color:white; padding: 10px; margin: 10px') Type
+                    select#type(type='text', name='type', value='', tabindex='1', style=' margin: 10px')
+                        option(disabled selected="selected")
+                        option freelancers
+                        option projects
+                div.input
+                    label(for='period', style='color:white; padding: 10px; margin: 10px') Period
+                    input#period(type='text', name='period', value='', size='12', tabindex='4', style=' margin: 10px')
+                div.input
+                    label(for='units', style='color:white; padding: 10px; margin: 10px') Units
+                    select#units(type='text', name='units', value='', tabindex='1')
+                        option(disabled selected="selected")
+                        option weeks
+                        option days
+        .table-title
+            div.actions
+                input(type="submit",class = "ajax_create_target", value="Add target", style=' margin: 10px')
+        .table-title
+          h4 Sales-Managers:
+        table#sortTable1.sortTable.table-fill
+            thead
+                tr
+                    th.text-left.subhead #
+                    th.text-left.subhead
+                    th.text-left.subhead Name
+                    th.text-left.subhead Email
+                    th.text-left.subhead FullName
+            tbody.table-hover.salesManagerTableBody
+                -if(managers)
+                    .tiles-row
+                        - each manager in managers
+                            - if(manager.attributes.userRole == "sales-manager")
+                                tr.adminTablesCount
+                                    td.text-left
+                                    td.text-left
+                                        input.check_SManager(type="checkbox", value= manager.id)
+                                    td.text-left
+                                        a(name= manager.id, style='color:red', href='/sales-manager/#{manager.id}') #{manager.attributes.username}
+                                    td.text-left #{manager.attributes.email}
+                                    td.text-left #{manager.attributes.fullName}
+
+        .table-title
+            input#cancel_AllSManagers(type='button', value='Diselect all', style=' margin: 10px')
+            br
+            input#check_AllSManagers(type='button', value='Select all', style=' margin: 10px')
+            div.actions
+                button(onclick="move()", style=' margin: 10px') Create Sales-Manager
+                    script.
+                        function move() {
+                            window.location.href = '/admin/signup-slmanager'
+                        }
+            div.actions
+                input(type="submit",class = "ajax_delete_sales_manager",  value="Delete sales manager", style=' margin: 10px')
+
+        .table-title
+            h4 Targets
+        table#sortTable1.sortTable.table-fill
+            thead
+                tr
+                    th.text-left.subhead
+                    th.text-left.subhead
+                    th.text-left.subhead Title
+                    th.text-left.subhead Number
+                    th.text-left.subhead Timeline
+                    th.text-left.subhead Status
+                    th.text-left.subhead Sales-Manager
+            tbody.table-hover.targetTableBody
+                - if ( targets )
+                    .tiles-row
+                        - each target in targets
+                            tr.adminTablesCount
+                                td.text-left
+                                td.text-left
+                                    input.check_Target(type="checkbox", name= target.id, value= target.id)
+                                td.text-left #{target.attributes.Title}
+                                td.text-left #{target.attributes.Amount}
+                                td.text-left #{target.attributes.Timeline}
+                                td.text-left #{target.attributes.Status}
+                                td.text-left
+                                    - if (linkedTargets)
+                                        ul
+                                            - each linkedTarget in linkedTargets
+                                                - if(linkedTarget.attributes.TargetId == target.id)
+                                                    - if (managers)
+                                                        - each manager in managers
+                                                            - if(manager.id == linkedTarget.attributes.SalesManagerID)
+                                                                li(style="list-style-type: disc")= manager.attributes.fullName
+        .table-title
+            input#cancel_AllTargets(type='button', value='Diselect all', style=' margin: 10px')
+            br
+            input#check_AllTargets(type='button', value='Select all', style=' margin: 10px')
+            div.input
+                label(for='changeStatus', style='color:white; margin: 10px') Change Status
+                select#change(type='text', name='changeStatus', value='', tabindex='1', class = 'ajax_update_status')
+                    option(disabled selected="selected")
+                    option Active
+                    option Not Complited
+            div.actions
+                input(type="submit",class = "ajax_delete_target",  value="delete Target", style=' margin: 10px')
+
+
+    .tab
+        .table-title
+            h4 Freelancers:
+        table#sortTable2.sortTable.table-fill
+            thead
+                tr
+                    th.text-left.subhead #
+                    th.text-left.subhead Name
+                    th.text-left.subhead Email
+                    th.text-left.subhead FullName
+                    th.text-left.subhead Sales-Manager
+            tbody.table-hover.freelancerTableBody
+                - if (freelancers)
+                  .tiles-row
+                    - each freelancer in freelancers
+                     - if ( freelancer.attributes.userRole == "developer")
+                        tr.adminTablesCount
+                            td.text-left
+                            td.text-left #{freelancer.attributes.username}
+                            td.text-left #{freelancer.attributes.email}
+                            td.text-left #{freelancer.attributes.fullName}
+                            - if (linkedFreelancers)
+                              - each linkedFreelancer in linkedFreelancers
+                                - if(linkedFreelancer.attributes.FreelancerId == freelancer.id)
+                                  - if (managers)
+                                    - each manager, k in managers
+                                      - if(manager.id == linkedFreelancer.attributes.SalesManagerID)
+                                        td.text-left #{manager.attributes.fullName}
+
+    .tab
+        .table-title
+            h4 Companies:
+        table#sortTable3.sortTable.table-fill
+            thead.table-hover
+                tr
+                    th.text-left.subhead #
+                    th.text-left.subhead Name
+                    th.text-left.subhead Email
+                    th.text-left.subhead ContactName
+                    th.text-left.subhead Phone
+                    th.text-left.subhead Sales-Manager
+            tbody.table-hover.companyTableBody
+                - if (companies)
+                  .tiles-row
+                    - each company in companies
+                      tr.adminTablesCount
+                        td.text-left
+                        td.text-left #{company.attributes.Name}
+                        td.text-left #{company.attributes.Email}
+                        td.text-left #{company.attributes.contactName}
+                        td.text-left #{company.attributes.Phone}
+                        - if (linkedCompanies)
+                          - each linkedCompany in linkedCompanies
+                            - if(linkedCompany.attributes.CompanyId == company.id)
+                               - if (managers)
+                                 - each manager in managers
+                                   - if(manager.id == linkedCompany.attributes.SalesManagerID)
+                                         td.text-left #{manager.attributes.fullName}
+
+    .tab
+        .table-title
+            h4 Projects:
+        table#sortTable4.sortTable.table-fill
+            thead
+                tr
+                    th.text-left.subhead #
+                    th.text-left.subhead Budget
+                    th.text-left.subhead Description
+                    th.text-left.subhead Knowledge
+                    th.text-left.subhead Rate
+                    th.text-left.subhead Technology
+                    th.text-left.subhead Title
+                    th.text-left.subhead Sales-Manager
+            tbody.table-hover.projectTableBody
+                - if(projects)
+                  .tiles-row
+                    - each project in projects
+                      tr.adminTablesCount
+                        td.text-left
+                        td.text-left #{project.attributes.Budget}
+                        td.text-left #{project.attributes.Description}
+                        td.text-left #{project.attributes.Knowledge}
+                        td.text-left #{project.attributes.Rate}
+                        td.text-left #{project.attributes.Technology}
+                        td.text-left #{project.attributes.Title}
+                        - if (linkedProjects)
+                          - each linkedProject in linkedProjects
+                            - if(linkedProject.attributes.ProjectId == project.id)
+                              - if (managers)
+                                - each manager in managers
+                                  - if(manager.id == linkedProject.attributes.SalesManagerID)
+                                       td.text-left #{manager.attributes.fullName}

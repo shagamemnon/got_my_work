@@ -1,12 +1,6 @@
 $(document).ready(function(){
-	var container;
-	var messageTemplate;
-	var contactTemplate;
-	var socket;
-	var $body = $('body');
-
-	var user;
-	var  processor = (function(){
+	'use strict';
+	var processor = (function(){
 		var messageProcessors = {};
 		var events = {};
 		var actions  = {};
@@ -35,15 +29,37 @@ $(document).ready(function(){
 
 			handler : function(name,hendler){
 				if(hendler == undefined){
-					return hendlers[name];
+					return this.handlers[name];
 				} else {
-					handlers[name] = hendler;
+					this.handlers[name] = hendler;
 					this.name = hendler;
 				}
 			}
 
 		}
 	}());
+
+	var syncRuner = function(actions){
+		var promise = (function(){
+			var done;
+			return {
+				then : function(done){
+					this.done = done;
+				},
+				done : done
+			}
+		}());
+		var counter = actions.length;
+		function resolve(){
+			if((--counter) == 0)
+				promise.done();
+		}
+		actions.forEach(function(action){
+			action(resolve);
+		});
+		return promise;
+	};
+
 
 	function render(template,map){
 		for(var key in map){
@@ -75,7 +91,7 @@ $(document).ready(function(){
 			return hours+':'+minutes+ ', Today';
 		}
 	}
-	function initProcessor(){
+	function initProcessor(resolve){
 		//global
 		var contacts={};
 		//in messages
@@ -85,12 +101,22 @@ $(document).ready(function(){
 		processor.addMessageProcessor(chat.typeSet.contacts,function(message){
 			message.contacts.forEach(function(item){
 				contacts[item.id] = item;
-				contacts.messages = [];
+				contacts[item.id].messages = [];
 			});
-			processor.action('addContact',message.contacts);
+			processor.action('show');
+			processor.action('addContacts',message.contacts);
+
+		});
+		processor.addMessageProcessor(chat.typeSet.contact,function(message){
+			if(!contacts[message.id]) {
+				contacts[message.id] = message;
+				contacts[message.id].messages = [];
+				processor.action('addContact', message);
+			}
 
 		});
 		processor.addMessageProcessor(chat.typeSet.message,function(message){
+			contacts[message.senderId].messages.push(message);
 			processor.action('addMessage','in',message.content,contacts[message.senderId].name,new Date());
 
 		});
@@ -115,14 +141,15 @@ $(document).ready(function(){
 
 		processor.addEvent('droppedConnection',function(event){
 			console.log(event);
-		})
+		});
 
+		resolve();
 	}
 
-	function communication(){
-		socket = new WebSocket('ws://'+window.location.host+'/chatgate/');
+	function communication(resolve){
+		var socket = new WebSocket('ws://'+window.location.host+'/chatgate/');
 		socket.onopen = function() {
-			processor.event('init',event)
+			resolve();
 		};
 
 		socket.onclose = function(event) {
@@ -146,15 +173,16 @@ $(document).ready(function(){
 		});
 	}
 
-	function initView(){
+	function initView(resolve){
 		var CHAT_PADDING_FOR_SCROLL = 8;
 		var currentContact = null;
-		$.get('/dist/templates/chat/message.html',function(template){
-			messageTemplate = template;
-		});
-		$.get('/dist/templates/chat/contact.html',function(template){
-			contactTemplate = template;
-		});
+		var $body = $('body');
+		var container;
+		var messageTemplate;
+		var contactTemplate;
+
+		$.get('/dist/templates/chat/message.html',function(template){messageTemplate = template});
+		$.get('/dist/templates/chat/contact.html',function(template){contactTemplate = template});
 		$.get('/dist/templates/chat/layout.html',function(layout){
 			function switchItem(showed,showedTab,hided,hidedTab){
 				showed.show();
@@ -165,19 +193,19 @@ $(document).ready(function(){
 				hidedTab.removeClass('active');
 			}
 
-			function minimazeBind(){
+			function minimaze(){
 				container.find('> div.body.active').slideUp('normal',function(){
 					tabs.slideUp('fast',function(){
-						header.click(openChatBind);
+						header.click(openChat);
 						minminaze.unbind();
 					});
 				});
 			}
 
-			function openChatBind(){
+			function openChat(){
 				tabs.slideDown('fast',function(){
 					container.find('> div.body.active').slideDown(function(){
-						minminaze.click(minimazeBind);
+						minminaze.click(minimaze);
 						header.unbind();
 					});
 
@@ -221,27 +249,31 @@ $(document).ready(function(){
 				processor.addAction('setContact',function(){
 					contactName.text(currentContact.name);
 				});
+
 				processor.addAction('addMessage',printMessage);
 			}
 			function contacts(){
-				var scroll = container.find('.contactList').simplebar({ autoHide: false }).data('simplebar');
-				processor.addAction('addContact',function(contacts){
-					contacts.forEach(function(contact){
-						var item = $(render(contactTemplate,{'img':'http://findicons.com/files/icons/1072/face_avatars/300/a05.png','name':contact.name,'msg':JSON.stringify(contact)}))
-						item.click(function(){
-							currentContact = contact;
-							processor.action('setContact');
-							switchItem(chatBlock,chatTab,contactsBlock,contactsTab);
-						});
-						scroll.getContentElement().append(item);
+				function addContact(contact){
+					var item = $(render(contactTemplate,{'img':'http://findicons.com/files/icons/1072/face_avatars/300/a05.png','name':contact.name,'msg':JSON.stringify(contact)}));
+					item.click(function(){
+						currentContact = contact;
+						processor.action('setContact');
+						switchItem(chatBlock,chatTab,contactsBlock,contactsTab);
 					});
+					scroll.getContentElement().append(item);
+				}
+
+				var scroll = container.find('.contactList').simplebar({ autoHide: false }).data('simplebar');
+				processor.addAction('addContacts',function(contacts) {
+					contacts.forEach(addContact);
 				});
+				processor.addAction('addContact',addContact);
 			}
 			container = $(layout);
 			var tabs = container.find('.tabs');
 			var header = container.find('.header');
 			var minminaze = 	header.find('.minimaze');
-			minminaze.click(minimazeBind);
+			minminaze.click(minimaze);
 			var chatTab = tabs.find('.chat');
 			var contactsTab = tabs.find('.contacts');
 			var chatBlock = container.find('.body.chat');
@@ -250,12 +282,15 @@ $(document).ready(function(){
 			contactsTab.click(function(){switchItem(contactsBlock,contactsTab,chatBlock,chatTab)});
 			chat();
 			contacts();
+			processor.addAction('show',function(){container.show()});
 			$body.append(container);
+			tabs.hide();
+			container.find('> div.body.active').hide();
+			header.click(openChat);
+			resolve();
 		});
 	}
 
-	communication();
-	initView();
-	initProcessor();
+	syncRuner([communication,initView,initProcessor]).then(function(){processor.event('init')});
 });
 

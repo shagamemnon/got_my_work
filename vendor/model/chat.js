@@ -1,8 +1,10 @@
+'use strict'
 module.exports = (function(){
 	var protocol = require('../api/chat');
-	var parse= null;
-	var constants = {doc:'ChatHistory'};
-	var contacts = {}
+	var dao = require('../../modules/chatHistory');
+
+	var contacts = {};
+	var history = {};
 
 	var errorCallback;
 
@@ -13,19 +15,11 @@ module.exports = (function(){
 	}
 
 	function store(msg){
-		var historyItem =  parse.Object(constants.doc);
-		historyItem.set('content',msg.content);
-		historyItem.set('senderId',msg.senderId);
-		historyItem.set('receiverId',msg.receiverId);
-		historyItem.save(null, {
-			success: function(result){
-				//TODO do somethings
-			},
-			error: function(obj, error){
-				errorCallback(error);
-			}
-		});
+		dao.addMessage(msg.senderId,msg.receiverId,msg.content,()=>{});
+		if(history[msg.receiverId][msg.senderId]) history[msg.receiverId][msg.senderId] = [];
+		history[msg.receiverId][msg.senderId].push(msg);
 	}
+
 
 	function send(msg){
 		var senderId = msg['senderId'];
@@ -38,8 +32,7 @@ module.exports = (function(){
 		return false;
 	}
 	return{
-		init : function(o,error){
-			parse = o;
+		init : function(error){
 			errorCallback = error;
 			return this;
 		},
@@ -51,10 +44,18 @@ module.exports = (function(){
 				item.user = null;
 				item.connection = null;
 				item.chats = [];
+				history[user.id] = {};
 			}
 			if(item.connection) item.connection.close();
-			item.user = user;
+			item.user = user.attributes;
+			item.user.id = user.id;
 			item.connection = connection;
+
+			var userForContact = JSON.stringify(new protocol.Contact(item.user.id,item.user.fullName,'//'));
+			_.forEach(contacts,function(contact){
+				if(contact.user.id != user.id)
+					contact.connection.send(userForContact)
+			});
 		},
 		in : function(id,jsMsg,ok){
 			var result = '';
@@ -69,7 +70,7 @@ module.exports = (function(){
 			} else if(msg.type == protocol.typeSet.getContacts){
 				 var userContacts = _.map(_.filter(contacts,function(obj){return obj.user.id != id}),function(obj){
 
-					return new protocol.struct.User(obj.user.id,obj.user.attributes.fullName,'//');
+					return new protocol.struct.User(obj.user.id,obj.user.fullName,'//');
 				});
 				result = new  protocol.Contacts(userContacts);
 			}
@@ -81,7 +82,7 @@ module.exports = (function(){
 			if(contacts[id] && contacts[id].connection) {
 				contacts[id].connection.close();
 				contacts[id].connection = null;
-				constants[id] = null;
+				contacts[id] = null;
 			}
 		}
 	}

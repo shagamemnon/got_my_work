@@ -2,10 +2,10 @@
 <div class="profile-container">
   <div class="user-info">
     <div class="profile-picture">
-      <div class="avatar"><img src="" id="avatar"/>
+      <div class="avatar">
         <div onclick="getFile()" class="uploadimgbtn">upload</div>
         <article style="height: 0px;width: 0px; overflow:hidden">
-          <input name="avatar" id="upfile" type="file" value="upload" accept="image/*" class="upload-image"/>
+          <input id="upfile" type="file" value="upload" onchange="sub(this)" accept="image/*" class="upload-image"/>
         </article>
       </div>
     </div>

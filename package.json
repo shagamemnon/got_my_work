@@ -34,7 +34,7 @@
     "underscore": "~1.6.0"
   },
   "engines": {
-    "node": "4.x"
+    "node": "0.10.x"
   },
   "scripts": {
     "postinstall": "node_modules/grunt-cli/bin/grunt build",

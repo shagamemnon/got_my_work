@@ -4,16 +4,15 @@
     <link rel="stylesheet" href="/dist/css/user_profile.css">
     <script src="/vendor/jquery-latest.min.js"></script>
     <script src="/node_modules/underscore/underscore-min.js"></script>
-    <script data-main="dist/main" src="vendor/require.min.js"></script>
+    <!--script(data-main="dist/main", src='vendor/require.min.js')-->
     <!--script(src="vendor/account/input-skill.js")-->
     <!--script(src="vendor/account/save-skill.js")-->
     <!--script(src="vendor/account/edit-skill.js")-->
     <!--script(src="vendor/account/input-location.js")-->
-    <!--script(src="vendor/account/save-location.js")-->
+    <script src="vendor/account/save-location.js"></script>
     <!--script(src="vendor/account/edit-location.js")-->
-    <script src="/vendor/account/dataChange.js"></script>
-    <script src="/vendor/account/tabs.js"></script>
-    <script src="/vendor/account/photo-upload.js"></script>
+    <script src="vendor/account/tabs.js"></script>
+    <script src="vendor/account/photo-upload.js"></script>
     <title>Profile</title>
     <meta name="description" content="India's Biggest Freelance Portal">
   </head>
@@ -59,10 +58,10 @@
       <div class="profile-container">
         <div class="user-info">
           <div class="profile-picture">
-            <div class="avatar"><img src="" id="avatar">
+            <div class="avatar">
               <div onclick="getFile()" class="uploadimgbtn">upload</div>
               <article style="height: 0px;width: 0px; overflow:hidden">
-                <input name="avatar" id="upfile" type="file" value="upload" accept="image/*" class="upload-image">
+                <input id="upfile" type="file" value="upload" onchange="sub(this)" accept="image/*" class="upload-image">
               </article>
             </div>
           </div>

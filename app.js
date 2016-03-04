@@ -14,13 +14,15 @@ var port = process.env.PORT || 3000
   , session = require('express-session')
   , ws = require('express-ws')(app)
   , auth = require('./modules/auth')
-  , parseQuery = require('./modules/parseQuery');
+  , parseQuery = require('./modules/parseQuery')
+  , admin = require('./routes/admin')
+  , sales_manager = require('./routes/sales_manager');
 
 GLOBAL._ = require('lodash');
 
 Parse.initialize(config.parse.appId, config.parse.JSKey, config.parse.MsKey);
 
-var chat  =  require("./vendor/model/chat").init(Parse,function(error){
+var chat  =  require("./vendor/model/chat").init(function(error){
   console.error('Chat error: ',error)
 });
 
@@ -63,6 +65,9 @@ mailer.extend( app, {
 
 app.listen(port);
 console.log('\nϟϟϟ Serving on port ' + port + ' ϟϟϟ\n');
+
+app.use('/admin', admin);
+app.use('/sales-manager', sales_manager);
 
 app.ws('/chatgate/', function(ws, req) {
   if(!req.session || !req.session.user) {
@@ -250,7 +255,8 @@ app.route('/profile')
     if (res.isLogged)
       parseQuery.getObject({class: "User", id: req.session.user.id},
           (profile)=> {
-            res.render('../pages/user_profile', {logged: res.isLogged, profile: profile.object});
+            res.render('../pages/user_profile', {profile: profile.object});
+            //res.json('ok');
             console.log("user", profile)
           },
           (profile)=> {

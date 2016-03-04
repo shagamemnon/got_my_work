@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/dist/css/manager.css">
+    <script src="/vendor/jquery-latest.min.js"></script>
+    <script src="/node_modules/underscore/underscore-min.js"></script>
+    <!--script(data-main="dist/main", src='vendor/require.min.js')-->
+    <script src="/vendor/jquery-ui.min.js"></script>
+    <script src="/vendor/jquery.tablesorter.min.js"></script>
+    <script src="/vendor/paging.js"></script>
+    <script src="/vendor/super-admin.js"></script>
+    <script src="/vendor/login.js"></script>
+    <title>IGotMyWork</title>
+    <meta name="description" content="India's Biggest Freelance Portal">
+  </head>
+  <body>
+    <main class="content">
+      <div class="manager-panel">
+        <div class="table-title"><img style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px" src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png">
+          <h3>Super-Admin Dashboard</h3>
+        </div>
+        <ul class="tabs">
+          <li>Targets</li>
+          <li>Freelancers</li>
+          <li>Companies</li>
+          <li>Projects</li>
+        </ul>
+        <div class="tab active">
+          <main class="add_target">
+            <div class="table-title">
+              <div class="input">
+                <label for="target" style="color:white; padding: 10px; margin: 10px">Target</label>
+                <select id="target" type="text" name="target" value="" tabindex="1" style=" margin: 10px">
+                  <option disabled selected="selected"></option>
+                  <option>Enroll</option>
+                  <option>Ensure</option>
+                </select>
+              </div>
+              <div class="input">
+                <label for="amount" style="color:white; padding: 10px; margin: 10px">Amount</label>
+                <input id="amount" type="text" name="amount" value="" size="12" tabindex="2" style=" margin: 10px">
+              </div>
+              <div class="input">
+                <label for="type" style="color:white; padding: 10px; margin: 10px">Type</label>
+                <select id="type" type="text" name="type" value="" tabindex="1" style=" margin: 10px">
+                  <option disabled selected="selected"></option>
+                  <option>freelancers</option>
+                  <option>projects</option>
+                </select>
+              </div>
+              <div class="input">
+                <label for="period" style="color:white; padding: 10px; margin: 10px">Period</label>
+                <input id="period" type="text" name="period" value="" size="12" tabindex="4" style=" margin: 10px">
+              </div>
+              <div class="input">
+                <label for="units" style="color:white; padding: 10px; margin: 10px">Units</label>
+                <select id="units" type="text" name="units" value="" tabindex="1">
+                  <option disabled selected="selected"></option>
+                  <option>weeks</option>
+                  <option>days</option>
+                </select>
+              </div>
+            </div>
+          </main>
+          <div class="table-title">
+            <div class="actions">
+              <input type="submit" value="Add target" style=" margin: 10px" class="ajax_create_target">
+            </div>
+          </div>
+          <div class="table-title">
+            <h4>Sales-Managers:</h4>
+          </div>
+          <table id="sortTable1" class="sortTable table-fill">
+            <thead>
+              <tr>
+                <th class="text-left subhead">#</th>
+                <th class="text-left subhead"></th>
+                <th class="text-left subhead">Name</th>
+                <th class="text-left subhead">Email</th>
+                <th class="text-left subhead">FullName</th>
+              </tr>
+            </thead>
+            <tbody class="table-hover salesManagerTableBody">
+            </tbody>
+          </table>
+          <div class="table-title">
+            <input id="cancel_AllSManagers" type="button" value="Diselect all" style=" margin: 10px"><br>
+            <input id="check_AllSManagers" type="button" value="Select all" style=" margin: 10px">
+            <div class="actions">
+              <button onclick="move()" style=" margin: 10px">Create Sales-Manager
+                <script>
+                  function move() {
+                      window.location.href = '/admin/signup-slmanager'
+                  }
+                </script>
+              </button>
+            </div>
+            <div class="actions">
+              <input type="submit" value="Delete sales manager" style=" margin: 10px" class="ajax_delete_sales_manager">
+            </div>
+          </div>
+          <div class="table-title">
+            <h4>Targets</h4>
+          </div>
+          <table id="sortTable1" class="sortTable table-fill">
+            <thead>
+              <tr>
+                <th class="text-left subhead"></th>
+                <th class="text-left subhead"></th>
+                <th class="text-left subhead">Title</th>
+                <th class="text-left subhead">Number</th>
+                <th class="text-left subhead">Timeline</th>
+                <th class="text-left subhead">Status</th>
+                <th class="text-left subhead">Sales-Manager</th>
+              </tr>
+            </thead>
+            <tbody class="table-hover targetTableBody">
+            </tbody>
+          </table>
+          <div class="table-title">
+            <input id="cancel_AllTargets" type="button" value="Diselect all" style=" margin: 10px"><br>
+            <input id="check_AllTargets" type="button" value="Select all" style=" margin: 10px">
+            <div class="input">
+              <label for="changeStatus" style="color:white; margin: 10px">Change Status</label>
+              <select id="change" type="text" name="changeStatus" value="" tabindex="1" class="ajax_update_status">
+                <option disabled selected="selected"></option>
+                <option>Active</option>
+                <option>Not Complited</option>
+              </select>
+            </div>
+            <div class="actions">
+              <input type="submit" value="delete Target" style=" margin: 10px" class="ajax_delete_target">
+            </div>
+          </div>
+        </div>
+        <div class="tab">
+          <div class="table-title">
+            <h4>Freelancers:</h4>
+          </div>
+          <table id="sortTable2" class="sortTable table-fill">
+            <thead>
+              <tr>
+                <th class="text-left subhead">#</th>
+                <th class="text-left subhead">Name</th>
+                <th class="text-left subhead">Email</th>
+                <th class="text-left subhead">FullName</th>
+                <th class="text-left subhead">Sales-Manager</th>
+              </tr>
+            </thead>
+            <tbody class="table-hover freelancerTableBody">
+            </tbody>
+          </table>
+        </div>
+        <div class="tab">
+          <div class="table-title">
+            <h4>Companies:</h4>
+          </div>
+          <table id="sortTable3" class="sortTable table-fill">
+            <thead class="table-hover">
+              <tr>
+                <th class="text-left subhead">#</th>
+                <th class="text-left subhead">Name</th>
+                <th class="text-left subhead">Email</th>
+                <th class="text-left subhead">ContactName</th>
+                <th class="text-left subhead">Phone</th>
+                <th class="text-left subhead">Sales-Manager</th>
+              </tr>
+            </thead>
+            <tbody class="table-hover companyTableBody">
+            </tbody>
+          </table>
+        </div>
+        <div class="tab">
+          <div class="table-title">
+            <h4>Projects:</h4>
+          </div>
+          <table id="sortTable4" class="sortTable table-fill">
+            <thead>
+              <tr>
+                <th class="text-left subhead">#</th>
+                <th class="text-left subhead">Budget</th>
+                <th class="text-left subhead">Description</th>
+                <th class="text-left subhead">Knowledge</th>
+                <th class="text-left subhead">Rate</th>
+                <th class="text-left subhead">Technology</th>
+                <th class="text-left subhead">Title</th>
+                <th class="text-left subhead">Sales-Manager</th>
+              </tr>
+            </thead>
+            <tbody class="table-hover projectTableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

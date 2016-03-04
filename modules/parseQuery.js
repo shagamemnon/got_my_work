@@ -52,7 +52,8 @@ let saveObject = (params, done, reject) => {
     //let query = new Parse.Query(params.class == "User" ? Parse.User : params.class);
     let Query = Parse.Object.extend(params.class),
         query = new Query();
-    query.set("objectId", params.id);
+	if(params.id)
+		query.set("objectId", params.id);
     //for (let item in params.data)
     //    query.set(item, params.data[item]);
     query.save(params.data,{

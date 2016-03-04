@@ -1,0 +1,76 @@
+.project-index-header
+  border-top: 100px solid white
+  padding: 80px 20px 0px
+  background-color: #f7f7f7
+
+  h2
+    max-width: 960px
+    header2()
+    color: #222
+    margin: 0 auto
+    padding-bottom: 80px
+    text-align: center
+
+.project-index
+  margin: auto
+  background-color: white
+
+  .tiles-row
+    max-width: 1000px
+    margin: 0 auto
+    padding: 0px 20px 60px
+    clearfix()
+
+  .tile1
+    background-image: url('https://s3.amazonaws.com/igotmywork/job1.jpg')
+
+  .tile2
+    background-image: url('https://s3.amazonaws.com/igotmywork/job2.jpg')
+
+  .tile3
+    background-image: url('https://s3.amazonaws.com/igotmywork/job3.jpg')
+
+  .tile4
+    background-image: url('https://s3.amazonaws.com/igotmywork/job4.jpg')
+
+  a.project-tile
+    col(1/4, gutter: 2)
+    cursor: pointer
+    background-color: white
+    padding: 0px 0px 75px
+    border-radius: 1px
+    text-align: left
+    text-decoration: none
+    color: #222
+    height: 300px
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.34), inset 0px 0px 0px 9px #FFFFFF
+    clearfix()
+    background-size: cover 240px
+    background-repeat: no-repeat
+
+    .text
+      position: relative
+      background-color: white
+      top: 170px
+      padding: 15px 15px 0
+
+      h5
+        header5()
+        margin-bottom: 11px
+        color: $primary-color
+
+      p
+        paragraph()
+        font-size: 0.8em
+        margin-bottom: 11px
+
+      small
+        font-size: 11px
+        color: #b9b9b9
+        margin-bottom: 11px
+        display: block
+
+      em
+        header5()
+        display: block
+        color: #333

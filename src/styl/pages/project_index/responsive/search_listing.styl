@@ -1,0 +1,111 @@
+section.project_index
+  padding: 0px 0 80px
+  border-top: 62px solid transparent
+  background-color: #eee
+
+  h1.project-title
+    header3()
+    letter-spacing: -1px
+
+  .dashboard-container
+    display: block
+    height: auto
+    max-width: 1000px
+    margin: auto
+    padding-top: 0px
+
+    .check-box input[type=checkbox]
+      visibility: hidden
+      &:checked + label:after
+        opacity: 1
+
+    .sidebar
+      stack()
+      background-color: transparent
+      display: none
+
+    .content
+      stack()
+      padding-top: 0px
+      height: auto
+      background-color: white
+      padding-top: 40px
+
+      .search-bar
+        display: block
+        height: auto
+        text-align: center
+        center()
+        max-width: 315px
+        background-color: white
+        margin-top: 0px
+        margin-bottom: 40px
+
+        form
+          max-width:100%
+          margin: 0px auto
+          outline: none
+          display: block
+
+        input
+          max-width: 300px
+          padding-left: 7px
+          padding-top: 20px
+          padding-bottom: 20px
+          padding-right: 6px
+          margin-bottom: 10px
+          font-size: 18px
+          outline: none
+          border: 1px solid transparent
+          border-bottom-color: #ddd
+
+          &:focus
+            border: 1px solid $primary-color
+            box-shadow: 0 0 0 0
+
+        .search
+          padding:8px 15px
+          background:rgba(50, 50, 50, 0.2)
+          border:0px solid #dbdbdb
+
+        .button
+          position:relative
+          padding:6px 15px
+          left:-8px
+          border:2px solid #207cca
+          background-color:#207cca
+          color:#fafafa
+
+          &:hover
+            background-color:#fafafa
+            color:#207cca
+
+        select
+          col(1/3)
+          border: 1px solid transparent
+          height: 42px
+          font-family: $Gotham
+          font-size: 12px
+          font-weight: 300
+          margin-left: 0
+          border-radius: 0px
+          outline: none
+          clearfix()
+          background: #ddd
+          color: #666
+
+      .project-listing
+        max-width: 315px
+        margin: 45px auto 0
+        padding: 15px 0px 30px
+        width: 100%
+
+        span
+          col(1/5)
+          margin-top: 15px
+          font-weight: 300
+          font-size: 8px
+          box-shadow: 0px 5px 0 0 #ddd, 0px 5px 0 0 #ddd, 0px -5px 0 0 #ddd, 0px 5px 0 0 #ddd
+        
+          &:nth-of-type(1)
+            display: none
