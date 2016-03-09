@@ -1,0 +1,23 @@
+
+<section class="signup-header">
+  <div class="container">
+    <div class="project-listing">
+      <h2>Create a Project</h2>
+      <form id="payment-form" method="post" action="/signup-company"><em>Tell us about your project.</em>
+        <input name="projectName" type="text" placeholder="Project Title" autofocus="autofocus"/>
+        <textarea name="projectDesc" type="text" placeholder="Description"></textarea><em>What skillset does the project require?</em>
+        <input name="projectTags" type="text" placeholder="Separate by Commas"/>
+        <input type="text" name="_gotcha" style="display:none"/>
+        <select name="expertise" type="text" placeholder="Skills">
+          <option name="Novice" type="text" disabled selected="disabled selected" style="opacity:0.2">Skill Level Needed</option>
+          <option name="Novice" type="text">Novice</option>
+          <option name="Novice" type="text">Intermediate</option>
+          <option name="Novice" type="text">Expert</option>
+        </select>
+      </form>
+      <div class="submit-button">
+        <button>Submit</button>
+      </div>
+    </div>
+  </div>
+</section>

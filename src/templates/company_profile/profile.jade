@@ -4,28 +4,32 @@
   .user-info
     .profile-picture
       .avatar
-        img(src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png")
-    article
+        img(src= profile && profile.attributes.avatar ? profile.attributes.avatar : '', id="avatar")
+        .uploadimgbtn(onclick='getFile()')
+        article(style='height: 0px;width: 0px; overflow:hidden;border:none')
+            input(name="avatar", id="upfile", type="file", value="upload",accept="image/*", class="upload-image")
+    article.data-change
       .span
-        h2 Google
+        h2= profile ? profile.attributes.fullName : ""
         h2(style="color: #00FF00") •
       a#open-skill(href="#")
-        h5 Add Your Tagline
+        h5= profile && profile.attributes.skill ? profile.attributes.skill : "Add Your Technologies"
         img(height="11px", src="https://s3.amazonaws.com/igotmywork/user_profile/pencil.png")
       form#input-skill(href="#")
-        input#edit-skill(type="text", name="skill", autofocus)
+        input#edit-skill(type="text", name="skill", value= profile && profile.attributes.skill ? profile.attributes.skill : "", placeholder="Add Your Technologies", autofocus)
         img#close-skill(height="13px", src="https://s3.amazonaws.com/igotmywork/signup/close.png")
         img#save-skill(height="13px", src="https://s3.amazonaws.com/igotmywork/user_profile/check.png")
       
       a#open-location(href="#")
-        h6 Add Your Location
+        h6= profile && profile.attributes.adress ? profile.attributes.adress : "Add Your Headquarters"
         img(height="11px", src="https://s3.amazonaws.com/igotmywork/user_profile/pencil.png")
       form#input-location
-        input#edit-location(type="text", name="location", autofocus)
+        input#edit-location(type="text", name="location", value= profile && profile.attributes.adress ? profile.attributes.adress : "", placeholder="Add Your Location", autofocus)
         img#close-location(height="13px", src="https://s3.amazonaws.com/igotmywork/signup/close.png")
         img#save-location(height="13px", src="https://s3.amazonaws.com/igotmywork/user_profile/check.png")
+
     .feedback
-      img(src="https://s3.amazonaws.com/igotmywork/95%25.png")
+      img(src="https://s3.amazonaws.com/igotmywork/user_profile/feedback.png")
       h6 Positive Feedback
   .sidebar
     span.active
@@ -45,3 +49,48 @@
         img(src="https://s3.amazonaws.com/igotmywork/user_profile/mouse.png")
         h6 SETTINGS
   .user-profile
+    -if ( profile )
+      #tab1.tab.active
+        h4.tab-title Company Profile
+        textarea(placeholder="What type of company are you?")
+        button SAVE
+      #tab2.tab
+        h4.tab-title About
+
+        em.hidden Token ID
+        p.hidden= profile.attributes.TokenID
+        a.hidden Edit
+
+        em Phone
+        p= profile && profile.attributes.Phone ? profile.attributes.Phone : "+•• ••• ••• ••••"
+        a Edit
+
+        em Gender
+        p= profile && profile.attributes.Gender ? profile.attributes.Gender : "M/F"
+        a Edit
+
+        em Birthday
+        - if ( profile.attributes.Birthday == '' )
+          input(type="text", name="birthday", placeholder="Add Birthday")
+        - else
+          p= profile && profile.attributes.Birthday ? profile.attributes.Birthday : "MM/DD/YYYY"
+        a Edit
+
+        em Experience
+        - if ( profile.attributes.Experience == '' )
+          input(type="text", name="experience", placeholder="Add Experience")
+        - else
+          p= profile && profile.attributes.Experience ? profile.attributes.Experience : "Select"
+        a Edit
+      #tab3.tab
+        h4.tab-title Team
+      #tab4.tab
+        h4.tab-title Settings
+
+  a.create(href="#")#open
+    button Create Project
+
+#overlay
+#info
+  img#close(src="https://s3.amazonaws.com/igotmywork/signup/close.png")
+  include ./create_project/main
