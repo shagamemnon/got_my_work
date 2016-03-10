@@ -74,20 +74,24 @@ app.ws('/chatgate/', function(ws, req) {
     ws.close();
     return;
   }
+
   var user = req.session.user;
-  chat.addConnection(user,ws);
+
+  chat.addConnection(user, ws);
+
   ws.on('message', function(msg) {
-    chat.in(user.id,msg,function(answer){
+    chat.in(user.id, msg, function(answer){
       ws.send(answer);
     });
   });
+
   ws.on('error', function(msg) {
    // console.log(msg)
   });
-  ws.on('close', function() {
-    chat.closeConnection(req.query.id);
-  });
 
+  ws.on('close', function() {
+    chat.closeConnection(user);
+  });
 
 });
 
@@ -188,17 +192,47 @@ app.get('/projects-dashboard', (req, res) =>
   res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
 );
 
+app.route('/filters').get((req, res)=>{
+  var posted = new Date('2016-03-02');
+  parseQuery.searchObject(
+    {
+      class: "Project",
+      //filters: {
+      //  condition: '>=',
+      //  key: 'Rate',
+      //  value: '12'
+      //}
+      //filters: {
+      //  condition: '=',
+      //  key: 'Technology',
+      //  value: 'xCode'
+      //}
+      filters: {
+        condition: '<=',
+        key: 'createdAt',
+        isInt: false,
+        value: posted
+      }
+    },
+      (done)=>
+        res.json(done)
+    , (reject)=>
+        res.json(reject)
+  );
+});
+
 app.route('/projects')
   .get(function ( req, res) {
-      parseQuery.getObjects({class: "Project", limit: 8}, function(answer){
-        if (answer.result == 'ok') {
+      parseQuery.getObjects({class: "Project", limit: 8},
+      (answer) => {
           console.log("projects", answer.object);
           res.render('../pages/project_index', {"projects": answer.object});
-        } else {
+        },
+          (answer) => {
           console.log("getting projects error", answer.error);
           res.json("error");
         }
-      });
+      );
   })
   .post(function (req, res) { /* inserting new project */
       parseQuery.updateObject({class: "Project", id: req.params.id}, function(answer){
