@@ -1,0 +1,5 @@
+$(document).ready(function(){
+  $(".load-more button").click(function(){
+  	$("a.project-listing:eq(n+3)").addClass('visible');
+    });
+});

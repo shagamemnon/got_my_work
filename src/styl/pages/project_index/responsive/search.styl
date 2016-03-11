@@ -15,6 +15,8 @@ section.project_index
       stack()
       height: auto
       box-shadow: none
+      border: none
+      
 
       a.project-listing
         stack()
@@ -39,6 +41,20 @@ section.project_index
           margin-bottom: 10px
           vertical-align: middle
 
+        .tags
+          display: block
+          clearfix()
+          
+          p.skills
+            display: none
+          
+          p
+            col(1/4, gutter: 1.5)
+            border-radius: 2px
+            clearfix()
+            text-align: center
+            font-size: 0.4em
+
 #overlay
   opacity: 0
   background-color: #fff
@@ -46,7 +62,7 @@ section.project_index
   top: 0px
   left: 0px
   z-index: 50
-  padding-top: 40px
+  padding-top: 250px
   width: 100%
   height: 100%
   visibility: hidden
@@ -55,14 +71,17 @@ section.project_index
   opacity: 0
   top: 0px
   margin: 100px auto 0px
-  padding: 0px 20px
-  width:auto
+  padding: 0px 0px
+  width: auto
   max-width: 100%
   height: auto
   background: transparent
   z-index: 51
   position: absolute
   visibility: hidden
+
+#overlay + div
+  width: auto
 
   img#close
     float: right
