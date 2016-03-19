@@ -19,6 +19,7 @@ function previewFile() {
     $.ajax({
       method: "POST",
       dataType: "json",
+      url: "/profile",
       data: {avatar: reader.result}
     }).done(function (ans) {
       console.log(ans);

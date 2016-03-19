@@ -7,10 +7,9 @@ section.signup-header
             h2 Get Started as a Freelancer.
             form(method="post", action="/signup-user")
                 .error-message
-                .visible
-                    input( name="userName", type="text", placeholder="First and Last Name" )
-                    input( name="email", type="text", placeholder="Email" )
-                    input( name="password", type="password", placeholder="Create Password" )
-                    input( name="confirm", type="password", placeholder="Confirm Password" )
+                input( name="userName", type="text", placeholder="First and Last Name" )
+                input( name="email", type="text", placeholder="Email" )
+                input( name="password", type="password", placeholder="Create Password" )
+                input( name="confirm", type="password", placeholder="Confirm Password" )
             .submit-button
                 button#request GO

@@ -22,7 +22,8 @@
     <div class="container">
       <div class="signup company">
         <h2>Company</h2>
-        <form id="payment-form" method="post" action="/signup-company"><em>Enter Company Info</em>
+        <form id="payment-form" method="post" action="/signup-company">
+          <div class="error-message"></div><em>Enter Company Info</em>
           <input name="companyName" type="text" placeholder="Company Name" autofocus="autofocus"/>
           <input name="userName" type="text" placeholder="Full Name"/>
           <input name="phone" type="text" placeholder="Phone"/><em>Create Account</em>
@@ -56,12 +57,10 @@
         <h2>Get Started as a Freelancer.</h2>
         <form method="post" action="/signup-user">
           <div class="error-message"></div>
-          <div class="visible">
-            <input name="userName" type="text" placeholder="First and Last Name"/>
-            <input name="email" type="text" placeholder="Email"/>
-            <input name="password" type="password" placeholder="Create Password"/>
-            <input name="confirm" type="password" placeholder="Confirm Password"/>
-          </div>
+          <input name="userName" type="text" placeholder="First and Last Name"/>
+          <input name="email" type="text" placeholder="Email"/>
+          <input name="password" type="password" placeholder="Create Password"/>
+          <input name="confirm" type="password" placeholder="Confirm Password"/>
         </form>
         <div class="submit-button">
           <button id="request">GO</button>

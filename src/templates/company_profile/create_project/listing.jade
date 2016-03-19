@@ -2,17 +2,18 @@ section.signup-header
   .container
     .project-listing
       h2 Create a Project
-      form#payment-form(method="post", action="/signup-company")
+      form#payment-form(method="post", action="/projects")
+        .error-message
         em Tell us about your project.
-        input( name="projectName", type="text", placeholder="Project Title", autofocus )
-        textarea( name="projectDesc", type="text", placeholder="Description" )
+        input( name="title", type="text", placeholder="Project Title", autofocus )
+        textarea( name="description", type="text", placeholder="Description" )
         em What skillset does the project require?
-        input( name="projectTags", type="text", placeholder="Separate by Commas")
+        input( name="skills", type="text", placeholder="Separate by Commas")
         input( type="text", name="_gotcha", style="display:none")
-        select( name="expertise", type="text", placeholder="Skills")
+        select( name="knowledgeLevel", type="text", placeholder="Skills")
           option( name="select-skill", type="text", disabled selected, style="opacity:0.2") Select Skill Level
-          option( name="novice", type="text" ) Novice
-          option( name="intermediate", type="text" ) Intermediate
-          option( name="expert", type="text" ) Expert
+          option( name="novice", type="text", value="$" ) Novice
+          option( name="intermediate", type="text", value="$$" ) Intermediate
+          option( name="expert", type="text", value="$$$" ) Expert
       .submit-button
-        button Submit
+        button#project-save Submit

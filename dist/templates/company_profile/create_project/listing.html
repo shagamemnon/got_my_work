@@ -3,20 +3,21 @@
   <div class="container">
     <div class="project-listing">
       <h2>Create a Project</h2>
-      <form id="payment-form" method="post" action="/signup-company"><em>Tell us about your project.</em>
-        <input name="projectName" type="text" placeholder="Project Title" autofocus="autofocus"/>
-        <textarea name="projectDesc" type="text" placeholder="Description"></textarea><em>What skillset does the project require?</em>
-        <input name="projectTags" type="text" placeholder="Separate by Commas"/>
+      <form id="payment-form" method="post" action="/projects">
+        <div class="error-message"></div><em>Tell us about your project.</em>
+        <input name="title" type="text" placeholder="Project Title" autofocus="autofocus"/>
+        <textarea name="description" type="text" placeholder="Description"></textarea><em>What skillset does the project require?</em>
+        <input name="skills" type="text" placeholder="Separate by Commas"/>
         <input type="text" name="_gotcha" style="display:none"/>
-        <select name="expertise" type="text" placeholder="Skills">
+        <select name="knowledgeLevel" type="text" placeholder="Skills">
           <option name="select-skill" type="text" disabled selected="disabled selected" style="opacity:0.2">Select Skill Level</option>
-          <option name="novice" type="text">Novice</option>
-          <option name="intermediate" type="text">Intermediate</option>
-          <option name="expert" type="text">Expert</option>
+          <option name="novice" type="text" value="$">Novice</option>
+          <option name="intermediate" type="text" value="$$">Intermediate</option>
+          <option name="expert" type="text" value="$$$">Expert</option>
         </select>
       </form>
       <div class="submit-button">
-        <button>Submit</button>
+        <button id="project-save">Submit</button>
       </div>
     </div>
   </div>

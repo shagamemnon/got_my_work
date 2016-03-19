@@ -195,16 +195,27 @@ app.route('/projects')
         }
       });
   })
-  .post(function (req, res) { /* inserting new project */
-      parseQuery.updateObject({class: "Project", id: req.params.id}, function(answer){
-        if (answer.result == 'ok') {
-          console.log("updated project", project);
-          res.json("got");
-        } else {
-          console.log("updating projects error", answer.error);
-          res.json("error");
+  .post(function (req, res) { /* inserting newр project */
+      if(req.body.skills && req.body.skills != "Select Skill Level") {
+          let strSkills = req.body.skills,
+              arrSkills = strSkills.split(",");
+          arrSkills.forEach((item) => {
+              item = item.trim();
+          });
+          req.body.skills = arrSkills;
+      }
+      if(typeof req.body["_gotcha"] != 'undefined')
+          delete req.body["_gotcha"];
+      parseQuery.addObject({class: "Project", data: req.body},
+        (answer) => {
+          //console.log("inserting project", answer);
+          res.json(answer.result);
+        },
+        (answer) => {
+          //console.log("inserting projects error", answer);
+          res.json(answer.result);
         }
-      });
+      );
   });
 
 app.route('/projects/:id')
@@ -247,31 +258,22 @@ app.get('/profile-interface', (req, res) =>
 
 app.route('/profile')
   .get((req, res) => {
-    if (res.isLogged)
-      parseQuery.getObject({class: "User", id: req.session.user.id},
-          (profile)=> {
-            res.render('../pages/user_profile', {logged: res.isLogged, profile: profile.object});
-            console.log("user", profile)
-          },
-          (profile)=> {
-            res.json('error');
-            console.log("user", profile)
-          }
-      );
-    else {
-      //res.render('../pages/user_profile');
-      res.redirect("/get-started")
-    }
+    if (res.isLogged && req.session.user.attributes.userRole == "user" && req.session.user.attributes.accountType != "company")
+      res.render('../pages/user_profile', {logged: res.isLogged, profile: req.session.user});
+    else
+      res.redirect("/get-started");
   }).post((req, res)=> {
-    if (res.isLogged) {
+    if (res.isLogged && req.session.user.attributes.userRole == "user") {
       parseQuery.updateObject({class: "User", id: req.session.user.id, data: req.body},
           (profile)=> {
-            //console.log("user up", profile);
+            Object.keys(profile.object.attributes).forEach((item) => {
+              req.session.user.attributes[item] = profile.object.attributes[item];
+            });
             res.json('ok');
           },
           (profile)=> {
             //console.log("user up err", profile);
-            res.json('ok');
+            res.json('error');
           }
       );
     } else {
@@ -287,7 +289,7 @@ app.get('/profile/:id', (req, res) =>
         console.log("user", answer)
       },
       (answer)=>{
-        res.json('ok');
+        res.json('error');
         console.log("user", answer)
       }
   )
@@ -295,7 +297,11 @@ app.get('/profile/:id', (req, res) =>
 
 app.route('/company')
   .get( (req, res) => {
-    res.sendFile(__dirname + '/dist/pages/company_profile.html')
+    if (res.isLogged && req.session.user.attributes.userRole == "user" && req.session.user.attributes.accountType == "company")
+      res.render('../pages/company_profile', {logged: res.isLogged, profile: req.session.user});
+    else
+      res.redirect("/get-started");
+        //res.sendFile(__dirname + '/dist/pages/company_profile.html')
   })
   .post( (req, res) => { /* inserting new company */
     parseQuery.addObject({class: "Company", data: req.body},
@@ -350,6 +356,8 @@ app.route('/login')
       (loginRes) => {
         console.log(loginRes);
         req.session.user = { id: loginRes.answer.id, attributes: loginRes.answer.attributes };
+          if(loginRes.answer.attributes.accountType == 'company')
+              req.session.user.company = loginRes.answer.company;
         res.redirect('/');
         //res.status(200).json({result: 'ok'});
       },
@@ -381,7 +389,7 @@ app.post('/signup-company', (req, res) =>
   auth.companySignUp(req.body,
     (signUpRes) => {
       console.log(signUpRes);
-      req.session.user = {id: signUpRes.user.answer.id, attributes: signUpRes.user.answer.attributes};
+      req.session.user = {id: signUpRes.user.answer.id, attributes: signUpRes.user.answer.attributes, company: signUpRes.company};
       res.status(200).json({result: 'ok'})
     },
     (signUpError) => {

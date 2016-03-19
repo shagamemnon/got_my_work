@@ -3,6 +3,7 @@ section.signup-header
     .signup.company
       h2 Company
       form#payment-form(method="post", action="/signup-company")
+        .error-message
         em Enter Company Info
         input( name="companyName", type="text", placeholder="Company Name", autofocus )
         input( name="userName", type="text", placeholder="Full Name" )

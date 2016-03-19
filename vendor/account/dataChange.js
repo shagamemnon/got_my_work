@@ -1,11 +1,12 @@
 $(document).ready(function(){
-    function sendData(data){
+    function sendData(data, url, callback){
         $.ajax({
             type: "POST",
-            url: "/profile",
+            url: url,
             data: data,
             success: function(result){
-                console.log(result);
+                if (callback)
+                    callback(result);
             },
             dataType: "json"
         });
@@ -19,7 +20,7 @@ $(document).ready(function(){
             $('#input-'+name).css('display','none');
             $('#edit-'+name).attr("autofocus");
         });
-        name == "location" ? sendData({adress: $('#edit-'+name).val()}) : sendData({skill: $('#edit-'+name).val()});
+        name == "location" ? sendData({adress: $('#edit-'+name).val()}, "/profile") : sendData({skill: $('#edit-'+name).val()}, "/profile");
     }
     $('[id^="save"]').on('click', function(){
         var name = $(this).attr("id").split('-').pop();
@@ -50,5 +51,15 @@ $(document).ready(function(){
         var name = $(this).attr("id").split('-').pop();
         $('#edit-'+name).val("");
         inputChange(name);
+    });
+
+    $("#project-save").on('click', function(){
+        sendData($("#payment-form").serialize(), "/projects", function(result){
+            if(result == "ok") {
+                $("#payment-form")[0].reset();
+                $("#close").click();
+            } else
+                $(".error-message").text(result);
+        });
     });
 });

@@ -4,7 +4,10 @@
   .user-info
     .profile-picture
       .avatar
-        img(src= profile && profile.attributes.avatar ? profile.attributes.avatar : '', id="avatar")
+        -if(profile && profile.attributes.avatar)
+          img(id="avatar", src= profile.attributes.avatar, style="visibility: visible;")
+        -else
+          img(id="avatar", src="")
         .uploadimgbtn(onclick='getFile()')
         article(style='height: 0px;width: 0px; overflow:hidden;border:none')
             input(name="avatar", id="upfile", type="file", value="upload",accept="image/*", class="upload-image")
@@ -65,30 +68,33 @@
       #tab2.tab
         h4.tab-title Profile
 
+
         em.hidden Token ID
-        p.hidden= profile.attributes.TokenID
+        p.hidden= profile.attributes.tokenId
         a.hidden Edit
 
-        em Phone
-        p= profile && profile.attributes.Phone ? profile.attributes.Phone : "+•• ••• ••• ••••"
-        a Edit
+        .item
+          em Phone
+          p= profile && profile.attributes.phone ? profile.attributes.phone : "+•• ••• ••• ••••"
+          a Edit
 
-        em Gender
-        p= profile && profile.attributes.Gender ? profile.attributes.Gender : "M/F"
-        a Edit
+        .item
+          em Gender
+          p= profile && profile.attributes.gender ? profile.attributes.gender : "M/F"
+          a Edit
 
         em Birthday
         - if ( profile.attributes.Birthday == '' )
           input(type="text", name="birthday", placeholder="Add Birthday")
         - else
-          p= profile && profile.attributes.Birthday ? profile.attributes.Birthday : "MM/DD/YYYY"
+          p= profile && profile.attributes.birthday ? profile.attributes.birthday : "MM/DD/YYYY"
         a Edit
 
         em Experience
         - if ( profile.attributes.Experience == '' )
           input(type="text", name="experience", placeholder="Add Experience")
         - else
-          p= profile && profile.attributes.Experience ? profile.attributes.Experience : "Select"
+          p= profile && profile.attributes.experience ? profile.attributes.experience : "Select"
         a Edit
       #tab3.tab
         h4.tab-title Technologies

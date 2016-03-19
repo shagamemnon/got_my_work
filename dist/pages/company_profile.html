@@ -18,6 +18,7 @@
     <!--script(src="vendor/account/save-location.js")-->
     <!--script(src="vendor/account/edit-location.js")-->
     <script src="/vendor/account/dataChange.js"></script>
+    <script src="/vendor/account/photo-upload.js"></script>
     <script src="/vendor/account/tabs.js"></script>
     <script src="/vendor/lightbox/lightbox.js"></script>
     <title>Company</title>
@@ -65,7 +66,7 @@
       <div class="profile-container">
         <div class="user-info">
           <div class="profile-picture">
-            <div class="avatar"><img src="" id="avatar">
+            <div class="avatar"><img id="avatar" src="">
               <div onclick="getFile()" class="uploadimgbtn"></div>
               <article style="height: 0px;width: 0px; overflow:hidden;border:none">
                 <input name="avatar" id="upfile" type="file" value="upload" accept="image/*" class="upload-image">
@@ -105,20 +106,21 @@
           <div class="container">
             <div class="project-listing">
               <h2>Create a Project</h2>
-              <form id="payment-form" method="post" action="/signup-company"><em>Tell us about your project.</em>
-                <input name="projectName" type="text" placeholder="Project Title" autofocus>
-                <textarea name="projectDesc" type="text" placeholder="Description"></textarea><em>What skillset does the project require?</em>
-                <input name="projectTags" type="text" placeholder="Separate by Commas">
+              <form id="payment-form" method="post" action="/projects">
+                <div class="error-message"></div><em>Tell us about your project.</em>
+                <input name="title" type="text" placeholder="Project Title" autofocus>
+                <textarea name="description" type="text" placeholder="Description"></textarea><em>What skillset does the project require?</em>
+                <input name="skills" type="text" placeholder="Separate by Commas">
                 <input type="text" name="_gotcha" style="display:none">
-                <select name="expertise" type="text" placeholder="Skills">
+                <select name="knowledgeLevel" type="text" placeholder="Skills">
                   <option name="select-skill" type="text" disabled selected style="opacity:0.2">Select Skill Level</option>
-                  <option name="novice" type="text">Novice</option>
-                  <option name="intermediate" type="text">Intermediate</option>
-                  <option name="expert" type="text">Expert</option>
+                  <option name="novice" type="text" value="$">Novice</option>
+                  <option name="intermediate" type="text" value="$$">Intermediate</option>
+                  <option name="expert" type="text" value="$$$">Expert</option>
                 </select>
               </form>
               <div class="submit-button">
-                <button>Submit</button>
+                <button id="project-save">Submit</button>
               </div>
             </div>
           </div>

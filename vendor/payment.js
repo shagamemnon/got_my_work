@@ -18,7 +18,7 @@ function payment($form, result) {
         var error = form.find('.error-message');
         error.text(message);
         $("body,html").animate({"scrollTop":error.offset().top - 10});
-    };
+    }
     function stripeResponseHandler(status, response) {
         if (response.error) {
             var error = response.error;
@@ -40,7 +40,8 @@ function payment($form, result) {
             errorShow($form, response.error.message);
         } else {
             $form.append($('<input type="hidden" name="stripeToken" />').val(response.id));
-            answer = true;
+            if(result)
+                result(true);
         }
     }
     function paymentCheck() {

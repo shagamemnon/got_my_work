@@ -5,7 +5,7 @@ var config = require('../config')
 
 Parse.initialize(config.parse.appId, config.parse.JSKey, config.parse.MsKey);
 
-var addObject = (params, done, reject) =>
+let addObject = (params, done, reject) =>
     params
         ? saveObject(params,
             (answer) =>
@@ -15,7 +15,7 @@ var addObject = (params, done, reject) =>
         )
         : reject({result: 'error', answer: "missing data"});
 
-var getObject = (params, done, reject) => {
+let getObject = (params, done, reject) => {
     if ( params ) {
         let query = new Parse.Query(params.class == "User" ? Parse.User : params.class);
         query.get(params.id, {
@@ -32,10 +32,11 @@ var getObject = (params, done, reject) => {
         reject({result: 'error', answer: "missing data"});
 };
 
-var getObjects = (params, done, reject) => { /* getting several objects */
+let getObjects = (params, done, reject) => { /* getting several objects */
     if ( params ) {
         let query = new Parse.Query(params.class);
-        query.limit(params.limit);
+        if(params.limit)
+            query.limit(params.limit);
         query.find({
             success: (objects) => {
                 let projects = [];
@@ -49,13 +50,11 @@ var getObjects = (params, done, reject) => { /* getting several objects */
 };
 
 let saveObject = (params, done, reject) => {
-    //let query = new Parse.Query(params.class == "User" ? Parse.User : params.class);
     let Query = Parse.Object.extend(params.class),
         query = new Query();
-    query.set("objectId", params.id);
-    //for (let item in params.data)
-    //    query.set(item, params.data[item]);
-    query.save(params.data,{
+    if(params.id)
+        query.set("objectId", params.id);
+    query.save(params.data, {
         success: (object) => {
             //console.log('true save', object);
             done({result: 'ok', object: object})
@@ -67,7 +66,7 @@ let saveObject = (params, done, reject) => {
     });
 };
 
-var updateObject = (params, done, reject) =>
+let updateObject = (params, done, reject) =>
      params
          ? getObject({class: params.class, id: params.id},
             (answer) =>
@@ -86,7 +85,7 @@ var updateObject = (params, done, reject) =>
          )
          : reject({result: 'error', error: 'missing data'});
 
-var deleteObject = (params, done, reject) =>
+let deleteObject = (params, done, reject) =>
     params
         ? getObject({class: params.class, id: params.id},
             (answer) =>
@@ -102,8 +101,55 @@ var deleteObject = (params, done, reject) =>
         )
         : reject({result: 'error', error: 'missing data'});
 
+let filterObjects = (params, done, reject) => {
+    if (params) {
+        let query = new Parse.Query(params.class == "User" ? Parse.User : params.class);
+        let filters = params.filters;
+        filters.forEach((filter) => {
+            //filter.value = filter.isInt ? parseInt(filter.value) : filter.value;
+            switch (filter.condition) {
+                case ">=":
+                    query.greaterThanOrEqualTo(filter.key, filter.value);
+                    break;
+                case "<=":
+                    query.lessThanOrEqualTo(filter.key, filter.value);
+                    break;
+                case ">":
+                    query.greaterThan(filter.key, filter.value);
+                    break;
+                case "<":
+                    query.lessThan(filter.key, filter.value);
+                    break;
+                case "=":
+                    query.equalTo(filter.key, filter.value);
+                    break;
+                case "!=":
+                    query.notEqualTo(filter.key, filter.value);
+                    break;
+                case "between":
+                    break;
+            }
+        });
+        if(params.limit)
+            query.limit(params.limit);
+        query.find({
+            success: (object) => {
+                console.log('true filters', object);
+                done({result: 'ok', object: object})
+            },
+            error: (object, error) => {
+                console.log('filters error', object, error);
+                reject({result: 'error', error: error})
+            }
+        });
+
+    } else
+        reject({result: 'error', error: 'missing data'});
+};
+
 exports.addObject = addObject;
 exports.getObject = getObject;
 exports.getObjects = getObjects;
 exports.updateObject = updateObject;
 exports.deleteObject = deleteObject;
+exports.filterObjects = filterObjects;
