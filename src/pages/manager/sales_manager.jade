@@ -1,6 +1,6 @@
 extends ../base
 
-block style
+block extendStyles
     link(rel="stylesheet", href="/dist/css/manager.css")
 
 block extendScripts
@@ -14,8 +14,8 @@ block extendScripts
     script(data-main="dist/main", src='dist/require.min.js')
 
 block title
-  title Sales Manager
-  meta( name="description", content="India's Biggest Freelance Portal" )
+    title Sales Manager
+    meta( name="description", content="India's Biggest Freelance Portal" )
 
 block content
-  include ../../templates/manager/sales_manager_main
+    include ../../templates/manager/sales_manager_main

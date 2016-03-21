@@ -101,7 +101,6 @@ app.all('/*',(req, res, next)=>{
 app.use('/admin', admin);
 app.use('/sales-manager', sales_manager);
 
-
 app.get('/', (req, res) => {
   let device_path = req.device.type == 'desktop' ? 'desktop' : 'mobile';
   //res.sendFile(__dirname + '/dist/pages/' + device_path + '/landing_page.html' );
@@ -206,7 +205,7 @@ app.route('/projects')
         }
       );
   })
-  .post(function (req, res) { /* inserting newр project */
+  .post(function (req, res) { /* inserting new project */
       if(req.body.skills && req.body.skills != "Select Skill Level") {
           let strSkills = req.body.skills,
               arrSkills = strSkills.split(",");

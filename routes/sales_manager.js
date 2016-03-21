@@ -1,6 +1,8 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
-var Parse = require('parse').Parse
+var Parse = require('parse').Parse;
 
 router.get('/:id',  (req, res) => {
     var queryUser = new Parse.Query("User");
@@ -22,23 +24,19 @@ router.get('/:id',  (req, res) => {
     var counter = 0;
     function checker() {
         counter++;
-        if (counter == 4) {
-            res.render("../pages/manager/sales_manager", {"targets": arrGetTargets, "companies": arrGetCompanies, "users" : arrGetFreelancers, "projects": arrGetProjects});
-        }
-    };
+        if (counter == 4)
+            res.render("../pages/manager/sales_manager", {logged: res.isLogged, "targets": arrGetTargets, "companies": arrGetCompanies, "users" : arrGetFreelancers, "projects": arrGetProjects});
+    }
     querySalesTargets.find({
         success:  (foundTargets) => {
-            "use strict";
             let check = 0;
-            if(foundTargets.length == 0){
-                checker();
-            }
-            else{
+            if(foundTargets.length == 0) checker();
+            else {
                 for(var i=0; i<foundTargets.length ;i++){
                     queryTarget.get(foundTargets[i]._serverData.TargetId, {
                         success: (getTargets) => {
                             check++;
-                            arrGetTargets = arrGetTargets.concat(getTargets)
+                            arrGetTargets = arrGetTargets.concat(getTargets);
                             if(check==foundTargets.length) checker();
                         },
                         error: (error) => {
@@ -56,17 +54,14 @@ router.get('/:id',  (req, res) => {
     });
     querySalesCompanies.find({
         success: (foundCompanies) => {
-            "use strict";
             let check = 0;
-            if(foundCompanies.length == 0){
-                checker();
-            }
+            if(foundCompanies.length == 0) checker();
             else{
-                for(var i=0; i<foundCompanies.length ;i++){
+                for(var i=0; i<foundCompanies.length; i++){
                     queryCompany.get(foundCompanies[i]._serverData.CompanyId,{
                         success: (getCompanies) => {
                             check++;
-                            arrGetCompanies = arrGetCompanies.concat(getCompanies)
+                            arrGetCompanies = arrGetCompanies.concat(getCompanies);
                             if(check==foundCompanies.length) checker();
                         },
                         error: (error) => {
@@ -84,17 +79,14 @@ router.get('/:id',  (req, res) => {
     });
     querySalesFreelancers.find({
         success: (foundFreelancers) => {
-            "use strict";
             let check = 0;
-            if(foundFreelancers.length == 0){
-                checker();
-            }
+            if(foundFreelancers.length == 0) checker();
             else{
-                for(var i=0; i<foundFreelancers.length ;i++){
+                for(var i=0; i<foundFreelancers.length; i++){
                     queryUser.get(foundFreelancers[i]._serverData.FreelancerId,{
                         success: (getFreelancers) => {
                             check++;
-                            arrGetFreelancers = arrGetFreelancers.concat(getFreelancers)
+                            arrGetFreelancers = arrGetFreelancers.concat(getFreelancers);
                             if(check==foundFreelancers.length) checker();
 
                         },
@@ -113,17 +105,14 @@ router.get('/:id',  (req, res) => {
     });
     querySalesProjects.find({
         success: (foundProjects) => {
-            "use strict";
             let check = 0;
-            if(foundProjects.length == 0){
-                checker();
-            }
+            if(foundProjects.length == 0) checker();
             else{
-                for(var i=0; i<foundProjects.length ;i++){
+                for(var i=0; i<foundProjects.length; i++){
                     queryProject.get(foundProjects[i]._serverData.ProjectId, {
                         success: (getProjects) => {
                             check++;
-                            arrGetProjects = arrGetProjects.concat(getProjects)
+                            arrGetProjects = arrGetProjects.concat(getProjects);
                             if(check==foundProjects.length) checker();
                         },
                         error: (error) => {

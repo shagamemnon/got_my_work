@@ -5,7 +5,7 @@ var Parse = require('parse').Parse;
 
 let checker = (counter, length) => {
     return ++counter.val == length;
-}
+};
 
 router.get('/', (req, res) => {
 
@@ -59,7 +59,6 @@ router.get('/', (req, res) => {
     }
     querySalesTargets.find({
         success: (foundTargets) => {
-            "use strict";
             let check = 0;
             linkedTargets = foundTargets;
             if(foundTargets.length == 0){
@@ -90,7 +89,6 @@ router.get('/', (req, res) => {
     });
     querySalesCompanies.find({
         success: (foundCompanies) => {
-            "use strict";
             let check = 0;
             linkedCompanies = foundCompanies;
             if(foundCompanies.length == 0){
@@ -121,7 +119,6 @@ router.get('/', (req, res) => {
     });
     querySalesFreelancers.find({
         success: (foundFreelancers) => {
-            "use strict";
             let check = 0;
             linkedFreelancers = foundFreelancers;
             if(foundFreelancers.length == 0){
@@ -153,7 +150,6 @@ router.get('/', (req, res) => {
     });
     querySalesProjects.find({
         success: (foundProjects) => {
-            "use strict";
             let check = 0;
             linkedProjects = foundProjects;
             if(foundProjects.length == 0){
