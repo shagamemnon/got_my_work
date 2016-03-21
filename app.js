@@ -14,13 +14,15 @@ var port = process.env.PORT || 3000
   , session = require('express-session')
   , ws = require('express-ws')(app)
   , auth = require('./modules/auth')
-  , parseQuery = require('./modules/parseQuery');
+  , parseQuery = require('./modules/parseQuery')
+  , admin = require('./routes/admin')
+  , sales_manager = require('./routes/sales_manager');
 
 GLOBAL._ = require('lodash');
 
 Parse.initialize(config.parse.appId, config.parse.JSKey, config.parse.MsKey);
 
-var chat  =  require("./vendor/model/chat").init(Parse,function(error){
+var chat  =  require("./vendor/model/chat").init(function(error){
   console.error('Chat error: ',error)
 });
 
@@ -69,20 +71,24 @@ app.ws('/chatgate/', function(ws, req) {
     ws.close();
     return;
   }
+
   var user = req.session.user;
-  chat.addConnection(user,ws);
+
+  chat.addConnection(user, ws);
+
   ws.on('message', function(msg) {
-    chat.in(user.id,msg,function(answer){
+    chat.in(user.id, msg, function(answer){
       ws.send(answer);
     });
   });
+
   ws.on('error', function(msg) {
    // console.log(msg)
   });
-  ws.on('close', function() {
-    chat.closeConnection(req.query.id);
-  });
 
+  ws.on('close', function() {
+    chat.closeConnection(user);
+  });
 
 });
 
@@ -91,6 +97,10 @@ app.all('/*',(req, res, next)=>{
   res.isLogged = req.session.user ? true : false;
   next();
 });
+
+app.use('/admin', admin);
+app.use('/sales-manager', sales_manager);
+
 
 app.get('/', (req, res) => {
   let device_path = req.device.type == 'desktop' ? 'desktop' : 'mobile';
@@ -185,15 +195,16 @@ app.get('/projects-dashboard', (req, res) =>
 
 app.route('/projects')
   .get(function ( req, res) {
-      parseQuery.getObjects({class: "Project", limit: 8}, function(answer){
-        if (answer.result == 'ok') {
+      parseQuery.getObjects({class: "Project", limit: 8},
+      (answer) => {
           console.log("projects", answer.object);
           res.render('../pages/project_index', {"projects": answer.object});
-        } else {
+        },
+          (answer) => {
           console.log("getting projects error", answer.error);
           res.json("error");
         }
-      });
+      );
   })
   .post(function (req, res) { /* inserting newр project */
       if(req.body.skills && req.body.skills != "Select Skill Level") {

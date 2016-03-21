@@ -1,0 +1,14 @@
+extends ../base
+html
+    head
+    include ../../templates/general/fonts
+block style
+    link(rel="stylesheet", href="../dist/css/login.css")
+block scripts
+    script( src="../vendor/jquery-latest.min.js" )
+    script(src="../vendor/login.js")
+block title
+    title Signup | Freelancer
+    meta( name="description", content="India's Biggest Freelance Portal" )
+block content
+    include ../../templates/login/slmanager/main

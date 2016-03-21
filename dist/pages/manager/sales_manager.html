@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="dist/css/manager.css">
+    <link rel="stylesheet" href="/dist/css/manager.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link href="/dist/css/chat.css" rel="stylesheet" type="text/css">
     <link href="/dist/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -11,57 +11,94 @@
     <script src="/vendor/jquery-latest.min.js"></script>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
+    <script src="/vendor/jquery-ui.min.js"></script>
+    <script src="/vendor/paging.js"></script>
+    <script src="/vendor/progress_circle.js"></script>
+    <script src="/vendor/jquery.tablesorter.min.js"></script>
+    <script src="/vendor/sorting_table.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script data-main="dist/main" src="dist/require.min.js"></script>
     <title>Sales Manager</title>
     <meta name="description" content="India's Biggest Freelance Portal">
   </head>
   <body>
     <main class="content">
-      <html>
-        <div class="manager-panel">
-          <div class="table-title"><img style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px" src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png">
-            <h3>Sales Dashboard    </h3>
-            <h4>Active Targets</h4>
-          </div>
-          <div class="charts">
-            <div class="chart">
-              <h5>Enroll 80 Freelancers</h5><img src="https://s3.amazonaws.com/igotmywork/manager/Group.png">
-            </div>
-            <div class="chart">
-              <h5>Target Example 2</h5><img src="https://s3.amazonaws.com/igotmywork/manager/Group.png">
-            </div>
-            <div class="chart">
-              <h5>Target Example 3</h5><img src="https://s3.amazonaws.com/igotmywork/manager/Group.png">
-            </div>
-          </div>
-          <div class="table-title">
-            <h4>Data</h4>
-          </div>
+      <div class="manager-panel">
+        <div class="table-title"><img style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px" src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png">
+          <h3>Sales Dashboard</h3>
+          <h4>Active Targets</h4>
           <table class="table-fill">
-            <thead>
-              <tr>
-                <td class="text-left subhead">Title</td>
-                <td class="text-left subhead">Number</td>
-                <td class="text-left subhead">Timeline</td>
-                <td class="text-left subhead">Status</td>
-              </tr>
-            </thead>
-            <tbody class="table-hover">
-              <tr>
-                <td class="text-left">Enroll 80 freelancers</td>
-                <td class="text-left">80</td>
-                <td class="text-left">30 days</td>
-                <td class="text-left">Active</td>
-              </tr>
-              <tr>
-                <td class="text-left">Ensure 25 projects are complete</td>
-                <td class="text-left">25</td>
-                <td class="text-left">7 days</td>
-                <td class="text-left">Not Completed</td>
-              </tr>
+            <tbody>
             </tbody>
           </table>
         </div>
-      </html>
+        <div class="table-title">
+          <h4>Targets</h4>
+        </div>
+        <table id="sortTable1" class="sortTable table-fill">
+          <thead>
+            <tr>
+              <th class="text-left subhead">#</th>
+              <th class="text-left subhead">Title</th>
+              <th class="text-left subhead">Number</th>
+              <th class="text-left subhead">Timeline</th>
+              <th class="text-left subhead">Status</th>
+            </tr>
+          </thead>
+          <tbody class="sortTable table-hover">
+          </tbody>
+        </table>
+        <div class="table-title">
+          <h4>Freelancers:</h4>
+        </div>
+        <table id="sortTable2" class="sortTable table-fill">
+          <thead>
+            <tr>
+              <th class="text-left subhead">#</th>
+              <th class="text-left subhead">Name</th>
+              <th class="text-left subhead">Email</th>
+              <th class="text-left subhead">FullName</th>
+            </tr>
+          </thead>
+          <tbody class="table-hover">
+          </tbody>
+        </table>
+        <div class="table-title">
+          <h4>Companies:</h4>
+        </div>
+        <table id="sortTable3" class="sortTable table-fill">
+          <thead class="table-hover">
+            <tr>
+              <th class="text-left subhead">#</th>
+              <th class="text-left subhead">Name</th>
+              <th class="text-left subhead">Email</th>
+              <th class="text-left subhead">ContactName</th>
+              <th class="text-left subhead">Phone</th>
+            </tr>
+          </thead>
+          <tbody class="table-hover">
+          </tbody>
+        </table>
+        <div class="table-title">
+          <h4>Projects:</h4>
+        </div>
+        <table id="sortTable4" class="sortTable table-fill">
+          <thead>
+            <tr>
+              <th class="text-left subhead">#</th>
+              <th class="text-left subhead">Budget</th>
+              <th class="text-left subhead">Description</th>
+              <th class="text-left subhead">Knowledge</th>
+              <th class="text-left subhead">Rate</th>
+              <th class="text-left subhead">Technology</th>
+              <th class="text-left subhead">Title</th>
+            </tr>
+          </thead>
+          <tbody class="table-hover">
+          </tbody>
+        </table>
+      </div>
     </main>
   </body>
 </html>

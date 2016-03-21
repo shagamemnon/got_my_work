@@ -1,36 +1,102 @@
-html
-  .manager-panel
-    .table-title
-      img(style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px", src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
-      h3 Sales Dashboard    
-      h4 Active Targets
-    .charts
-      .chart
-        h5 Enroll 80 Freelancers
-        img(src="https://s3.amazonaws.com/igotmywork/manager/Group.png")
-      .chart
-        h5 Target Example 2
-        img(src="https://s3.amazonaws.com/igotmywork/manager/Group.png")
-      .chart
-        h5 Target Example 3
-        img(src="https://s3.amazonaws.com/igotmywork/manager/Group.png")
-    .table-title
-      h4 Data
+.manager-panel
+  .table-title
+    img(style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px", src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
+    h3 Sales Dashboard
+    h4 Active Targets
     table.table-fill
-      thead
-        tr
-          td.text-left.subhead Title
-          td.text-left.subhead Number
-          td.text-left.subhead Timeline
-          td.text-left.subhead Status
-      tbody.table-hover
-        tr
-          td.text-left Enroll 80 freelancers
-          td.text-left 80
-          td.text-left 30 days
-          td.text-left Active
-        tr
-          td.text-left Ensure 25 projects are complete
-          td.text-left 25
-          td.text-left 7 days
-          td.text-left Not Completed
+      tbody
+        -if(targets)
+          .tiles-row
+            - each target, i in targets
+              -if(i%3==0)
+                tr.tiles-row
+                  td.text-left
+                    .chart(align='center')= target.attributes.Title
+                    .container(style='min-width: 200px; height: 300px; max-width: 200px; margin:0 auto', name= target.attributes.Amount)= target.attributes.Title
+
+  .table-title
+    h4 Targets
+  table#sortTable1.sortTable.table-fill
+    thead
+      tr
+        th.text-left.subhead #
+        th.text-left.subhead Title
+        th.text-left.subhead Number
+        th.text-left.subhead Timeline
+        th.text-left.subhead Status
+    tbody.sortTable.table-hover
+      -if(targets)
+        .tiles-row
+          -each target in targets
+            tr.targetsCount
+              td.text-left
+              td.text-left= target.attributes.Title
+              td.text-left= target.attributes.Amount
+              td.text-left= target.attributes.Timeline
+              td.text-left= target.attributes.Status
+
+  .table-title
+    h4 Freelancers:
+  table#sortTable2.sortTable.table-fill
+    thead
+      tr
+        th.text-left.subhead #
+        th.text-left.subhead Name
+        th.text-left.subhead Email
+        th.text-left.subhead FullName
+    tbody.table-hover
+      -if(users)
+        .tiles-row
+          -each user in users
+            -if( user.attributes.userRole == "developer")
+              tr.freelancersCount
+                td.text-left
+                td.text-left= user.attributes.username
+                td.text-left= user.attributes.email
+                td.text-left= user.attributes.fullName
+
+  .table-title
+    h4 Companies:
+  table#sortTable3.sortTable.table-fill
+    thead.table-hover
+      tr
+        th.text-left.subhead #
+        th.text-left.subhead Name
+        th.text-left.subhead Email
+        th.text-left.subhead ContactName
+        th.text-left.subhead Phone
+    tbody.table-hover
+      -if(companies)
+        .tiles-row
+          -each company in companies
+            tr.companiesCount
+              td.text-left
+              td.text-left= company.attributes.Name
+              td.text-left= company.attributes.Email
+              td.text-left= company.attributes.contactName
+              td.text-left= company.attributes.Phone
+
+  .table-title
+    h4 Projects:
+  table#sortTable4.sortTable.table-fill
+    thead
+      tr
+        th.text-left.subhead #
+        th.text-left.subhead Budget
+        th.text-left.subhead Description
+        th.text-left.subhead Knowledge
+        th.text-left.subhead Rate
+        th.text-left.subhead Technology
+        th.text-left.subhead Title
+    tbody.table-hover
+      -if(projects)
+        .tiles-row
+          -each project in projects
+            tr.projectsCount
+              td.text-left
+              td.text-left= project.attributes.Budget
+              td.text-left= project.attributes.Description
+              td.text-left= project.attributes.Knowledge
+              td.text-left= project.attributes.Rate
+              td.text-left= project.attributes.Technology
+              td.text-left= project.attributes.Title

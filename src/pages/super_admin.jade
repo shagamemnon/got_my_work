@@ -1,0 +1,18 @@
+extends ./base
+
+block style
+    link(rel="stylesheet", href="/dist/css/manager.css")
+
+block extendScripts
+    script(src="/vendor/jquery-ui.min.js")
+    script(src="/vendor/jquery.tablesorter.min.js")
+    script(src="/vendor/paging.js")
+    script(src="/vendor/super-admin.js" )
+    script(src="/vendor/login.js")
+
+block title
+    title IGotMyWork
+    meta( name="description", content="India's Biggest Freelance Portal" )
+
+block content
+      include ../templates/super_admin/main_admin

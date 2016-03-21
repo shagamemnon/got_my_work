@@ -260,6 +260,8 @@
      * Resize content element
      */
     SimpleBar.prototype.resizeScrollContent = function () {
+    //fix this workaround, now browser better than  in 2006. We don't need this.
+        return;
         if (IS_WEBKIT) {
             return;
         }

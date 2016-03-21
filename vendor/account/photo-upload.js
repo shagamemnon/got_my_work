@@ -1,13 +1,6 @@
 function getFile(){
  document.getElementById("upfile").click();
 }
-//function sub(obj){
-//  var file = obj.value;
-//  var fileName = file.split("\\");
-//  document.getElementById("uploadimgbtn").innerHTML = fileName[fileName.length-1];
-//  document.myForm.submit();
-//  event.preventDefault();
-//}
 
 function previewFile() {
   var preview = document.getElementById('avatar');
@@ -32,6 +25,7 @@ function previewFile() {
     preview.src = "";
   }
 }
+
 $(document).ready(function() {
   $('[name="avatar"]').on('change', function () {
     previewFile();

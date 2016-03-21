@@ -1,0 +1,87 @@
+-var postedDate = function(date) {
+  -var posted = new Date(date), now = Date.now(), diff = Math.abs(now-posted) / (1000*60*60*24);
+  -return parseInt(diff) == 1 ? parseInt(diff) + ' day' : parseInt(diff) + ' days';
+-}
+
+- var categories = ["Software Architecture", "Frontend", "Backend", "Database", "Security", "UI Design", "Mobile Apps"]
+- var languages = ["Java", "Ruby", "Python", "C/C++", "PHP", ".NET", "Node.js", "iOS", "Android"]
+
+mixin printProject(project)
+  a.project-listing(href="#")#open
+    h4= project.attributes.title
+    em Posted #{postedDate(project.createdAt)} ago
+    em -&nbsp;&nbsp;#{project.attributes.paymentType}
+    em -&nbsp;&nbsp;#{project.attributes.knowledgeLevel}
+    em -&nbsp;&nbsp;#{project.attributes.duration} weeks
+    em -&nbsp;&nbsp;#{project.attributes.rate} hours/week
+    em &nbsp;
+    p=  project.attributes.description
+    span(style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px") Skills
+    -each skill in project.attributes.skills
+      span= skill
+
+mixin printCategories(category, index)
+  span
+    a(href="#tab#{index}")
+      .check-box
+        input(type="checkbox", value="#{index}", id="check-box_#{index}", name="check")
+        label(for="check-box_#{index}")
+      h5= category
+
+mixin printLanguages(language, index)
+  span
+    a(href="#tab#{index}")
+      .check-box
+        input(type="checkbox", value="#{index}", id="check-box_#{index}", name="check")
+        label(for="check-box_#{index}")
+      h5= language
+
+section.project_index
+  .dashboard-container
+    .sidebar
+      h2 Category
+      -each category, index in categories
+        +printCategories(category, index)
+
+      h2 Languages
+      -each language, index in languages
+        +printLanguages(language, index)
+
+    .content
+      #tab1.tab.active
+        -if (projects)
+          -each project in projects
+            +printProject(project)
+        //a.project-listing(href="#")#open
+        //  h4 Small Web Design Project
+        //  em Posted 1 day ago
+        //  em -&nbsp;&nbsp;Hourly
+        //  em -&nbsp;&nbsp;$$
+        //  em -&nbsp;&nbsp;2 weeks
+        //  em -&nbsp;&nbsp;20 hours/week
+        //  em &nbsp;
+        //  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.
+        //  span(style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px") Skills
+        //  span Web Design
+        //  span HTML/CSS
+        //  span jQuery
+        //  span SEO
+        //a.project-listing(href="#")
+        //  h4 Small Web Design Project
+        //  em Posted 1 day ago
+        //  em -&nbsp;&nbsp;Hourly
+        //  em -&nbsp;&nbsp;$$
+        //  em -&nbsp;&nbsp;2 weeks
+        //  em -&nbsp;&nbsp;20 hours/week
+        //  em &nbsp;
+        //  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo varius ipsum, vel tempus nibh congue id. In euismod fringilla velit vitae dignissim. Nam vitae felis ultricies, ultricies odio ac, cursus lorem. Proin posuere libero tortor, feugiat rutrum felis porta in. Sed in mauris lectus.
+        //  span(style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px") Skills
+        //  span Web Design
+        //  span HTML/CSS
+        //  span jQuery
+        //  span SEO
+
+#overlay
+#info
+  img#close(src="https://s3.amazonaws.com/igotmywork/signup/close.png")
+  include ../project_listing/main

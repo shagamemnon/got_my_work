@@ -1,31 +1,41 @@
+'use strict';
 module.exports = (function(){
 	var protocol = require('../api/chat');
-	var parse= null;
-	var constants = {doc:'ChatHistory'};
-	var contacts = {}
+	var dao = require('../../modules/chatHistory');
+	var UserRole = require('../UserRole.js');
+
+	var contacts = {};
+
+	var history = {};
+	var initialChats = [];
+	//initialChats.push({
+	//	receiverId: '...',
+	//	senderId: '...'
+	//});
 
 	var errorCallback;
-
-
 
 	function genInternalId(){
 		return (new Date).getTime();
 	}
 
-	function store(msg){
-		var historyItem =  parse.Object(constants.doc);
-		historyItem.set('content',msg.content);
-		historyItem.set('senderId',msg.senderId);
-		historyItem.set('receiverId',msg.receiverId);
-		historyItem.save(null, {
-			success: function(result){
-				//TODO do somethings
-			},
-			error: function(obj, error){
-				errorCallback(error);
+	function store(msg, callback){
+		dao.addMessage(msg.content, msg.senderId, msg.receiverId, (message)=>{
+			if(!history[msg.receiverId][msg.senderId]) {
+				history[msg.receiverId][msg.senderId] = [];
+			}
+			history[msg.receiverId][msg.senderId].push(msg);
+
+			msg.id = message.object.id;
+			msg.createdAt = message.object.createdAt;
+			msg.updatedAt = message.object.updatedAt;
+
+			if(callback){
+				callback(msg);
 			}
 		});
 	}
+
 
 	function send(msg){
 		var senderId = msg['senderId'];
@@ -37,13 +47,18 @@ module.exports = (function(){
 		}
 		return false;
 	}
+
 	return{
-		init : function(o,error){
-			parse = o;
+		init : function(error){
 			errorCallback = error;
 			return this;
 		},
+
 		addConnection : function(user,connection){
+			//dao.getMessages(function(messages){
+			//	console.log(messages);
+			//});
+
 			var item = contacts[user.id];
 			if(!item){
 				contacts[user.id] = {};
@@ -51,38 +66,230 @@ module.exports = (function(){
 				item.user = null;
 				item.connection = null;
 				item.chats = [];
+				history[user.id] = {};
 			}
 			if(item.connection) item.connection.close();
-			item.user = user;
+			item.user = user.attributes;
+			item.user.id = user.id;
 			item.connection = connection;
+
+
+			var canView = true;/*UserRole.canViewContact(contacts[id], contacts[item.user.id]);*/
+			var userForContact = new protocol.Contact(item.user.id,item.user.fullName,item.user.avatar, canView);
+			dao.getMessages(function(messages) {
+				var messagesConnectedContact = [];
+				messages.object.forEach(function (message) {
+					if (message.attributes.receiverId === user.id || message.attributes.senderId === user.id) {
+						messagesConnectedContact.push(message);
+					}
+				});
+
+				_.forEach(contacts, function (contact) {
+					if (contact.user.id != user.id) {
+						canView = UserRole.canViewContact(contacts[contact.user.id], contacts[user.id]);
+						userForContact.canView = canView;
+
+						var resultMessages = [];
+
+						messagesConnectedContact.forEach(function (message) {
+							if (message.attributes.receiverId == contact.user.id || message.attributes.senderId == contact.user.id) {
+								resultMessages.push(message);
+							}
+						});
+						resultMessages.sort(function (a, b) {
+							if (a.createdAt > b.createdAt) return 1;
+							if (a.createdAt < b.createdAt) return -1;
+							if (a.createdAt == b.createdAt) return 0;
+						});
+						userForContact.messages = resultMessages;
+
+						contact.connection.send(JSON.stringify(userForContact));
+
+						//dao.getMessages(function (messages) {
+						//	var messagesWithMe = [];
+						//	messages.object.forEach(function (message) {
+						//		if (message.attributes.receiverId === id || message.attributes.senderId === id) {
+						//			messagesWithMe.push(message);
+						//		}
+						//	});
+                        //
+						//	var userContacts = _.map(_.filter(contacts, function (obj) {
+						//		return obj.user.id != id
+						//	}), function (obj) {
+						//		var resultMessages = [];
+						//		messagesWithMe.forEach(function (message) {
+						//			if (message.attributes.receiverId == obj.user.id || message.attributes.senderId == obj.user.id) {
+						//				resultMessages.push(message);
+						//			}
+						//		});
+						//		resultMessages.sort(function (a, b) {
+						//			if (a.createdAt > b.createdAt) return 1;
+						//			if (a.createdAt < b.createdAt) return -1;
+						//			if (a.createdAt == b.createdAt) return 0;
+						//		});
+                        //
+						//		var canView = UserRole.canViewContact(contacts[id], contacts[obj.user.id]);
+                        //
+						//		return new protocol.struct.User(obj.user.id, obj.user.fullName, obj.user.avatar, canView, resultMessages);
+						//	});
+						//});
+					}
+				});
+			});
 		},
 		in : function(id,jsMsg,ok){
-			var result = '';
+			var canInitial = true;
+			var count = 0;
+			var result = new protocol.Ok();
+			var async = false;
 			var msg = JSON.parse(jsMsg);
 			msg['senderId'] = id;
-			if(msg.type == protocol.typeSet.message){
-				if(send(msg))store(msg);
+			var initiatorId;
+			var interlocutorId;
 
-				result = new protocol.Ok();
-			} else if(msg.type == protocol.typeSet.received){
-
-			} else if(msg.type == protocol.typeSet.getContacts){
-				 var userContacts = _.map(_.filter(contacts,function(obj){return obj.user.id != id}),function(obj){
-
-					return new protocol.struct.User(obj.user.id,obj.user.attributes.fullName,'//');
+			function  addInitChat(initiatorUserId, interlocutorUserId){
+				initialChats.push({
+					initiatorUserId: initiatorUserId,
+					interlocutorUserId: interlocutorUserId
 				});
-				result = new  protocol.Contacts(userContacts);
 			}
-			ok(JSON.stringify(result));
 
+			switch (msg.type) {
+
+				case (protocol.typeSet.initial): {
+					initiatorId = id;
+					interlocutorId = msg.interlocutorUserId
+					canInitial = UserRole.canInitialChat(contacts[initiatorId], contacts[interlocutorId]);
+					if(initialChats.length>0/*initialChats.initiatorUserId != undefined && initialChats.interlocutorUserId != undefined*/){
+
+						for(var i = 0; i < initialChats.length; i++){
+							if(initialChats[i].initiatorUserId == interlocutorId && initialChats[i].interlocutorUserId == initiatorId ){
+								console.log("true");
+								result = new protocol.InitialResult(true, interlocutorId);
+							} else{
+								result = new protocol.InitialResult(canInitial, interlocutorId);
+							}
+						}
+					} else{
+						result = new protocol.InitialResult(canInitial, interlocutorId);
+					}
+
+					var find = false;
+					initialChats.forEach(function(initialChat){
+						if(initialChat.initiatorUserId == initiatorId && initialChat.interlocutorUserId == interlocutorId){
+							find = true;
+						}
+					});
+					if(!find) {
+						if(canInitial == true && initialChats.length > 0){
+							initialChats.forEach(function(initIdForAdding, initialChatsForAdding) {
+								if (initiatorId == initIdForAdding.initiatorUserId) {
+									initialChats.forEach(function (initId, initialChatsForUpdate) {
+										console.log("initId[i]: " + initId.initiatorUserId);
+										if (initiatorId == initId.initiatorUserId) {
+											initId.interlocutorUserId = interlocutorId;
+										}
+									});
+								} else if(initiatorId != initIdForAdding.initiatorUserId && initiatorId != initIdForAdding.interlocutorUserId) {
+									count++;
+									if(count == initialChats.length) {
+										addInitChat(initiatorId, interlocutorId);
+									}
+								}
+							});
+						}
+						else if(canInitial == true){
+							addInitChat(initiatorId, interlocutorId);
+						}
+					}
+
+					contacts[interlocutorId].connection.send(JSON.stringify(new protocol.YouInterlocutorUser(initiatorId)));
+				} break;
+
+				case (protocol.typeSet.closeChat): {
+					if(!UserRole.canViewContact(contacts[interlocutorId], contacts[initiatorId])){
+						if(contacts[interlocutorId]){
+							if(contacts[interlocutorId].connection){
+								contacts[interlocutorId].connection.send(JSON.stringify(new protocol.CantViewContact(initiatorId)));
+							}
+						}
+					}
+				} break;
+
+				case (protocol.typeSet.message): {
+					if(send(msg)){
+						store(msg, function(message){
+							result = new protocol.ImSend(message);
+							async = true;
+							ok(JSON.stringify(result));
+						});
+					}
+				} break;
+
+				case (protocol.typeSet.received): {
+					result = new protocol.Ok();
+				} break;
+
+				case (protocol.typeSet.getContacts): {
+					dao.getMessages(function(messages){
+						var messagesWithMe = [];
+						messages.object.forEach(function(message){
+							if(message.attributes.receiverId === id || message.attributes.senderId === id) {
+								messagesWithMe.push(message);
+							}
+						});
+
+						var userContacts = _.map(_.filter(contacts,function(obj){return obj.user.id != id}),function(obj){
+							var resultMessages = [];
+							messagesWithMe.forEach(function(message){
+								if(message.attributes.receiverId == obj.user.id || message.attributes.senderId == obj.user.id){
+									resultMessages.push(message);
+								}
+							});
+							resultMessages.sort(function(a, b){
+								if(a.createdAt > b.createdAt) return 1;
+								if(a.createdAt < b.createdAt) return -1;
+								if(a.createdAt == b.createdAt) return 0;
+							});
+
+							var canView = UserRole.canViewContact(contacts[id], contacts[obj.user.id]);
+
+							return new protocol.struct.User(obj.user.id,obj.user.fullName, obj.user.avatar, canView, resultMessages);
+						});
+
+						result = new  protocol.Contacts(userContacts);
+						async = true;
+						ok(JSON.stringify(result));
+					});
+				} break;
+			}
+
+			if(!async) {
+				ok(JSON.stringify(result));
+			}
 		},
-		closeConnection : function(id){
 
-			if(contacts[id] && contacts[id].connection) {
-				contacts[id].connection.close();
-				contacts[id].connection = null;
-				constants[id] = null;
+		closeConnection : function(user){
+			var contactUser = contacts[user.id];
+			if(contactUser) {
+				if(initialChats.length>0){
+					for(var i = 0; i<initialChats.length; i++){
+						if(initialChats[i].initiatorUserId == user.id){
+							initialChats.splice(i, 1);
+						}
+					}
+				}
+				if(contactUser.connection) {
+					contactUser.connection.close();
+					contactUser.connection = undefined;
+					delete contacts[user.id];
+				}
+			}
+			for(var contactId in contacts) {
+				contacts[contactId].connection.send(JSON.stringify(new protocol.DisconnectedContact(user)));
 			}
 		}
+
 	}
+
 })();
