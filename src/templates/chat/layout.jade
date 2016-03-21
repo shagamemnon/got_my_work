@@ -1,11 +1,14 @@
 #chat
     .header
+        .allChatMarks
+            span#allUnreadMark 0
+            span#allInitialChats 0
         .title Chat
         .actions
             .minimaze
             .exit
                 i.fa.fa-times
-    .body.chat.active
+    .body.chat(style="display: none")
         .target.bottomLine
             .avatar
                 img(width=45, hight=45, src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png")
@@ -14,59 +17,12 @@
                 .name test name
         .content.bottomLine
             .messages(data-simplebar-direction="vertical")
-                .message.in
-                    .title
-                        .avatar
-                            img(width=18, hight=18, src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png")
-                        .name Test Name
-                        .time 10:12 AM, Today
-                    .body test msg test msg  test msg test msg  test msg test msg  test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg
-                .message.out
-                    .title
-                        .name You
-                        .time 10:12 AM, Today
-                    .body test msg
-                .message.in
-                    .title
-                        .avatar
-                            img(width=18, hight=18, src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png")
-                        .name Test Name
-                        .time 10:12 AM, Today
-                    .body test msg
-                .message.in
-                    .title
-                        .avatar
-                            img(width=18, hight=18, src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png")
-                        .name Test Name
-                        .time 10:12 AM, Today
-                    .body test msg
-                .message.in
-                    .title
-                        .avatar
-                            img(width=18, hight=18, src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png")
-                        .name Test Name
-                        .time 10:12 AM, Today
-                    .body test msg
-                .message.in
-                    .title
-                        .avatar
-                            img(width=18, hight=18, src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png")
-                        .name Test Name
-                        .time 10:12 AM, Today
-                    .body test msg
-                .message.in
-                    .title
-                        .avatar
-                            img(width=18, hight=18, src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png")
-                        .name Test Name
-                        .time 10:12 AM, Today
-                    .body test msg
         .sendBlock
             textarea(placeholder="Type your message")
             div send
-    .body.contacts(style="display: none")
+    .body.contacts.active
         .content
             .contactList(data-simplebar-direction="vertical")
     .tabs
-        .chat.active Chat
-        .contacts Contacts
+        .chat Chat
+        .contacts.active Contacts

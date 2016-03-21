@@ -1,13 +1,14 @@
 
 <div id="chat">
   <div class="header">
+    <div class="allChatMarks"><span id="allUnreadMark">0</span><span id="allInitialChats">0</span></div>
     <div class="title">Chat</div>
     <div class="actions">
       <div class="minimaze"></div>
       <div class="exit"><i class="fa fa-times"></i></div>
     </div>
   </div>
-  <div class="body chat active">
+  <div style="display: none" class="body chat">
     <div class="target bottomLine">
       <div class="avatar"><img width="45" hight="45" src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png"/></div>
       <div class="infoBlock">
@@ -16,76 +17,20 @@
       </div>
     </div>
     <div class="content bottomLine">
-      <div data-simplebar-direction="vertical" class="messages">
-        <div class="message in">
-          <div class="title">
-            <div class="avatar"><img width="18" hight="18" src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png"/></div>
-            <div class="name">Test Name</div>
-            <div class="time">10:12 AM, Today</div>
-          </div>
-          <div class="body">test msg test msg  test msg test msg  test msg test msg  test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg test msg</div>
-        </div>
-        <div class="message out">
-          <div class="title">
-            <div class="name">You</div>
-            <div class="time">10:12 AM, Today</div>
-          </div>
-          <div class="body">test msg</div>
-        </div>
-        <div class="message in">
-          <div class="title">
-            <div class="avatar"><img width="18" hight="18" src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png"/></div>
-            <div class="name">Test Name</div>
-            <div class="time">10:12 AM, Today</div>
-          </div>
-          <div class="body">test msg</div>
-        </div>
-        <div class="message in">
-          <div class="title">
-            <div class="avatar"><img width="18" hight="18" src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png"/></div>
-            <div class="name">Test Name</div>
-            <div class="time">10:12 AM, Today</div>
-          </div>
-          <div class="body">test msg</div>
-        </div>
-        <div class="message in">
-          <div class="title">
-            <div class="avatar"><img width="18" hight="18" src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png"/></div>
-            <div class="name">Test Name</div>
-            <div class="time">10:12 AM, Today</div>
-          </div>
-          <div class="body">test msg</div>
-        </div>
-        <div class="message in">
-          <div class="title">
-            <div class="avatar"><img width="18" hight="18" src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png"/></div>
-            <div class="name">Test Name</div>
-            <div class="time">10:12 AM, Today</div>
-          </div>
-          <div class="body">test msg</div>
-        </div>
-        <div class="message in">
-          <div class="title">
-            <div class="avatar"><img width="18" hight="18" src="http://findicons.com/files/icons/1072/face_avatars/300/a05.png"/></div>
-            <div class="name">Test Name</div>
-            <div class="time">10:12 AM, Today</div>
-          </div>
-          <div class="body">test msg</div>
-        </div>
-      </div>
+      <div data-simplebar-direction="vertical" class="messages"></div>
     </div>
     <div class="sendBlock">
       <textarea placeholder="Type your message"></textarea>
       <div>send</div>
     </div>
   </div>
-  <div style="display: none" class="body contacts">
+  <div class="body contacts active">
     <div class="content">
       <div data-simplebar-direction="vertical" class="contactList"></div>
     </div>
   </div>
   <div class="tabs">
-    <div class="chat active">Chat</div>
-    <div class="contacts">Contacts</div>
+    <div class="chat">Chat</div>
+    <div class="contacts active">Contacts</div>
   </div>
 </div>
