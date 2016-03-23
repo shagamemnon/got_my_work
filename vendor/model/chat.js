@@ -76,7 +76,7 @@ module.exports = (function(){
 
 			var canView = true;/*UserRole.canViewContact(contacts[id], contacts[item.user.id]);*/
 			var userForContact = new protocol.Contact(item.user.id,item.user.fullName,item.user.avatar, canView);
-			dao.getMessages({id: user.id, limit: 2, page: 2}, function(messages) {
+			dao.getMessages({id: user.id, limit: 100, page: 1}, function(messages) {
 				var messagesConnectedContact = [];
 				messages.object.forEach(function (message) {
 					if (message.attributes.receiverId === user.id || message.attributes.senderId === user.id) {
@@ -227,7 +227,7 @@ module.exports = (function(){
 				} break;
 
 				case (protocol.typeSet.getContacts): {
-					dao.getMessages({id: id, limit: 2, page: 2}, function(messages){
+					dao.getMessages({id: id, limit: 100, page: 1}, function(messages){
 						var messagesWithMe = [];
 						messages.object.forEach(function(message){
 							if(message.attributes.receiverId === id || message.attributes.senderId === id) {
