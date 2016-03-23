@@ -76,7 +76,7 @@ module.exports = (function(){
 
 			var canView = true;/*UserRole.canViewContact(contacts[id], contacts[item.user.id]);*/
 			var userForContact = new protocol.Contact(item.user.id,item.user.fullName,item.user.avatar, canView);
-			dao.getMessages(function(messages) {
+			dao.getMessages({id: user.id, limit: 2, page: 2}, function(messages) {
 				var messagesConnectedContact = [];
 				messages.object.forEach(function (message) {
 					if (message.attributes.receiverId === user.id || message.attributes.senderId === user.id) {
@@ -96,11 +96,11 @@ module.exports = (function(){
 								resultMessages.push(message);
 							}
 						});
-						resultMessages.sort(function (a, b) {
-							if (a.createdAt > b.createdAt) return 1;
-							if (a.createdAt < b.createdAt) return -1;
-							if (a.createdAt == b.createdAt) return 0;
-						});
+						//resultMessages.sort(function (a, b) {
+						//	if (a.createdAt > b.createdAt) return 1;
+						//	if (a.createdAt < b.createdAt) return -1;
+						//	if (a.createdAt == b.createdAt) return 0;
+						//});
 						userForContact.messages = resultMessages;
 
 						contact.connection.send(JSON.stringify(userForContact));
@@ -112,7 +112,7 @@ module.exports = (function(){
 						//			messagesWithMe.push(message);
 						//		}
 						//	});
-                        //
+						//
 						//	var userContacts = _.map(_.filter(contacts, function (obj) {
 						//		return obj.user.id != id
 						//	}), function (obj) {
@@ -127,9 +127,9 @@ module.exports = (function(){
 						//			if (a.createdAt < b.createdAt) return -1;
 						//			if (a.createdAt == b.createdAt) return 0;
 						//		});
-                        //
+						//
 						//		var canView = UserRole.canViewContact(contacts[id], contacts[obj.user.id]);
-                        //
+						//
 						//		return new protocol.struct.User(obj.user.id, obj.user.fullName, obj.user.avatar, canView, resultMessages);
 						//	});
 						//});
@@ -144,9 +144,8 @@ module.exports = (function(){
 			var async = false;
 			var msg = JSON.parse(jsMsg);
 			msg['senderId'] = id;
-			var initiatorId;
-			var interlocutorId;
-
+			var initiatorId = id;
+			var interlocutorId = msg.interlocutorUserId;
 			function  addInitChat(initiatorUserId, interlocutorUserId){
 				initialChats.push({
 					initiatorUserId: initiatorUserId,
@@ -157,10 +156,8 @@ module.exports = (function(){
 			switch (msg.type) {
 
 				case (protocol.typeSet.initial): {
-					initiatorId = id;
-					interlocutorId = msg.interlocutorUserId
 					canInitial = UserRole.canInitialChat(contacts[initiatorId], contacts[interlocutorId]);
-					if(initialChats.length>0/*initialChats.initiatorUserId != undefined && initialChats.interlocutorUserId != undefined*/){
+					if(initialChats.length>0){
 
 						for(var i = 0; i < initialChats.length; i++){
 							if(initialChats[i].initiatorUserId == interlocutorId && initialChats[i].interlocutorUserId == initiatorId ){
@@ -202,7 +199,6 @@ module.exports = (function(){
 							addInitChat(initiatorId, interlocutorId);
 						}
 					}
-
 					contacts[interlocutorId].connection.send(JSON.stringify(new protocol.YouInterlocutorUser(initiatorId)));
 				} break;
 
@@ -231,7 +227,7 @@ module.exports = (function(){
 				} break;
 
 				case (protocol.typeSet.getContacts): {
-					dao.getMessages(function(messages){
+					dao.getMessages({id: id, limit: 2, page: 2}, function(messages){
 						var messagesWithMe = [];
 						messages.object.forEach(function(message){
 							if(message.attributes.receiverId === id || message.attributes.senderId === id) {
@@ -246,11 +242,11 @@ module.exports = (function(){
 									resultMessages.push(message);
 								}
 							});
-							resultMessages.sort(function(a, b){
-								if(a.createdAt > b.createdAt) return 1;
-								if(a.createdAt < b.createdAt) return -1;
-								if(a.createdAt == b.createdAt) return 0;
-							});
+							//resultMessages.sort(function(a, b){
+							//	if(a.createdAt > b.createdAt) return 1;
+							//	if(a.createdAt < b.createdAt) return -1;
+							//	if(a.createdAt == b.createdAt) return 0;
+							//});
 
 							var canView = UserRole.canViewContact(contacts[id], contacts[obj.user.id]);
 

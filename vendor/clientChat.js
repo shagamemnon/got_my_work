@@ -124,10 +124,10 @@ $(document).ready(function(){
 			processor.action('checkUnread', message, contacts);
 		});
 
-        processor.addMessageProcessor(chat.typeSet.imSend, function(message){
-            var messageObj = message.message;
-            processor.action('addMessage', 'out', messageObj.content, undefined, new Date(messageObj.createdAt));
-        });
+		processor.addMessageProcessor(chat.typeSet.imSend, function(message){
+			var messageObj = message.message;
+			processor.action('addMessage', 'out', messageObj.content, undefined, new Date(messageObj.createdAt));
+		});
 
 		processor.addMessageProcessor(chat.typeSet.disconnectedContact, function(responce){
 			var disconnectedUserId = responce.data;
@@ -264,6 +264,12 @@ $(document).ready(function(){
 
 			function openChat(){
 				tabs.slideDown('fast',function(){
+
+					if($('div.chat').hasClass('chat')) {
+						$(".tabs").children('.chat').addClass('chatDisabled');
+						$(".tabs").children('.chat').removeClass('chat');
+					}
+
 					container.find('> div.body.active').slideDown(function(){
 						minminaze.click(minimaze);
 						header.unbind();
@@ -314,15 +320,24 @@ $(document).ready(function(){
 
 					console.log(currentContact);
 
+					if($('div.chatDisabled').hasClass('chatDisabled')) {
+						$(".tabs").children('.chatDisabled').addClass('chat');
+						$(".tabs").children('.chatDisabled').removeClass('chatDisabled');
+					}
+
 					currentContact['unreadMessages'] = undefined;
 					printUnreadMark();
 
 					currentContact.messages.forEach(function(message){
 						if(currentContact.id == message.receiverId) {
-							printMessage('out', message.content, undefined, new Date(message.createdAt));
+							if(message.createdAt != undefined){
+								printMessage('out', message.content, undefined, new Date(message.createdAt));
+							}
 						}
 						if(currentContact.id == message.senderId) {
-							printMessage('input', message.content, currentContact.name, new Date(message.createdAt));
+							if(message.createdAt != undefined){
+								printMessage('input', message.content, currentContact.name, new Date(message.createdAt));
+							}
 						}
 					});
 				});
@@ -332,7 +347,7 @@ $(document).ready(function(){
 						setUnread();
 					} else {
 						if(currentContact.id === message.senderId) {
-							console.log('Ничего не делаем, так как мы с ним уже разговариваем');
+							console.log('?????? ?? ??????, ??? ??? ?? ? ??? ??? ?????????????');
 						} else {
 							setUnread();
 						}
@@ -388,8 +403,8 @@ $(document).ready(function(){
 						processor.action('setContact');
 						switchItem(chatBlock,chatTab,contactsBlock,contactsTab);
 					} else {
-						//TODO сделать провершу на ошибку невозможности инициализировать контакт
-						console.info('сделать провершу на ошибку невозможности инициализировать контакт');
+						//TODO ??????? ???????? ?? ?????? ????????????? ???????????????? ???????
+						console.info('??????? ???????? ?? ?????? ????????????? ???????????????? ???????');
 					}
 				});
 
@@ -494,6 +509,10 @@ $(document).ready(function(){
 							switchItem(contactsBlock,contactsTab,chatBlock,chatTab)
 						}
 					}
+					if($('div.chat').hasClass('chat')) {
+						$(".tabs").children('.chat').addClass('chatDisabled');
+						$(".tabs").children('.chat').removeClass('chat');
+					}
 				});
 
 				processor.addAction('getScroll', function(){
@@ -513,7 +532,11 @@ $(document).ready(function(){
 			var contactsTab = tabs.find('.contacts');
 			var chatBlock = container.find('.body.chat');
 			var contactsBlock = container.find('.body.contacts');
-			chatTab.click(function(){switchItem(chatBlock,chatTab,contactsBlock,contactsTab)});
+			chatTab.click(function(){
+				if($(".tabs").children('.chat').hasClass('chat')){
+					switchItem(chatBlock,chatTab,contactsBlock,contactsTab);
+				}
+			});
 			contactsTab.click(function(){switchItem(contactsBlock,contactsTab,chatBlock,chatTab)});
 			chat();
 			contacts();

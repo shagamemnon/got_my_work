@@ -73,14 +73,20 @@ app.ws('/chatgate/', function(ws, req) {
   }
 
   var user = req.session.user;
+  if(req.session.isChat) {
+    req.session.isChat = false;
 
-  chat.addConnection(user, ws);
+    chat.addConnection(user, ws);
 
-  ws.on('message', function(msg) {
-    chat.in(user.id, msg, function(answer){
-      ws.send(answer);
+    ws.on('message', function (msg) {
+        chat.in(user.id, msg, function (answer) {
+          ws.send(answer, (err)=>{
+            if (!err)
+              req.session.isChat = true;
+          });
+        });
     });
-  });
+  }
 
   ws.on('error', function(msg) {
    // console.log(msg)
@@ -95,6 +101,7 @@ app.ws('/chatgate/', function(ws, req) {
 /** Uses Backbone Base **/
 app.all('/*',(req, res, next)=>{
   res.isLogged = req.session.user ? true : false;
+  req.session.isChat = true;
   next();
 });
 
