@@ -1,0 +1,21 @@
+section.signup-header
+   .container
+      .signup.user
+         h2 Manager
+         form(method="post")
+            .error-message
+            .visible
+               em Name
+               input( name="userName", type="text", placeholder="First and Last Name" )
+               em Email
+               input( name="email", type="text", placeholder="Email" )
+               em Create Password
+               input( name="password", type="password", placeholder="Create Password" )
+               em Confirm Password
+               input( name="confirm", type="password", placeholder="Confirm" )
+               input(name="userRole", type="text", style="display:none", value="employee")
+               -if(managerType)
+                  input(name="accountType", type="text", style="display:none", value=managerType)
+            input( type="text", name="_gotcha", style="display:none")
+         .submit-button
+               button SIGN UP

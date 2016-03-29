@@ -1,133 +1,90 @@
 "use strict";
-
-var express = require('express');
-var router = express.Router();
-var Parse = require('parse').Parse;
+let express = require('express');
+let router = express.Router();
+let Parse = require('parse').Parse
+let parseQuery = require('../modules/parseQuery');
 
 router.get('/:id',  (req, res) => {
-    var queryUser = new Parse.Query("User");
-    var queryTarget = new Parse.Query("Target");
-    var queryCompany = new Parse.Query("Company");
-    var queryProject = new Parse.Query("Project");
-    var querySalesTargets = new Parse.Query("SalesTargets");
-    var querySalesCompanies = new Parse.Query("SalesCompanies");
-    var querySalesProjects = new Parse.Query("SalesProjects");
-    var querySalesFreelancers = new Parse.Query("SalesFreelancers");
-    querySalesTargets.equalTo("SalesManagerID", req.params.id);
-    querySalesCompanies.equalTo("SalesManagerID", req.params.id);
-    querySalesProjects.equalTo("SalesManagerID", req.params.id);
-    querySalesFreelancers.equalTo("SalesManagerID", req.params.id);
-    var arrGetTargets = [];
-    var arrGetCompanies = [];
-    var arrGetFreelancers = [];
-    var arrGetProjects = [];
-    var counter = 0;
+    let queryUsers = new Parse.Query("User");
+    let queryTarget = new Parse.Query("Target");
+    let queryCompany = new Parse.Query("Company");
+    let queryProject = new Parse.Query("Project");
+    let arrGetTargets = [];
+    let arrGetCompanies = [];
+    let arrGetFreelancers = [];
+    let arrGetProjects = [];
+    let counter = 0;
+    let linkTypeId;
+    let salesTargetsClass = "SalesTargets";
+    let salesCompaniesClass = "SalesCompanies";
+    let salesFreelancersClass = "SalesFreelancers";
+    let salesProjectsClass = "SalesProjects";
+    let parseQueries = [{queryType:queryTarget, arrGetType:arrGetTargets, queryClass:salesTargetsClass}
+        ,{queryType:queryCompany, arrGetType:arrGetCompanies, queryClass:salesCompaniesClass}
+        ,{queryType:queryUsers, arrGetType:arrGetFreelancers, queryClass:salesFreelancersClass}
+        ,{queryType:queryProject, arrGetType:arrGetProjects, queryClass:salesProjectsClass}
+    ];
+
     function checker() {
         counter++;
-        if (counter == 4)
-            res.render("../pages/manager/sales_manager", {logged: res.isLogged, "targets": arrGetTargets, "companies": arrGetCompanies, "users" : arrGetFreelancers, "projects": arrGetProjects});
-    }
-    querySalesTargets.find({
-        success:  (foundTargets) => {
-            let check = 0;
-            if(foundTargets.length == 0) checker();
-            else {
-                for(var i=0; i<foundTargets.length ;i++){
-                    queryTarget.get(foundTargets[i]._serverData.TargetId, {
-                        success: (getTargets) => {
-                            check++;
-                            arrGetTargets = arrGetTargets.concat(getTargets);
-                            if(check==foundTargets.length) checker();
-                        },
-                        error: (error) => {
-                            res.send(500, 'record delete failed -- ' + error.status);
-                            console.log("error", error);
-                        }
-                    });
-                }
-            }
-        },
-        error: (error) => {
-            res.send(500, 'record delete failed -- ' + error.status);
-            console.log("error", error);
+        if (counter == 4) {
+            res.render("../pages/manager/sales_manager", {"targets": arrGetTargets, "companies": arrGetCompanies, "users" : arrGetFreelancers, "projects": arrGetProjects});
         }
-    });
-    querySalesCompanies.find({
-        success: (foundCompanies) => {
-            let check = 0;
-            if(foundCompanies.length == 0) checker();
-            else{
-                for(var i=0; i<foundCompanies.length; i++){
-                    queryCompany.get(foundCompanies[i]._serverData.CompanyId,{
-                        success: (getCompanies) => {
-                            check++;
-                            arrGetCompanies = arrGetCompanies.concat(getCompanies);
-                            if(check==foundCompanies.length) checker();
-                        },
-                        error: (error) => {
-                            res.send(500, 'record delete failed -- ' + error.status);
-                            console.log("error", error);
-                        }
-                    });
+    };
+    function queryFormation(queryType, arrGetType, queryClass){
+        parseQuery.getObjects({class: queryClass, limit: 50, equals:{column:"SalesManagerID" ,objectId:req.params.id}}, function(answer){
+            if (answer.result == 'ok') {
+                //"use strict";
+                let check = 0;
+                if(answer.object.length == 0){
+                    checker();
                 }
-            }
-        },
-        error: (error) => {
-            res.send(500, 'record delete failed -- ' + error.status);
-            console.log("error", error);
-        }
-    });
-    querySalesFreelancers.find({
-        success: (foundFreelancers) => {
-            let check = 0;
-            if(foundFreelancers.length == 0) checker();
-            else{
-                for(var i=0; i<foundFreelancers.length; i++){
-                    queryUser.get(foundFreelancers[i]._serverData.FreelancerId,{
-                        success: (getFreelancers) => {
-                            check++;
-                            arrGetFreelancers = arrGetFreelancers.concat(getFreelancers);
-                            if(check==foundFreelancers.length) checker();
+                else{
+                    for(let i=0; i<answer.object.length ;i++){
+                        if(queryType==queryCompany) {
+                            linkTypeId = answer.object[i]._serverData.CompanyId;
+                        }else if(queryType==queryTarget){
+                            linkTypeId = answer.object[i]._serverData.TargetId;
+                        }else if(queryType==queryProject){
+                            linkTypeId = answer.object[i]._serverData.ProjectId;
+                        }
+                        else if(queryType==queryUsers){
+                            linkTypeId = answer.object[i]._serverData.FreelancerId;
+                        }
+                        queryType.get(linkTypeId, {
+                            success: (getData) => {
+                                check++;
+                                arrGetType = arrGetType.concat(getData)
+                                if(check==answer.object.length){
+                                    if(queryType==queryCompany) {
+                                        arrGetCompanies = arrGetType;
+                                    }else if(queryType==queryTarget){
+                                        arrGetTargets = arrGetType;
+                                    }else if(queryType==queryUsers){
+                                        arrGetFreelancers = arrGetType;
+                                    }else if(queryType==queryProject){
+                                        arrGetProjects = arrGetType;
+                                    }
+                                    checker();}
 
-                        },
-                        error: (error) => {
-                            res.send(500, 'record delete failed -- ' + error.status);
-                            console.log("error", error);
-                        }
-                    });
+                            },
+                            error: (error) => {
+                                console.log("error", error);
+                            }
+                        });
+                    }
                 }
+            } else {
+                console.log("getting projects error", answer.error);
+                res.json("error");
             }
-        },
-        error: (error) => {
-            res.send(500, 'record delete failed -- ' + error.status);
-            console.log("error", error);
+        });
+    }
+    if(req.session && req.session.user !== undefined  && ((req.session.user.attributes.accountType == 'admin') || (req.session.user.attributes.accountType == 'sales-manager' && req.session.user.id == req.params.id))) {
+        for (let i = 0; i < parseQueries.length; i++) {
+            queryFormation(parseQueries[i].queryType, parseQueries[i].arrGetType, parseQueries[i].queryClass);
         }
-    });
-    querySalesProjects.find({
-        success: (foundProjects) => {
-            let check = 0;
-            if(foundProjects.length == 0) checker();
-            else{
-                for(var i=0; i<foundProjects.length; i++){
-                    queryProject.get(foundProjects[i]._serverData.ProjectId, {
-                        success: (getProjects) => {
-                            check++;
-                            arrGetProjects = arrGetProjects.concat(getProjects);
-                            if(check==foundProjects.length) checker();
-                        },
-                        error: (error) => {
-                            res.send(500, 'record delete failed -- ' + error.status);
-                            console.log("error", error);
-                        }
-                    });
-                }
-            }
-        },
-        error: (error) => {
-            res.send(500, 'record delete failed -- ' + error.status);
-            console.log("error", error);
-        }
-    });
+    } else res.redirect('/');
 });
 
 module.exports = router;

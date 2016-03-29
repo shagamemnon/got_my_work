@@ -78,12 +78,17 @@
             input#cancel_AllSManagers(type='button', value='Diselect all', style=' margin: 10px')
             br
             input#check_AllSManagers(type='button', value='Select all', style=' margin: 10px')
-            div.actions
-                button(onclick="move()", style=' margin: 10px') Create Sales-Manager
-                    script.
-                        function move() {
-                            window.location.href = '/admin/signup-slmanager'
-                        }
+
+            div.input
+                div.actions
+                    input(type="submit", style=' margin: 10px', class="ajax_signup_manager", value="Create Manager")
+                    select#manager_type(type='text', name='manager_type', value='', tabindex='1', style=' margin: 10px; padding: 1px')
+                        option(disabled selected="selected")
+                        option sales-manager
+                        option project-manager
+                        option company-manager
+                        option user-manager
+                    #managerTypeUnselect(style='display:none') You must to choose the manager type
             div.actions
                 input(type="submit",class = "ajax_delete_sales_manager",  value="Delete Sales-Manager", style=' margin: 10px')
             #salesManagerUnselectBeforeDelete(style='display:none') You must to choose the sales-manager

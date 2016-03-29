@@ -14,9 +14,6 @@ exports.addMessage = function(content,senderId,receiverId,done){
     },done,(error)=>console.log(error));
 };
 exports.getMessages = function(params, done){
-    //parse.getObjects({
-    //    'class' : doc
-    //},done,(error)=>console.log(error));
     if(!params.page)
         params.page = 1;
     parse.orGetObject({

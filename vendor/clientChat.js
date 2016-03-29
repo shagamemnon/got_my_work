@@ -265,10 +265,8 @@ $(document).ready(function(){
 			function openChat(){
 				tabs.slideDown('fast',function(){
 
-					if($('div.chat').hasClass('chat')) {
-						$(".tabs").children('.chat').addClass('chatDisabled');
-						$(".tabs").children('.chat').removeClass('chat');
-					}
+					if($('div.chat').length != 0)
+						$(".tabs").children('.chat').addClass('chatDisabled').removeClass('chat');
 
 					container.find('> div.body.active').slideDown(function(){
 						minminaze.click(minimaze);
@@ -320,10 +318,8 @@ $(document).ready(function(){
 
 					console.log(currentContact);
 
-					if($('div.chatDisabled').hasClass('chatDisabled')) {
-						$(".tabs").children('.chatDisabled').addClass('chat');
-						$(".tabs").children('.chatDisabled').removeClass('chatDisabled');
-					}
+					if($('div.chatDisabled').length != 0)
+						$(".tabs").children('.chatDisabled').addClass('chat').removeClass('chatDisabled');
 
 					currentContact['unreadMessages'] = undefined;
 					printUnreadMark();
@@ -509,10 +505,8 @@ $(document).ready(function(){
 							switchItem(contactsBlock,contactsTab,chatBlock,chatTab)
 						}
 					}
-					if($('div.chat').hasClass('chat')) {
-						$(".tabs").children('.chat').addClass('chatDisabled');
-						$(".tabs").children('.chat').removeClass('chat');
-					}
+					if($('div.chat').length != 0)
+						$(".tabs").children('.chat').addClass('chatDisabled').removeClass('chat');
 				});
 
 				processor.addAction('getScroll', function(){
