@@ -63,57 +63,52 @@ router.get('/', (req, res) => {
         }
     }
     function queryFormation(queryType, arrGetType, queryClass, linkedType){
-        parseQuery.getObjects({class: queryClass, limit: 50, equals:{column: undefined ,objectId: undefined}}, function(answer){
-            if (answer.result == 'ok') {
-                //"use strict";
-                let check = 0;
-                linkedType = answer.object;
-                if(answer.object.length == 0){
-                    checker();
-                }
-                else{
-                    for(let i=0; i<answer.object.length ;i++){
-                        if(queryType==queryCompany) {
-                            linkTypeId = answer.object[i]._serverData.CompanyId;
-                        }else if(queryType==queryTarget){
-                            linkTypeId = answer.object[i]._serverData.TargetId;
-                        }else if(queryType==queryProject){
-                            linkTypeId = answer.object[i]._serverData.ProjectId;
-                        }
-                        else if(queryType==queryUsers){
-                            linkTypeId = answer.object[i]._serverData.FreelancerId;
-                        }
-                        queryType.get(linkTypeId, {
-                            success: (getData) => {
-                                check++;
-                                arrGetType = arrGetType.concat(getData)
-                                if(check==answer.object.length){
-                                    if(queryType==queryCompany) {
-                                        arrGetCompanies = arrGetType;
-                                        linkedCompanies = linkedType;
-                                    }else if(queryType==queryTarget){
-                                        arrGetTargets = arrGetType;
-                                        linkedTargets = linkedType;
-                                    }else if(queryType==queryUsers){
-                                        arrGetFreelancers = arrGetType;
-                                        linkedFreelancers = linkedType;
-                                    }else if(queryType==queryProject){
-                                        arrGetProjects = arrGetType;
-                                        linkedProjects = linkedType;
-                                    }
-                                    checker();}
-
-                            },
-                            error: (error) => {
-                                console.log("error", error);
-                            }
-                        });
-                    }
-                }
-            } else {
-                console.log("getting projects error", answer.error);
-                res.json("error");
+        parseQuery.getObjects({class: queryClass, limit: 50}, (answer) => {
+            let check = 0;
+            linkedType = answer.object;
+            if(answer.object.length == 0){
+                checker();
             }
+            else{
+                for(let i=0; i<answer.object.length ;i++){
+                    if(queryType==queryCompany) {
+                        linkTypeId = answer.object[i]._serverData.CompanyId;
+                    }else if(queryType==queryTarget){
+                        linkTypeId = answer.object[i]._serverData.TargetId;
+                    }else if(queryType==queryProject){
+                        linkTypeId = answer.object[i]._serverData.ProjectId;
+                    }
+                    else if(queryType==queryUsers){
+                        linkTypeId = answer.object[i]._serverData.FreelancerId;
+                    }
+                    queryType.get(linkTypeId, {
+                        success: (getData) => {
+                            check++;
+                            arrGetType = arrGetType.concat(getData)
+                            if(check==answer.object.length){
+                                if(queryType==queryCompany) {
+                                    arrGetCompanies = arrGetType;
+                                    linkedCompanies = linkedType;
+                                }else if(queryType==queryTarget){
+                                    arrGetTargets = arrGetType;
+                                    linkedTargets = linkedType;
+                                }else if(queryType==queryUsers){
+                                    arrGetFreelancers = arrGetType;
+                                    linkedFreelancers = linkedType;
+                                }else if(queryType==queryProject){
+                                    arrGetProjects = arrGetType;
+                                    linkedProjects = linkedType;
+                                }
+                                checker();}
+                        },
+                        error: (error) => {
+                            console.log("error", error);
+                        }
+                    });
+                }
+            }
+        }, (error) => {
+            console.log("error", error);
         });
     }
 
@@ -124,7 +119,7 @@ router.get('/', (req, res) => {
 
         parseQuery.getObjects({
             class: "User",
-            limit: 50,
+            limit: 100,
             equals: {column: undefined, objectId: undefined}
         }, function (answer) {
             if (answer.result == 'ok') {
@@ -154,38 +149,24 @@ router.post('/', (req, res) => {
     queryTarget.set("Status", "Active");
 
     parseQuery.addObject({class: "Target", data:{Title:strTitle, Amount:parseInt(req.body.amount, 10), Period:parseInt(req.body.period, 10), Timeline:strTimeline, Status:"Active"}},function(answer){
-        if (answer.result == 'ok'){
-
-            userIds.forEach( (id, index) => {
-                parseQuery.addObject({class: "SalesTargets", data:{SalesManagerID:id, TargetId:answer.object.id}},function(answer){
-                    if (answer.result == 'ok'){
-                        if(checker(counter,userIds.length))
-                            res.json('ok');
-                    }
-                    else{
-                        console.log("SalesTargets", answer.error);
-                    }
-                });
+        userIds.forEach( (id, index) => {
+            parseQuery.addObject({class: "SalesTargets", data:{SalesManagerID:id, TargetId:answer.object.id}}, (answer) => {
+                if(checker(counter,userIds.length))
+                    res.json('ok');
+            }, (error) => {
+                res.json('error');
             });
-
-        }
-        else{
-            console.log("Target", answer.error);
-        }
+        });
+    }, (error) => {
+        res.json('error');
     });
 });
 
 router.delete('/', (req, res) => {
     let resultsData;
-    let countManagers = 0;
     let counter = 0;
-    let allCountManagersLinks = false;
-    let targetsCountForDelete = false;
-    let companiesCountForDelete = false;
-    let projectsCountForDelete = false;
-    let freelancersCountForDelete = false;
+    let counterSalesManagers = 0;
     let userIds = req.body;
-    let accessToDeleteLinks = true;
     let queryTargetsLinks = "SalesTargets";
     let queryFreelancersLinks = "SalesFreelancers";
     let queryCompaniesLinks = "SalesCompanies";
@@ -199,143 +180,140 @@ router.delete('/', (req, res) => {
         ,{1:queryFreelancersLinks, 2:freelancerLinksForDelete}
         ,{1:queryProjectsLinks, 2:projectLinksForDelete}
     ];
-    userIds.forEach( (id, userIds) => {
-        countManagers++;
+    userIds.forEach( (id, userIdsForDeleteLinks) => {
         function checker() {
-            if( targetsCountForDelete == true && companiesCountForDelete == true && projectsCountForDelete == true && freelancersCountForDelete == true){
-                counter++;
-                if(countManagers == req.body.length){
-                    if(allCountManagersLinks == 0){
-                        if(counter == req.body.length){
-                            res.json("ok");
+            counter++;
+            if(counter == parseQueries.length*req.body.length){
+                userIds.forEach( (id, userIdsForDeleteSM) => {
+                    auth.userDelete({id: id},
+                        (answer) => {
+                            counterSalesManagers++;
+                            if(counterSalesManagers==userIds.length){
+                                res.json("ok");
+                            }
                         }
-                    } else{
-                        if(counter == allCountManagersLinks){
-                            res.json("ok");
+                        ,(error) => {
+                            res.json("error");
+                            console.log("sm-delete error", answer.error);
                         }
-                    }
-                }
-            }
+                    );
+                });
+            };
         }
 
-        auth.userDelete({id: id},
-            (answer) => {
-
-                if (answer.result == 'ok'){
-                    for(let i = 0; i<parseQueries.length; i++){
-                        queryForDeleteFormation(parseQueries[i][1], parseQueries[i][2]);
-                    }
-                } else{
-                    console.log("project", answer.error);
-                }
-            }
-            ,(answer) => {
-                res.json(answer.error);
-                console.log("sm-delete error", answer.error);
-            }
-        );
+        for(let i = 0; i<parseQueries.length; i++){
+            queryForDeleteFormation(parseQueries[i][1], parseQueries[i][2]);
+        }
 
 
         function queryForDeleteFormation(queryTypeLinks, typeLinksForDelete){
-            parseQuery.getObjects({class: queryTypeLinks, limit: 50, equals:{column:"SalesManagerID" ,objectId:id}}, function(answer){
-                if (answer.result == 'ok') {
+            parseQuery.filterObjects(
+                {class: queryTypeLinks, filters:[{key:"SalesManagerID", value:id, condition:"="}]},
+                function(answer){
                     resultsData = answer.object;
-                    allCountManagersLinks =  allCountManagersLinks + answer.object.length;
-                    if(queryTypeLinks == queryTargetsLinks){
-                        targetsCountForDelete = accessToDeleteLinks;
-                    }else if(queryTypeLinks == queryFreelancersLinks){
-                        freelancersCountForDelete = accessToDeleteLinks;
-                    }else if(queryTypeLinks == queryCompaniesLinks){
-                        companiesCountForDelete = accessToDeleteLinks;
-                    }else if(queryTypeLinks == queryProjectsLinks){
-                        projectsCountForDelete = accessToDeleteLinks;
-                    }
-                    if(resultsData == 0){
-                        checker();
-                    } else{
-                        resultsData.forEach( (idData, resultsData) => {
-                            parseQuery.deleteObject({class: queryTypeLinks, id: idData.id}, function(answer){
-                                if (answer.result == 'ok'){
-                                    checker();
-                                } else{
-                                    console.log("project", answer.error);
-                                }
+                    if(resultsData != 0){
+                        resultsData.forEach((deletingLinks, arrForDelete) => {
+                            parseQuery.deleteObject({class: queryTypeLinks, id: deletingLinks.id}, function(answer){
+                                checker();
+                            }, (error)=>{
+                                checker();
                             });
                         });
-                    }
-                } else {
-                    console.log("getting projects error", answer.error);
+                    } else checker();
+
+                }, (error) =>{
                     res.json("error");
-                }
-            });
+                });
         }
-
     });
-
 });
 
 router.put('/target', (req, res) => {
+    let counter = 0;
+
+    function checker() {
+        counter++;
+        if(counter == req.body.ids.length){
+            res.json("got");
+        }
+    }
+
     let targetIds = req.body.ids;
-    let status = {Status:req.body.Status};
     targetIds.forEach( (id, targetIds) => {
-        parseQuery.updateObject({class: "Target", id: id, data: status}, function(answer){
-            if(answer.result == 'ok'){
-                console.log("target", answer.object);
-            }else{
-                console.log("target", answer.error)
-            }
+        parseQuery.updateObject({class: "Target", id: id, data: req.body}, (answer) => {
+            console.log("target", answer.object);
+            checker();
+        }, (error) =>{
+            console.log("target", error.error)
+            checker();
         });
     });
-    res.json("got");
 });
 
 router.delete('/target', (req, res) => {
+    let counetTargets = 0;
     let counter = 0;
     let countTargets = 0;
     let allTargetsLinksCountForDelete = 0;
     let targetIds = req.body;
-    targetIds.forEach( (id, targetIds) => {
+    targetIds.forEach( (id, targetIdsForDeleteLinks) => {
         countTargets++;
         function checker() {
             counter++;
-            if(countTargets == req.body.length){
-                if(counter == allTargetsLinksCountForDelete){
-                    res.json("ok");
-                }
+            if(counter == allTargetsLinksCountForDelete){
+                targetIds.forEach( (id, targetIdsForDeleteTargets) => {
+                    parseQuery.deleteObject({class: "Target", id: id}, (answer) => {
+                        counetTargets++
+                        if(counetTargets == targetIds.length){
+                            res.json("ok");
+                        }
+                    }, (error) => {
+                        res.json("error");
+                    });
+                });
             }
         }
 
         let foundLinkedTargetsForDelete;
-        parseQuery.deleteObject({class:"Target", id: id}, function(answer){
-            if (answer.result == 'ok'){
-                parseQuery.getObjects({class: 'SalesTargets',limit: 50, equals:{column: "TargetId" ,objectId: id}}, function(answer){
-                    if (answer.result == 'ok'){
-                        allTargetsLinksCountForDelete = allTargetsLinksCountForDelete + answer.object.length;
-                        foundLinkedTargetsForDelete = answer.object;
-                        foundLinkedTargetsForDelete.forEach((idTargetLink, foundLinkedTargetsForDelete) => {
-                            parseQuery.deleteObject({class:"SalesTargets", id: idTargetLink.id}, function(answer){
-                                if (answer.result == 'ok'){
-                                    checker();
-                                }
-                                else{
-                                    console.log("SalesTargets", answer.error);
-                                }
-                            });
-                        });
-                    }else{
-                        console.log("getting projects error", answer.error);
-                        res.json("error");
-                    }
+        parseQuery.filterObjects(
+            {class: 'SalesTargets', filters: [{key: 'TargetId', value: id, condition: "="}]},
+            function (answer) {
+                allTargetsLinksCountForDelete = allTargetsLinksCountForDelete + answer.object.length;
+                foundLinkedTargetsForDelete = answer.object;
+                foundLinkedTargetsForDelete.forEach((idTargetLink, foundLinkedTargetsForDelete) => {
+                    parseQuery.deleteObject({class: "SalesTargets", id: idTargetLink.id}, (answer) => {
+                        checker();
+                    }, (error) => {
+                        checker();
+                    });
                 });
-            } else {
-                console.log("Target", answer.error());
-            }
-        });
+            }, (error) => {
+                res.json("error");
+            });
     });
 });
 
 router.put('/manager_signup', (req, res) => {
-    parseQuery.getObjects({class: "Token", limit: 50, equals:{column:"SalesManagerID" ,objectId:req.params.id}}, function(answer){
+    parseQuery.filterObjects(
+        {class: "Token", filters: [{key: "SalesManagerID", value: req.params.id, condition: "="}]},
+        function (answer) {
+            var managersTypes = answer.object;
+            managersTypes.forEach((manager, managersTypes) => {
+                if (manager.attributes.ManagerType == req.body.ManagerType) {
+                    parseQuery.updateObject({class: "Token", id: manager.id, data: req.body}, function (answer) {
+                        if (answer.result == 'ok') {
+                            res.json("got");
+                            console.log("target", answer.object);
+                        } else {
+                            console.log("target", answer.error)
+                        }
+                    });
+                }
+            });
+        }, (error) => {
+            res.json("error");
+        });
+    /*parseQuery.getObjects({class: "Token", limit: 50, equals:{column:"SalesManagerID" ,objectId:req.params.id}}, function(answer){
         if (answer.result == 'ok') {
             var managersTypes = answer.object;
             managersTypes.forEach((manager, managersTypes) => {
@@ -354,12 +332,29 @@ router.put('/manager_signup', (req, res) => {
             console.log("getting projects error", answer.error);
             res.json("error");
         }
-    });
+    });*/
 });
 
 router.get('/manager_signup/:type', (req, res) => {
     let counter = 0;
-    parseQuery.getObjects({class: "Token", limit: 50, equals:{column:"SalesManagerID" ,objectId:req.params.id}}, function(answer){
+    parseQuery.filterObjects(
+        {class: "Token", filters: [{key: "SalesManagerID", value: req.params.id, condition: "="}]},
+        function (answer) {
+            var managersTypes = answer.object;
+            managersTypes.forEach((manager, managersTypes1) => {
+                if (manager.attributes.ManagerType == req.params.type && manager.attributes.ManagerToken == req.query.qs1) {
+                    res.render('../pages/login/manager_signup', {managerType: req.params.type})
+                } else {
+                    counter++
+                    if (counter == managersTypes.length) {
+                        res.redirect('/');
+                    }
+                }
+            });
+        }, (error) => {
+            res.json("error");
+        });
+   /* parseQuery.getObjects({class: "Token", limit: 50, equals:{column:"SalesManagerID" ,objectId:req.params.id}}, function(answer){
         if (answer.result == 'ok') {
             var managersTypes = answer.object;
             managersTypes.forEach((manager, managersTypes1) => {
@@ -378,7 +373,7 @@ router.get('/manager_signup/:type', (req, res) => {
             console.log("getting projects error", answer.error);
             res.json("error");
         }
-    });
+    });*/
 
 });
 

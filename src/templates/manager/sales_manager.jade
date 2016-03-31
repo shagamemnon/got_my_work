@@ -48,7 +48,7 @@
       -if(users)
         .tiles-row
           -each user in users
-            -if( user.attributes.userRole == "developer")
+            -if( user.attributes.accountType == "free")
               tr.freelancersCount
                 td.text-left
                 td.text-left= user.attributes.username

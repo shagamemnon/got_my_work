@@ -4,10 +4,10 @@
 -}
 
 - var categories = ["Software Architecture", "Frontend", "Backend", "Database", "Security", "UI Design", "Mobile Apps"]
-- var languages = ["Java", "Ruby", "Python", "C/C++", "PHP", ".NET", "Node.js", "iOS", "Android"]
+- var languages = ["Android","iOS","C#","C","C++",".NET","Java","Ruby","Python","Node.js","PHP","HTML/CSS","JavaScript","E-Commerce","WordPress & Drupal","OS X","Windows","Systems Infrastructure","Database Management"]
 
 mixin printProject(project)
-  a.project-listing(href="#")#open
+  a.project-listing(href="#", data-id= project.id)
     h4= project.attributes.title
     em Posted #{postedDate(project.createdAt)} ago
     em -&nbsp;&nbsp;#{project.attributes.paymentType}
@@ -25,16 +25,16 @@ mixin printCategories(category, index)
   span
     a(href="#tab#{index}")
       .check-box
-        input(type="checkbox", value="#{index}", id="check-box_#{index}", name="check")
-        label(for="check-box_#{index}")
+        input(type="checkbox", value="#{category}", id="check-box_1#{index}", name="categories[]")
+        label(for="check-box_1#{index}")
       h5= category
 
 mixin printLanguages(language, index)
   span
     a(href="#tab#{index}")
       .check-box
-        input(type="checkbox", value="#{index}", id="check-box_#{index}", name="check")
-        label(for="check-box_#{index}")
+        input(type="checkbox", value="#{language}", id="check-box_2#{index}", name="languages[]")
+        label(for="check-box_2#{index}")
       h5= language
 
 section.project_index
@@ -85,3 +85,17 @@ section.project_index
 #info
   img#close(src="https://s3.amazonaws.com/igotmywork/signup/close.png")
   include ../project_listing/main
+
+.hidden(style="display: none")
+  a.project-listing(href="#", data-id=[id])
+    h4 [title]
+    em Posted [createdAt] ago
+    em -&nbsp;&nbsp;[paymentType]
+    em -&nbsp;&nbsp;[knowledgeLevel]
+    em -&nbsp;&nbsp;[duration] weeks
+    em -&nbsp;&nbsp;[rate] hours/week
+    em &nbsp;
+    p [description]
+    .tags
+      span(style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px") Skills
+      .skills [skills]

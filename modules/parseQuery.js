@@ -119,34 +119,21 @@ let filterObjects = (params, done, reject) => {
             }
         }
         let checker = () => {
-            if(counter == 0)
-                result = query.find();
-            else if(counter == params.filters.length)
-                result.then(
-                    (object) => {
-                        console.log('true filters', object);
-                        done({result: 'ok', object: object})
-                    },
-                    (error) => {
-                        console.log('filters error', object, error);
-                        reject({result: 'error', error: error})
-                    }
-                );
-            else
-                result.then(
-                    (object) => {
-                        result = object
-                    },
-                    (error) => {
-                        console.log('filters error', object, error);
-                    }
-                );
-            counter++;
+            query.find(
+                (object) => {
+                    console.log('true filters', object);
+                    done({result: 'ok', object: object})
+                },
+                (error) => {
+                    console.log('filters error', error);
+                    reject({result: 'error', error: error})
+                }
+            );
         };
         if(params.filters) {
             let filters = params.filters;
             filters.forEach((filter) => {
-                //filter.value = filter.isInt ? parseInt(filter.value) : filter.value;
+                filter.value = filter.isInt ? parseInt(filter.value) : filter.value;
                 switch (filter.condition) {
                     case ">=":
                         query.greaterThanOrEqualTo(filter.key, filter.value);
@@ -162,18 +149,21 @@ let filterObjects = (params, done, reject) => {
                         break;
                     case "=":
                         query.equalTo(filter.key, filter.value);
-                        checker();
                         break;
                     case "!=":
                         query.notEqualTo(filter.key, filter.value);
+                        break;
+                    case "containsAll":
+                        query.containsAll(filter.key, filter.value);
                         break;
                     case "between":
                         break;
                     default:
                         break;
                 }
-                checker();
+
             });
+            checker();
         } else
             checker();
     } else

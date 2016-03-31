@@ -1,9 +1,8 @@
 'use strict';
 
-var config = require('../config')
+let config = require('../config')
     , Parse = require('parse').Parse
-    , payment = require('./payment')
-    , parseQuery = require('./parseQuery');
+    , payment = require('./payment');
 
 Parse.initialize(config.parse.appId, config.parse.JSKey, config.parse.MsKey);
 
@@ -11,20 +10,8 @@ let loginUser = (data, done, reject) => {
     if (data) {
         Parse.User.enableUnsafeCurrentUser();
         Parse.User.logIn(data.email, data.password, {
-            success: (loggedIn) => {
-                if( loggedIn.attributes.accountType == "company" )
-                    parseQuery.filterObjects({class: 'Company', filters: [{key: 'userId', condition: '=', value: loggedIn.id}], limit: 1},
-                        (company) => {
-                            loggedIn.company = company.object[0];
-                            done({result: 'ok', answer: loggedIn});
-                        },
-                        (error) =>
-                            done({result: 'ok', answer: loggedIn})
-                    );
-                else
-                    done({result: 'ok', answer: loggedIn})
-            }
-
+            success: (loggedIn) =>
+                done({result: 'ok', answer: loggedIn})
             ,
             error: (user, error) =>
                 reject({result: 'error', error: error})
@@ -36,17 +23,14 @@ let loginUser = (data, done, reject) => {
 let userSignUp = (data, done, reject) => {
     if ( data ) {
         var user = new Parse.User();
-        let userData = {
-            username: data.email,
-            fullName: data.userName,
-            password: data.password,
-            email: data.email,
-            phone: data.phone
-        };
-        userData.userRole = data.userRole ? data.userRole : "user";
-        userData.accountType = data.accountType ? data.accountType : "free";
+        user.set('username', data.email);
+        user.set('fullName', data.userName);
+        user.set('password', data.password);
+        user.set('email', data.email);
+        user.set('userRole', data.userRole ? data.userRole : "user");
+        user.set('accountType', data.accountType ? data.accountType : "free");
 
-        user.signUp(userData, {
+        user.signUp(null, {
             success: (user) =>
                 loginUser(data,
                     (loginRes) => done(loginRes),
@@ -54,6 +38,22 @@ let userSignUp = (data, done, reject) => {
                 ),
             error: (user, error) =>
                 reject({result: 'error', error: error})
+        });
+    } else
+        reject({result: 'error', error: "missing data"});
+};
+
+let userDelete = (data, done, reject) => {
+    if ( data ) {
+        let user = new Parse.User();
+        user.id = data.id;
+        Parse.Cloud.useMasterKey();
+        user.destroy({
+            success: (user) =>
+                done({result: 'ok', object: user})
+            ,
+            error: (error) =>
+                reject({result: 'error', object: error})
         });
     } else
         reject({result: 'error', error: "missing data"});
@@ -83,7 +83,7 @@ let companySignUp = (data, done, reject) => {
                         payment.makeCharge(data.payment,
                             (charge) => {
                                 console.log(charge);
-                                done({result: 'ok', user: signUpRes, company: company, payment: charge});
+                                done({result: 'ok', user: signUpRes,  company: company, payment: charge});
                             },
                             (charge) =>
                                 done({result: 'ok', user: signUpRes, company: company, payment: charge.error})
@@ -102,3 +102,4 @@ let companySignUp = (data, done, reject) => {
 exports.loginUser = loginUser;
 exports.userSignUp = userSignUp;
 exports.companySignUp = companySignUp;
+exports.userDelete = userDelete;

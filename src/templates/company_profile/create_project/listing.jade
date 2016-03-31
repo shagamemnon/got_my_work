@@ -1,3 +1,5 @@
+- var languages = ["Android","iOS","C#","C","C++",".NET","Java","Ruby","Python","Node.js","PHP","HTML/CSS","JavaScript","E-Commerce","WordPress & Drupal","OS X","Windows","Systems Infrastructure","Database Management"]
+
 section.signup-header
   .container
     .project-listing
@@ -8,7 +10,11 @@ section.signup-header
         input( name="title", type="text", placeholder="Project Title", autofocus )
         textarea( name="description", type="text", placeholder="Description" )
         em What skillset does the project require?
-        input( name="skills", type="text", placeholder="Separate by Commas")
+        //input( name="skills", type="text", placeholder="Separate by Commas")
+        select(name="skills")
+          option(value="",disabled, selected)
+          -each language in languages
+            option(value="#{language}")
         input( type="text", name="_gotcha", style="display:none")
         select( name="knowledgeLevel", type="text", placeholder="Skills")
           option( name="select-skill", type="text", disabled selected, style="opacity:0.2") Select Skill Level

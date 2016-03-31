@@ -32,41 +32,42 @@ router.get('/:id',  (req, res) => {
         }
     };
     function queryFormation(queryType, arrGetType, queryClass){
-        parseQuery.getObjects({class: queryClass, limit: 50, equals:{column:"SalesManagerID" ,objectId:req.params.id}}, function(answer){
-            if (answer.result == 'ok') {
-                //"use strict";
+
+        parseQuery.filterObjects(
+            {class: queryClass, filters: [{key: "SalesManagerID", value: req.params.id, condition: "="}]},
+            function (answer) {
                 let check = 0;
-                if(answer.object.length == 0){
+                if (answer.object.length == 0) {
                     checker();
                 }
-                else{
-                    for(let i=0; i<answer.object.length ;i++){
-                        if(queryType==queryCompany) {
+                else {
+                    for (let i = 0; i < answer.object.length; i++) {
+                        if (queryType == queryCompany) {
                             linkTypeId = answer.object[i]._serverData.CompanyId;
-                        }else if(queryType==queryTarget){
+                        } else if (queryType == queryTarget) {
                             linkTypeId = answer.object[i]._serverData.TargetId;
-                        }else if(queryType==queryProject){
+                        } else if (queryType == queryProject) {
                             linkTypeId = answer.object[i]._serverData.ProjectId;
                         }
-                        else if(queryType==queryUsers){
+                        else if (queryType == queryUsers) {
                             linkTypeId = answer.object[i]._serverData.FreelancerId;
                         }
                         queryType.get(linkTypeId, {
                             success: (getData) => {
                                 check++;
                                 arrGetType = arrGetType.concat(getData)
-                                if(check==answer.object.length){
-                                    if(queryType==queryCompany) {
+                                if (check == answer.object.length) {
+                                    if (queryType == queryCompany) {
                                         arrGetCompanies = arrGetType;
-                                    }else if(queryType==queryTarget){
+                                    } else if (queryType == queryTarget) {
                                         arrGetTargets = arrGetType;
-                                    }else if(queryType==queryUsers){
+                                    } else if (queryType == queryUsers) {
                                         arrGetFreelancers = arrGetType;
-                                    }else if(queryType==queryProject){
+                                    } else if (queryType == queryProject) {
                                         arrGetProjects = arrGetType;
                                     }
-                                    checker();}
-
+                                    checker();
+                                }
                             },
                             error: (error) => {
                                 console.log("error", error);
@@ -74,11 +75,9 @@ router.get('/:id',  (req, res) => {
                         });
                     }
                 }
-            } else {
-                console.log("getting projects error", answer.error);
+            }, (error) => {
                 res.json("error");
-            }
-        });
+            });
     }
     if(req.session && req.session.user !== undefined  && ((req.session.user.attributes.accountType == 'admin') || (req.session.user.attributes.accountType == 'sales-manager' && req.session.user.id == req.params.id))) {
         for (let i = 0; i < parseQueries.length; i++) {
