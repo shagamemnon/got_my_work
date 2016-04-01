@@ -5,16 +5,11 @@
     <script src="/vendor/jquery-latest.min.js"></script>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
-    <!--script(src="vendor/account/input-skill.js")-->
-    <!--script(src="vendor/account/save-skill.js")-->
-    <!--script(src="vendor/account/edit-skill.js")-->
-    <!--script(src="vendor/account/input-location.js")-->
-    <!--script(src="vendor/account/save-location.js")-->
-    <!--script(src="vendor/account/edit-location.js")-->
     <script src="/vendor/account/dataChange.js"></script>
     <script src="/vendor/account/photo-upload.js"></script>
     <script src="/vendor/account/tabs.js"></script>
     <script src="/vendor/lightbox/lightbox.js"></script>
+    <script src="/vendor/enter-to-submit.js"></script>
     <title>Company</title>
     <meta name="description" content="India's Biggest Freelance Portal">
   </head>
@@ -104,9 +99,31 @@
                 <div class="error-message"></div><em>Tell us about your project.</em>
                 <input name="title" type="text" placeholder="Project Title" autofocus>
                 <textarea name="description" type="text" placeholder="Description"></textarea><em>What skillset does the project require?</em>
-                <input name="skills" type="text" placeholder="Separate by Commas">
+                <!--input( name="skills", type="text", placeholder="Separate by Commas")-->
+                <select name="skills">
+                  <option value="" disabled selected>Select Technology</option>
+                  <option value="Android" label="Android"></option>
+                  <option value="iOS" label="iOS"></option>
+                  <option value="C#" label="C#"></option>
+                  <option value="C" label="C"></option>
+                  <option value="C++" label="C++"></option>
+                  <option value=".NET" label=".NET"></option>
+                  <option value="Java" label="Java"></option>
+                  <option value="Ruby" label="Ruby"></option>
+                  <option value="Python" label="Python"></option>
+                  <option value="Node.js" label="Node.js"></option>
+                  <option value="PHP" label="PHP"></option>
+                  <option value="HTML/CSS" label="HTML/CSS"></option>
+                  <option value="JavaScript" label="JavaScript"></option>
+                  <option value="E-Commerce" label="E-Commerce"></option>
+                  <option value="WordPress &amp; Drupal" label="WordPress &amp; Drupal"></option>
+                  <option value="OS X" label="OS X"></option>
+                  <option value="Windows" label="Windows"></option>
+                  <option value="Systems Infrastructure" label="Systems Infrastructure"></option>
+                  <option value="Database Management" label="Database Management"></option>
+                </select>
                 <input type="text" name="_gotcha" style="display:none">
-                <select name="knowledgeLevel" type="text" placeholder="Skills">
+                <select name="knowledgeLevel" type="text" placeholder="Skills" onKeyPress="return projectsave(this,event)">
                   <option name="select-skill" type="text" disabled selected style="opacity:0.2">Select Skill Level</option>
                   <option name="novice" type="text" value="$">Novice</option>
                   <option name="intermediate" type="text" value="$$">Intermediate</option>

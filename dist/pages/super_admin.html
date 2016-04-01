@@ -5,11 +5,11 @@
     <script src="/vendor/jquery-latest.min.js"></script>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
-    <script src="/vendor/jquery-ui.min.js"></script>
-    <script src="/vendor/jquery.tablesorter.min.js"></script>
-    <script src="/vendor/paging.js"></script>
-    <script src="/vendor/super-admin.js"></script>
-    <script src="/vendor/login.js"></script>
+    <script src="/vendor/manager/jquery-ui.min.js"></script>
+    <script src="/vendor/manager/jquery.tablesorter.min.js"></script>
+    <script src="/vendor/manager/paging.js"></script>
+    <script src="/vendor/manager/super-admin.js"></script>
+    <script src="/vendor/manager/login.js"></script>
     <title>IGotMyWork</title>
     <meta name="description" content="India's Biggest Freelance Portal">
   </head>
@@ -104,14 +104,18 @@
           <div class="table-title">
             <input id="cancel_AllSManagers" type="button" value="Diselect all" style=" margin: 10px"><br>
             <input id="check_AllSManagers" type="button" value="Select all" style=" margin: 10px">
-            <div class="actions">
-              <button onclick="move()" style=" margin: 10px">Create Sales-Manager
-                <script>
-                  function move() {
-                      window.location.href = '/admin/signup-slmanager'
-                  }
-                </script>
-              </button>
+            <div class="input">
+              <div class="actions">
+                <input type="submit" style=" margin: 10px" value="Create Manager" class="ajax_signup_manager">
+                <select id="manager_type" type="text" name="manager_type" value="" tabindex="1" style=" margin: 10px; padding: 1px">
+                  <option disabled selected="selected"></option>
+                  <option>sales-manager</option>
+                  <option>project-manager</option>
+                  <option>company-manager</option>
+                  <option>user-manager</option>
+                </select>
+                <div id="managerTypeUnselect" style="display:none">You must to choose the manager type</div>
+              </div>
             </div>
             <div class="actions">
               <input type="submit" value="Delete Sales-Manager" style=" margin: 10px" class="ajax_delete_sales_manager">

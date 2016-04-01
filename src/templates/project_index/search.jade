@@ -40,11 +40,11 @@ mixin printLanguages(language, index)
 section.project_index
   .dashboard-container
     .sidebar
-      h2 Category
-      -each category, index in categories
-        +printCategories(category, index)
+      //- h2 Category
+      //- -each category, index in categories
+      //-   +printCategories(category, index)
 
-      h2 Languages
+      h2 Filters
       -each language, index in languages
         +printLanguages(language, index)
 

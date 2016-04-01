@@ -1,25 +1,25 @@
 
 <section class="project_header">
-  <div class="header-container">
+  <div style="opacity: 0.3" class="header-container">
     <h1 class="project-title">Projects</h1>
     <div class="search-bar">
       <form>
-        <input type="text" placeholder="Search"/>
+        <input type="text" name="search" placeholder="FULL TEXT SEARCH NOT FUNCTIONAL YET"/>
       </form>
-      <select name="skill" type="text">
+      <select name="knowledgeLevel" type="text">
         <option value="" disabled selected="disabled selected">Skill</option>
-        <option name="Novice" type="text">Novice</option>
-        <option name="Intermediate" type="text">Intermediate</option>
-        <option name="Expert" type="text">Expert</option>
+        <option name="Novice" type="text" value="$">Novice</option>
+        <option name="Intermediate" type="text" value="$$">Intermediate</option>
+        <option name="Expert" type="text" value="$$$">Expert</option>
       </select>
-      <select name="skill" type="text">
+      <select name="duration" type="text">
         <option value="" disabled selected="disabled selected">Length</option>
-        <option name="short" type="text">Less than 1 week</option>
-        <option name="medium" type="text">1 - 4 weeks</option>
-        <option name="long" type="text">1 - 2 months</option>
-        <option name="longest" type="text">Over 2 months</option>
+        <option value="short" type="text">Less than 1 week</option>
+        <option value="medium" type="text">1 - 4 weeks</option>
+        <option value="long" type="text">1 - 2 months</option>
+        <option value="longest" type="text">Over 2 months</option>
       </select>
-      <select name="skill" type="text" placeholder="Weekly Hours">
+      <select name="rate" type="text" placeholder="Weekly Hours">
         <option value="" disabled selected="disabled selected">Weekly Hours</option>
         <option name="short" type="text">Less than 1 week</option>
         <option name="medium" type="text">1 - 4 weeks</option>

@@ -46,9 +46,31 @@
           <div class="error-message"></div><em>Tell us about your project.</em>
           <input name="title" type="text" placeholder="Project Title" autofocus="autofocus"/>
           <textarea name="description" type="text" placeholder="Description"></textarea><em>What skillset does the project require?</em>
-          <input name="skills" type="text" placeholder="Separate by Commas"/>
+          <!--input( name="skills", type="text", placeholder="Separate by Commas")-->
+          <select name="skills">
+            <option value="" disabled="disabled" selected="selected">Select Technology</option>
+            <option value="Android" label="Android"></option>
+            <option value="iOS" label="iOS"></option>
+            <option value="C#" label="C#"></option>
+            <option value="C" label="C"></option>
+            <option value="C++" label="C++"></option>
+            <option value=".NET" label=".NET"></option>
+            <option value="Java" label="Java"></option>
+            <option value="Ruby" label="Ruby"></option>
+            <option value="Python" label="Python"></option>
+            <option value="Node.js" label="Node.js"></option>
+            <option value="PHP" label="PHP"></option>
+            <option value="HTML/CSS" label="HTML/CSS"></option>
+            <option value="JavaScript" label="JavaScript"></option>
+            <option value="E-Commerce" label="E-Commerce"></option>
+            <option value="WordPress &amp; Drupal" label="WordPress &amp; Drupal"></option>
+            <option value="OS X" label="OS X"></option>
+            <option value="Windows" label="Windows"></option>
+            <option value="Systems Infrastructure" label="Systems Infrastructure"></option>
+            <option value="Database Management" label="Database Management"></option>
+          </select>
           <input type="text" name="_gotcha" style="display:none"/>
-          <select name="knowledgeLevel" type="text" placeholder="Skills">
+          <select name="knowledgeLevel" type="text" placeholder="Skills" onKeyPress="return projectsave(this,event)">
             <option name="select-skill" type="text" disabled selected="disabled selected" style="opacity:0.2">Select Skill Level</option>
             <option name="novice" type="text" value="$">Novice</option>
             <option name="intermediate" type="text" value="$$">Intermediate</option>

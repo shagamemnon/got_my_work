@@ -9,12 +9,14 @@ section.signup-header
 
   .container
     max-width: 500px
+    border-bottom: 2px solid rgba(0,0,0,0.1)
+    border-top: 2px solid rgba(0,0,0,0.1)
     height: auto
     margin: auto
     overflow: visible
     background: white
     padding: 40px
-    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.3)
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3)
 
     .project-listing
       max-width: auto
@@ -37,14 +39,14 @@ section.signup-header
         padding: 0px 20px
         margin: auto
         text-align: left
-
-        select[name="expertise"]
+          
+        select[name="skills"], select[name="knowledgeLevel"]
           height: 50px
           font-family: $Gotham
           font-size: 0.75em
           border: 2px solid #ddd
           border-radius: 3px
-          margin: 10px 0 30px
+          margin: 10px 0
           outline: none
           width: 359px
           display: block
@@ -89,6 +91,7 @@ section.signup-header
           display: block
           outline: none
 
+        textarea, input[type="text"]
           &:focus
             outline: none
             border: 2px solid $primary-color
