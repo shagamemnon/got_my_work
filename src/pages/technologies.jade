@@ -1,0 +1,18 @@
+extends ./base
+
+block title
+   title Technologies
+
+block extendScripts
+   script(src="/vendor/manager/jquery-ui.min.js")
+   script(src="/vendor/technologies/main.js")
+
+block content
+   input(type="text", name="technology", placeholder="Enter technology")
+   input(type="submit", id="add", value="Add")
+   table
+      tr
+         th Name
+      -for (var index in technologies)
+         tr
+            td= technologies[index].attributes.original

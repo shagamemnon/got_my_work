@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="dist/css/company_profile.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link href="/dist/css/chat.css" rel="stylesheet" type="text/css">
+    <link href="/dist/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css">
+    <link href="/vendor/scrollbar/simplebar.css" rel="stylesheet" type="text/css">
     <script src="/vendor/jquery-latest.min.js"></script>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script data-main="dist/main" src="vendor/require.min.js"></script>
+    <link rel="stylesheet" href="dist/css/company_profile.css">
     <script src="/vendor/account/dataChange.js"></script>
     <script src="/vendor/account/photo-upload.js"></script>
     <script src="/vendor/account/tabs.js"></script>
     <script src="/vendor/lightbox/lightbox.js"></script>
     <script src="/vendor/enter-to-submit.js"></script>
+    <script src="/vendor/manager/jquery-ui.min.js"></script>
     <title>Company</title>
     <meta name="description" content="India's Biggest Freelance Portal">
   </head>
@@ -91,6 +98,11 @@
       </div>
       <div id="overlay"></div>
       <div id="info"><img id="close" src="https://s3.amazonaws.com/igotmywork/signup/close.png">
+        <script>
+          var languages = ;
+          //var languages = ["Android","iOS","C#","C","C++",".NET","Java","Ruby","Python","Node.js","PHP","HTML/CSS","JavaScript","E-Commerce","WordPress & Drupal","OS X","Windows","Systems Infrastructure","Database Management"]
+          
+        </script>
         <section class="signup-header">
           <div class="container">
             <div class="project-listing">
@@ -100,28 +112,18 @@
                 <input name="title" type="text" placeholder="Project Title" autofocus>
                 <textarea name="description" type="text" placeholder="Description"></textarea><em>What skillset does the project require?</em>
                 <!--input( name="skills", type="text", placeholder="Separate by Commas")-->
-                <select name="skills">
-                  <option value="" disabled selected>Select Technology</option>
-                  <option value="Android" label="Android"></option>
-                  <option value="iOS" label="iOS"></option>
-                  <option value="C#" label="C#"></option>
-                  <option value="C" label="C"></option>
-                  <option value="C++" label="C++"></option>
-                  <option value=".NET" label=".NET"></option>
-                  <option value="Java" label="Java"></option>
-                  <option value="Ruby" label="Ruby"></option>
-                  <option value="Python" label="Python"></option>
-                  <option value="Node.js" label="Node.js"></option>
-                  <option value="PHP" label="PHP"></option>
-                  <option value="HTML/CSS" label="HTML/CSS"></option>
-                  <option value="JavaScript" label="JavaScript"></option>
-                  <option value="E-Commerce" label="E-Commerce"></option>
-                  <option value="WordPress &amp; Drupal" label="WordPress &amp; Drupal"></option>
-                  <option value="OS X" label="OS X"></option>
-                  <option value="Windows" label="Windows"></option>
-                  <option value="Systems Infrastructure" label="Systems Infrastructure"></option>
-                  <option value="Database Management" label="Database Management"></option>
-                </select>
+                <!--select(name="skills")-->
+                <!--  option(value="",disabled, selected) Select Technology-->
+                <!--  -each language in languages-->
+                <!--    option(value="#{language}", label="#{language}")-->
+                <p>Project Tags</p>
+                <div class="tagsBlock"><span class="tagsPlaceholder">Drop tags Here...</span>
+                  <ul id="projectTags" class="connectedSortable"></ul>
+                </div>
+                <p>Tags Cloud</p>
+                <ul id="tagsList">
+                </ul>
+                <input type="hidden" value="" name="skills">
                 <input type="text" name="_gotcha" style="display:none">
                 <select name="knowledgeLevel" type="text" placeholder="Skills" onKeyPress="return projectsave(this,event)">
                   <option name="select-skill" type="text" disabled selected style="opacity:0.2">Select Skill Level</option>

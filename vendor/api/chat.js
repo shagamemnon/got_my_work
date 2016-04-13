@@ -20,12 +20,15 @@
 	};
 	exports.typeSet = typeSet;
 	exports.struct = {
-		User : function(id,name,avatar, canView, messages){
+		User : function(id,name,avatar, canView, userRole, accountType, messages){
 			this.id=id;
 			this.name=name;
 			this.avatar = avatar;
 			this.canView = canView;
+			this.userRole = userRole;
+			this.accountType = accountType;
 			this.messages = messages;
+
 		}
 	};
 
@@ -86,8 +89,8 @@
 		this.contacts = contacts;
 	};
 
-	exports.Contact = function(id,name,avatar, canView, messages){
-		exports.struct.User.call(this,id,name,avatar, canView, messages);
+	exports.Contact = function(id,name,avatar, canView, messages, userRole, accountType){
+		exports.struct.User.call(this,id,name,avatar, canView, messages, userRole, accountType);
 		this.type = typeSet.contact;
 	};
 

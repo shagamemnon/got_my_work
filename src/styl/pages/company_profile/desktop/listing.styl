@@ -14,7 +14,7 @@ section.signup-header
     height: auto
     margin: auto
     overflow: visible
-    background: white
+    background: #fff none no-repeat scroll center center
     padding: 40px
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3)
 
@@ -108,9 +108,45 @@ section.signup-header
           display: block
 
         input.error
-          border-color: #ff0000;
+          border-color: #ff0000
 
-      .submit-button
+        .tagsBlock
+          border: 2px solid #ccc
+          border-radius: 3px
+          display: table
+          margin-bottom: 10px
+          max-width: 325px
+          padding: 15px
+          width: 100%
+
+          > span
+            font-size: 0.75em
+
+        #projectTags
+          min-height: 25px
+
+          li span:after
+            content: "\00d7";
+
+        #tagsList
+          li span:after
+            content: "";
+
+        #tagsList li, #projectTags li
+          background-color: red
+          border-radius: 6px
+          color: white
+          cursor: pointer
+          float: left
+          list-style-type: none
+          margin: 5px
+          padding: 2px 6px
+
+          span
+            color: #000
+            font-weight: bold
+
+.submit-button
         display: block
         text-align: center
         max-width: 670px

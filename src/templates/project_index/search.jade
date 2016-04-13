@@ -1,10 +1,14 @@
+script.
+  var languages = !{JSON.stringify(technologies)};
+
 -var postedDate = function(date) {
   -var posted = new Date(date), now = Date.now(), diff = Math.abs(now-posted) / (1000*60*60*24);
   -return parseInt(diff) == 1 ? parseInt(diff) + ' day' : parseInt(diff) + ' days';
 -}
 
 - var categories = ["Software Architecture", "Frontend", "Backend", "Database", "Security", "UI Design", "Mobile Apps"]
-- var languages = ["Android","iOS","C#","C","C++",".NET","Java","Ruby","Python","Node.js","PHP","HTML/CSS","JavaScript","E-Commerce","WordPress & Drupal","OS X","Windows","Systems Infrastructure","Database Management"]
+//- var languages = ["Android","iOS","C#","C","C++",".NET","Java","Ruby","Python","Node.js","PHP","HTML/CSS","JavaScript","E-Commerce","WordPress & Drupal","OS X","Windows","Systems Infrastructure","Database Management"]
+- var languages = technologies;
 
 mixin printProject(project)
   a.project-listing(href="#", data-id= project.id)
@@ -19,7 +23,7 @@ mixin printProject(project)
     .tags
       span(style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px") Skills
       -each skill in project.attributes.skills
-        span= skill
+        span= technologies[skill]
 
 mixin printCategories(category, index)
   span
@@ -33,7 +37,7 @@ mixin printLanguages(language, index)
   span
     a(href="#tab#{index}")
       .check-box
-        input(type="checkbox", value="#{language}", id="check-box_2#{index}", name="languages[]")
+        input(type="checkbox", value="#{language}", data-name="#{index}", id="check-box_2#{index}", name="languages[]")
         label(for="check-box_2#{index}")
       h5= language
 
@@ -45,13 +49,16 @@ section.project_index
       //-   +printCategories(category, index)
 
       h2 Filters
-      -each language, index in languages
-        +printLanguages(language, index)
+      -for(var index in languages)
+        +printLanguages(languages[index], index)
 
     .content
+      input(type="hidden", name="page", value="1")
       -if (projects)
         -each project in projects
           +printProject(project)
+      .load-more
+        a(href="#") Load more
       //a.project-listing(href="#")#open
       //  h4 Small Web Design Project
       //  em Posted 1 day ago

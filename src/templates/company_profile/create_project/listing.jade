@@ -1,4 +1,9 @@
-- var languages = ["Android","iOS","C#","C","C++",".NET","Java","Ruby","Python","Node.js","PHP","HTML/CSS","JavaScript","E-Commerce","WordPress & Drupal","OS X","Windows","Systems Infrastructure","Database Management"]
+script.
+  var languages = !{JSON.stringify(technologies)};
+  //var languages = ["Android","iOS","C#","C","C++",".NET","Java","Ruby","Python","Node.js","PHP","HTML/CSS","JavaScript","E-Commerce","WordPress & Drupal","OS X","Windows","Systems Infrastructure","Database Management"]
+
+//-var languages = ["Android","iOS","C#","C","C++",".NET","Java","Ruby","Python","Node.js","PHP","HTML/CSS","JavaScript","E-Commerce","WordPress & Drupal","OS X","Windows","Systems Infrastructure","Database Management"]
+-var languages = technologies;
 
 section.signup-header
   .container
@@ -11,10 +16,20 @@ section.signup-header
         textarea( name="description", type="text", placeholder="Description" )
         em What skillset does the project require?
         //input( name="skills", type="text", placeholder="Separate by Commas")
-        select(name="skills")
-          option(value="",disabled, selected) Select Technology
-          -each language in languages
-            option(value="#{language}", label="#{language}")
+        //select(name="skills")
+        //  option(value="",disabled, selected) Select Technology
+        //  -each language in languages
+        //    option(value="#{language}", label="#{language}")
+        p Project Tags
+        .tagsBlock
+          span.tagsPlaceholder Drop tags Here...
+          ul#projectTags.connectedSortable
+        p Tags Cloud
+        ul#tagsList
+          -for(var index in languages)
+            li #{languages[index]} &nbsp;
+              span
+        input(type="hidden", value="", name="skills")
         input( type="text", name="_gotcha", style="display:none")
         select( name="knowledgeLevel", type="text", placeholder="Skills", onKeyPress="return projectsave(this,event)")
           option( name="select-skill", type="text", disabled selected, style="opacity:0.2") Select Skill Level

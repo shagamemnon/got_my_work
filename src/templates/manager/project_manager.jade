@@ -1,0 +1,56 @@
+.manager-panel
+    .table-title
+        img(style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px", src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
+        h3 Project-Manager Dashboard
+    .table-title
+        h4 Projects&Developers
+    table#sortTable1.sortTable.table-fill
+        thead
+            tr
+                th.text-left.subhead #
+                th.text-left.subhead Project
+                th.text-left.subhead Developers
+        tbody.table-hover.developersForPorjectsTableBody
+            - if ( projects )
+                .tiles-row
+                    - each project in projects
+                        tr.projManagerTablesCount
+                            td.text-left
+                            td.text-left
+                                     div(style='color:red')| Title:
+                                        span(style='color:black')| #{project.attributes.title}
+                                     br
+                                     div(style='color:red')| Description:
+                                        span(style='color:black')| #{project.attributes.description}
+                                     br
+                                     div(style='color:red')| Duration:
+                                        span(style='color:black')| #{project.attributes.duration}
+                                     br
+                                     div(style='color:red')| KnowledgeLevel:
+                                        span(style='color:black')| #{project.attributes.knowledgeLevel}
+                                     br
+                                     div(style='color:red')| PaymentType:
+                                        span(style='color:black')| #{project.attributes.paymentType}
+                                     br
+                                     div(style='color:red')| Rate:
+                                        span(style='color:black')| #{project.attributes.rate}
+                                     br
+                                     div(style='color:red')| Skills:
+                                        span(style='color:black')|#{project.attributes.skills}
+                            td.text-left
+                                - if (linkedProjects)
+                                        ul
+                                            - each linkedProject in linkedProjects
+                                                - if(linkedProject.attributes.projectId == project.id)
+                                                    - if (developers)
+                                                        - each developer in developers
+                                                            - if(developer.id == linkedProject.attributes.developerId)
+                                                                    li(style="list-style-type: disc")
+                                                                                                       div(style='color:red')| Name:
+                                                                                                            span(style='color:black')|#{developer.attributes.fullName}
+                                                                                                                input(type="submit", class = "ajax_signup_developer_to_project", data = developer.id + " " + project.id, value="Confirm", style=' margin: 10px')
+                                                                                                       div(style='color:red')| Email:
+                                                                                                            span(style='color:black')|#{developer.attributes.email}
+                                                                    br
+                                                                    br
+

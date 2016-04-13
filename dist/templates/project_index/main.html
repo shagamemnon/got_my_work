@@ -37,11 +37,11 @@
   </div>
 </nav>
 <section class="project_header">
-  <div style="opacity: 0.3" class="header-container">
+  <div style="opacity: 1" class="header-container">
     <h1 class="project-title">Projects</h1>
     <div class="search-bar">
       <form>
-        <input type="text" name="search" placeholder="FULL TEXT SEARCH NOT FUNCTIONAL YET"/>
+        <input type="text" name="search" placeholder="Search" id="search" class="search_projects"/>
       </form>
       <select name="knowledgeLevel" type="text">
         <option value="" disabled selected="disabled selected">Skill</option>
@@ -66,107 +66,18 @@
     </div>
   </div>
 </section>
+<script>
+  var languages = ;
+  
+</script>
 <section class="project_index">
   <div class="dashboard-container">
     <div class="sidebar">
-      <h2>Filters</h2><span><a href="#tab0">
-          <div class="check-box">
-            <input type="checkbox" value="Android" id="check-box_20" name="languages[]"/>
-            <label for="check-box_20"></label>
-          </div>
-          <h5>Android</h5></a></span><span><a href="#tab1">
-          <div class="check-box">
-            <input type="checkbox" value="iOS" id="check-box_21" name="languages[]"/>
-            <label for="check-box_21"></label>
-          </div>
-          <h5>iOS</h5></a></span><span><a href="#tab2">
-          <div class="check-box">
-            <input type="checkbox" value="C#" id="check-box_22" name="languages[]"/>
-            <label for="check-box_22"></label>
-          </div>
-          <h5>C#</h5></a></span><span><a href="#tab3">
-          <div class="check-box">
-            <input type="checkbox" value="C" id="check-box_23" name="languages[]"/>
-            <label for="check-box_23"></label>
-          </div>
-          <h5>C</h5></a></span><span><a href="#tab4">
-          <div class="check-box">
-            <input type="checkbox" value="C++" id="check-box_24" name="languages[]"/>
-            <label for="check-box_24"></label>
-          </div>
-          <h5>C++</h5></a></span><span><a href="#tab5">
-          <div class="check-box">
-            <input type="checkbox" value=".NET" id="check-box_25" name="languages[]"/>
-            <label for="check-box_25"></label>
-          </div>
-          <h5>.NET</h5></a></span><span><a href="#tab6">
-          <div class="check-box">
-            <input type="checkbox" value="Java" id="check-box_26" name="languages[]"/>
-            <label for="check-box_26"></label>
-          </div>
-          <h5>Java</h5></a></span><span><a href="#tab7">
-          <div class="check-box">
-            <input type="checkbox" value="Ruby" id="check-box_27" name="languages[]"/>
-            <label for="check-box_27"></label>
-          </div>
-          <h5>Ruby</h5></a></span><span><a href="#tab8">
-          <div class="check-box">
-            <input type="checkbox" value="Python" id="check-box_28" name="languages[]"/>
-            <label for="check-box_28"></label>
-          </div>
-          <h5>Python</h5></a></span><span><a href="#tab9">
-          <div class="check-box">
-            <input type="checkbox" value="Node.js" id="check-box_29" name="languages[]"/>
-            <label for="check-box_29"></label>
-          </div>
-          <h5>Node.js</h5></a></span><span><a href="#tab10">
-          <div class="check-box">
-            <input type="checkbox" value="PHP" id="check-box_210" name="languages[]"/>
-            <label for="check-box_210"></label>
-          </div>
-          <h5>PHP</h5></a></span><span><a href="#tab11">
-          <div class="check-box">
-            <input type="checkbox" value="HTML/CSS" id="check-box_211" name="languages[]"/>
-            <label for="check-box_211"></label>
-          </div>
-          <h5>HTML/CSS</h5></a></span><span><a href="#tab12">
-          <div class="check-box">
-            <input type="checkbox" value="JavaScript" id="check-box_212" name="languages[]"/>
-            <label for="check-box_212"></label>
-          </div>
-          <h5>JavaScript</h5></a></span><span><a href="#tab13">
-          <div class="check-box">
-            <input type="checkbox" value="E-Commerce" id="check-box_213" name="languages[]"/>
-            <label for="check-box_213"></label>
-          </div>
-          <h5>E-Commerce</h5></a></span><span><a href="#tab14">
-          <div class="check-box">
-            <input type="checkbox" value="WordPress &amp; Drupal" id="check-box_214" name="languages[]"/>
-            <label for="check-box_214"></label>
-          </div>
-          <h5>WordPress &amp; Drupal</h5></a></span><span><a href="#tab15">
-          <div class="check-box">
-            <input type="checkbox" value="OS X" id="check-box_215" name="languages[]"/>
-            <label for="check-box_215"></label>
-          </div>
-          <h5>OS X</h5></a></span><span><a href="#tab16">
-          <div class="check-box">
-            <input type="checkbox" value="Windows" id="check-box_216" name="languages[]"/>
-            <label for="check-box_216"></label>
-          </div>
-          <h5>Windows</h5></a></span><span><a href="#tab17">
-          <div class="check-box">
-            <input type="checkbox" value="Systems Infrastructure" id="check-box_217" name="languages[]"/>
-            <label for="check-box_217"></label>
-          </div>
-          <h5>Systems Infrastructure</h5></a></span><span><a href="#tab18">
-          <div class="check-box">
-            <input type="checkbox" value="Database Management" id="check-box_218" name="languages[]"/>
-            <label for="check-box_218"></label>
-          </div>
-          <h5>Database Management</h5></a></span>
+      <h2>Filters</h2>
     </div>
     <div class="content">
+      <input type="hidden" name="page" value="1"/>
+      <div class="load-more"><a href="#">Load more</a></div>
       <!--a.project-listing(href="#")#open-->
       <!--  h4 Small Web Design Project-->
       <!--  em Posted 1 day ago-->

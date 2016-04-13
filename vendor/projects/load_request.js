@@ -1,6 +1,12 @@
 $(document).ready(function(){
     var id = "",
         search = {};
+
+    $('form').submit(function() {
+        check();
+        return false;
+    });
+
     $("#request").on("click", function(){
         var that = $(this);
         $.ajax({
@@ -26,7 +32,7 @@ $(document).ready(function(){
             dataType: "json"
         });
     });
-    $('.project_index .content a').on('click', function(e){
+    $('.project_index .content').on('click', 'a', function(e){
         e.preventDefault();
         $('#request').attr('style', '');
         $('#info .error').text('');
@@ -48,18 +54,19 @@ $(document).ready(function(){
         return parseInt(diff) == 1 ? parseInt(diff) + ' day' : parseInt(diff) + ' days';
     }
 
-    function send(search){
+    function send(search, searchText){
         $.ajax({
              type: "POST",
-             url: "/projectSearch",
-             data: {filters: JSON.stringify(search)},
+             url: "/search",
+             data: {filters:JSON.stringify(search), searchVal:searchText},
              success: function(answer){
                  console.log(answer);
                  $('div.content').empty();
                  (answer.object).forEach(function(item){
                      var skills = "";
                      item['skills'].forEach(function(skill){
-                        skills += '<span>' + skill + '</span>';
+                        if (languages[skill])
+                            skills += '<span>' + languages[skill] + '</span>';
                      });
                      $('div.content').append(
                          render($('.hidden').html(), {
@@ -81,12 +88,13 @@ $(document).ready(function(){
     }
 
     function check(){
+        var searchText = $('#search').val();
         search = {};
         $('.sidebar input:checked').each(function(ind, item){
             var name = $(item).attr('name').replace('[]','');
             if(!search[name])
                 search[name] = [];
-            search[name].push($(item).val())
+            search[name].push($(item).val().toLowerCase())
         });
 
         $('.search-bar select').each(function(ind, item){
@@ -97,7 +105,7 @@ $(document).ready(function(){
                 search[name].push($(item).val())
             }
         });
-        send(search);
+        send(search, searchText);
     }
 
     $('.sidebar input[type="checkbox"]').on('change', function(){
@@ -106,6 +114,13 @@ $(document).ready(function(){
     $('.search-bar select').on('change', function(){
         check();
     });
+
+    $('.search_projects').on('change', () => {
+        var searchText = $('#search').val();
+        if (searchText.length >= 3 || searchText.length == 0)
+            check();
+    });
+
     /*$('.sidebar span').on('click', 'a', function(){
         $.ajax({
             type: "PUT",

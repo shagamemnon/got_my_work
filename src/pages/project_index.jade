@@ -1,17 +1,18 @@
 extends ./base
 
-block style
-  link(rel="stylesheet", href="dist/css/project_index.css")
+block extendStyles
+    link(rel="stylesheet", href="dist/css/project_index.css")
 
 block extendScripts
-  script(src="/vendor/lightbox/lightbox.js")
-  script(src="/vendor/projects/load_more.js")
-  script(src="/vendor/projects/load_request.js")
-  script(src="/vendor/projects/load_projects.js")
+    script(src="/vendor/lightbox/lightbox.js")
+    script(src="/vendor/projects/load_request.js")
+    script(src="/vendor/projects/load_more.js")
+    script(src="/vendor/projects/load_projects.js")
+    //script(src="/vendor/projects/search_projects.js")
 
 block title
-  title Projects
-  meta( name="description", content="India's Biggest Freelance Portal" )
+    title Projects
+    meta( name="description", content="India's Biggest Freelance Portal" )
 
 block content
-  include ../templates/project_index/main
+    include ../templates/project_index/main

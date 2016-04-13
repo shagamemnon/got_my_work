@@ -1,46 +1,46 @@
 (function(exports){
 
     exports.isFreelancer = function(user){
-        return user.user.userRole == 'user' &&
+        return user.userRole == 'user' &&
             (
-                user.user.accountType == 'free' ||
-                user.user.accountType == 'student' ||
-                user.user.accountType == 'premium'
+                user.accountType == 'free' ||
+                user.accountType == 'student' ||
+                user.accountType == 'premium'
             );
     };
 
     exports.isCompany = function(user){
-        return user.user.userRole  == 'user' &&
+        return user.userRole  == 'user' &&
             (
-                user.user.accountType  == 'company'
+                user.accountType  == 'company'
             );
     };
 
     exports.isSalesManager = function(user){
-        return user.user.userRole == 'employee' &&
+        return user.userRole == 'employee' &&
             (
-                user.user.accountType == 'sales-manager'
+                user.accountType == 'sales-manager'
             );
     };
 
     exports.isCompanyManager = function(user){
-        return user.user.userRole  == 'employee' &&
+        return user.userRole  == 'employee' &&
             (
-                user.user.accountType   == 'company-manager'
+                user.accountType   == 'company-manager'
             );
     };
 
     exports.isProjectManager = function(user){
-        return user.user.userRole == 'employee' &&
+        return user.userRole == 'employee' &&
             (
-                user.user.accountType == 'project-manager'
+                user.accountType == 'project-manager'
             );
     };
 
     exports.isUserManager = function(user){
-        return user.user.userRole == 'employee' &&
+        return user.userRole == 'employee' &&
             (
-                user.user.accountType == 'user-manager'
+                user.accountType == 'user-manager'
             );
     };
 
@@ -64,7 +64,7 @@
     };
 
     exports.canViewContact = function(user, contactUser){
-        if((exports.isFreelancer(user) || exports.isCompany(user)) && exports.isSalesManager(contactUser)){
+        if((exports.isFreelancer(user.user) || exports.isCompany(user.user)) && exports.isSalesManager(contactUser.user)){
             return false;
         }
 

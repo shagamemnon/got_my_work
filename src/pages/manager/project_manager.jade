@@ -1,0 +1,18 @@
+extends ../base
+block extendStyles
+    link(rel="stylesheet", href="/dist/css/manager.css")
+block extendScripts
+    script(src="/vendor/manager/jquery-ui.min.js")
+    script(src="/vendor/manager/paging.js")
+    script(src="/vendor/manager/progress_circle.js" )
+    script(src="/vendor/manager/jquery.tablesorter.min.js")
+    script(src="/vendor/manager/sorting_table.js" )
+    script(src="/vendor/manager/proj_manager_func.js" )
+    script(src="https://code.highcharts.com/highcharts.js")
+    script(src="https://code.highcharts.com/modules/exporting.js")
+    script(data-main="dist/main", src='dist/require.min.js')
+block title
+    title Project Manager
+    meta( name="description", content="India's Biggest Freelance Portal" )
+block content
+    include ../../templates/manager/project_manager_main

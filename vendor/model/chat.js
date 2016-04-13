@@ -75,7 +75,7 @@ module.exports = (function(){
 
 
 			var canView = true;/*UserRole.canViewContact(contacts[id], contacts[item.user.id]);*/
-			var userForContact = new protocol.Contact(item.user.id,item.user.fullName,item.user.avatar, canView);
+			var userForContact = new protocol.Contact(item.user.id,item.user.fullName,item.user.avatar, canView, item.user.userRole, item.user.accountType);
 			dao.getMessages({id: user.id, limit: 100, page: 1}, function(messages) {
 				var messagesConnectedContact = [];
 				messages.object.forEach(function (message) {
@@ -137,15 +137,17 @@ module.exports = (function(){
 				});
 			});
 		},
-		in : function(id,jsMsg,ok){
+		in : function(user, id, jsMsg, ok){
 			var canInitial = true;
 			var count = 0;
 			var result = new protocol.Ok();
 			var async = false;
 			var msg = JSON.parse(jsMsg);
+			msg['senderObject'] = user;
 			msg['senderId'] = id;
 			var initiatorId = id;
-			var interlocutorId = msg.interlocutorUserId;
+			var interlocutorId;
+			if(msg.interlocutorUserId != undefined) interlocutorId = msg.interlocutorUserId.id;
 			function  addInitChat(initiatorUserId, interlocutorUserId){
 				initialChats.push({
 					initiatorUserId: initiatorUserId,
@@ -156,7 +158,8 @@ module.exports = (function(){
 			switch (msg.type) {
 
 				case (protocol.typeSet.initial): {
-					canInitial = UserRole.canInitialChat(contacts[initiatorId], contacts[interlocutorId]);
+					//canInitial = UserRole.canInitialChat(contacts[initiatorId], contacts[interlocutorId]);
+					canInitial = UserRole.canInitialChat(msg.senderObject.attributes, msg.interlocutorUserId);
 					if(initialChats.length>0){
 
 						for(var i = 0; i < initialChats.length; i++){
@@ -198,6 +201,7 @@ module.exports = (function(){
 						else if(canInitial == true){
 							addInitChat(initiatorId, interlocutorId);
 						}
+						//addInitChat(initiatorId, interlocutorId);
 					}
 					contacts[interlocutorId].connection.send(JSON.stringify(new protocol.YouInterlocutorUser(initiatorId)));
 				} break;
@@ -250,7 +254,7 @@ module.exports = (function(){
 
 							var canView = UserRole.canViewContact(contacts[id], contacts[obj.user.id]);
 
-							return new protocol.struct.User(obj.user.id,obj.user.fullName, obj.user.avatar, canView, resultMessages);
+							return new protocol.struct.User(obj.user.id,obj.user.fullName, obj.user.avatar, canView, obj.user.userRole, obj.user.accountType, resultMessages);
 						});
 
 						result = new  protocol.Contacts(userContacts);

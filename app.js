@@ -16,7 +16,8 @@ var port = process.env.PORT || 3000
   , auth = require('./modules/auth')
   , parseQuery = require('./modules/parseQuery')
   , admin = require('./routes/admin')
-  , sales_manager = require('./routes/sales_manager');
+  , sales_manager = require('./routes/sales_manager')
+  , project_manager = require('./routes/project_manager');
 
 GLOBAL._ = require('lodash');
 
@@ -79,7 +80,7 @@ app.ws('/chatgate/', function(ws, req) {
         chat.addConnection(user, ws);
 
         ws.on('message', function (msg) {
-            chat.in(user.id, msg, function (answer) {
+            chat.in(user, user.id, msg, function (answer) {
                 ws.send(answer, (err)=>{
                     if (!err)
                         req.session.isChat = true;
@@ -101,12 +102,14 @@ app.ws('/chatgate/', function(ws, req) {
 /** Uses Backbone Base **/
 app.all('/*',(req, res, next)=>{
     res.isLogged = req.session.user ? true : false;
+    res.locals.isLogged = res.isLogged;
     req.session.isChat = true;
     next();
 });
 
 app.use('/admin', admin);
 app.use('/sales-manager', sales_manager);
+app.use('/project-manager', project_manager);
 
 app.get('/', (req, res) => {
     let device_path = req.device.type == 'desktop' ? 'desktop' : 'mobile';
@@ -158,6 +161,51 @@ app.get('/admin', (req, res) =>
     res.sendFile(__dirname + '/dist/pages/base.html')
 );
 
+app.route('/technologies')
+    .get((req, res) => {
+        if (res.locals.technologies)
+            parseQuery.getObjects({class: "Technologies", sort:{order: "asc", key: "order"}},
+                (answer)=>{
+                    res.locals.technologies = answer.object;
+                    res.render('../pages/technologies', {technologies:GLOBAL.technologies});
+                },
+                (answer)=>{
+                    console.log(answer.error);
+                }
+            );
+        else
+            res.render('../pages/technologies', {technologies:res.locals.technologies});
+    }).post((req, res)=>{
+        /*let arr = JSON.parse(req.body.technologies);
+        //let arr = ["Android", "iOS", "C#", "C", "C++", ".NET", "Java", "Ruby", "Python", "Node.js", "PHP", "HTML/CSS", "JavaScript", "E-Commerce", "WordPress & Drupal", "OS X", "Windows", "Systems Infrastructure", "Database Management"]
+        let technologies = [];
+        arr.forEach((item, index)=> {
+            let data = {};
+            data['original'] = item;
+            data['modified'] =  item.toLowerCase();
+            data['order'] = index;
+            technologies.push(data);
+            if(index == arr.length-1)
+                parseQuery.saveObjects({class: "Technologies", data: technologies
+                }, (answer)=> {
+                    res.json(answer);
+                }, (answer)=> {
+                    res.json(answer);
+                });
+        });*/
+        let data = req.body.technology;
+        parseQuery.addObject({class:"Technologies", data: {original: data, modified: data.toLowerCase(), order: res.locals.technologies.length}},
+            (answer)=>{
+                res.json(answer);
+                console.log(answer);
+            },
+            (answer)=>{
+                res.json(answer);
+                console.log(answer);
+            }
+        )
+    });
+
 // app.get('/settings', (req, res) => 
 //   res.sendFile( 'dist/pages/settings.html')
 // );
@@ -199,23 +247,118 @@ app.get('/projects-dashboard', (req, res) =>
     res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
 );
 
-app.route('/projects')
-    .get(function ( req, res) {
-        parseQuery.getObjects({class: "Project", limit: 8},
-            (answer) => {
-                console.log("projects", answer.object);
-                res.render('../pages/project_index', {"projects": answer.object});
-            },
-            (answer) => {
-                console.log("getting projects error", answer.error);
-                res.json("error");
+app.route("/search")
+    .post((req, res) => {
+        let searchString,
+            exac = false,
+            langSearchVal = [];
+
+        let search = (searchVal, filters) => {
+
+            if( searchVal[0] == "\"" && searchVal[ searchVal.length-1] == "\"") {
+                exac = true;
+                searchString = searchVal.substring(1, searchVal.length - 1).replace(/[^\w\s]/g, function(str){
+                    return "\\" + str;
+                });
+                langSearchVal.push(searchVal.substring(1, searchVal.length - 1));
+            } else {
+                searchString = searchVal.replace(/[^\w\s]/g, function(str){
+                    return "\\" + str;
+                }).replace(/\s/g, "|");
+                if (searchVal.split(" ").length > 1)
+                    langSearchVal = searchVal.toLowerCase().split(" ");
+                else
+                    langSearchVal.push(searchVal.toLowerCase());
             }
-        );
+
+            //let filter = filters.languages && filters.languages.length != 0 ? [{key: "skills", value: filters.languages, condition: "containsAll"}] : [];
+
+            parseQuery.orGetObject(
+                {
+                    search: [
+                        {
+                            class: "Project",
+                            filters: [{key: "title", value: searchString, condition: "matches", exac: exac}]
+                        },
+                        {
+                            class: "Project",
+                            filters: [{key: "description", value: searchString, condition: "matches", exac: exac}]
+                        },
+                        {
+                            class: "Project",
+                            filters: [{key: "skills", value: langSearchVal, condition: "containsAll"}]
+                        }
+                    ],
+                    filters: filters
+                },
+                (answer) => {
+                    res.json(answer);
+                },
+                (error) => {
+                    res.json(error);
+                }
+            );
+        };
+
+        if (req.body.searchVal.length > 0 || req.body.filters != "{}" ) {
+            let str = req.body.searchVal.trim();
+            if ( req.body.filters == "{}" )
+                search(str, []);
+            else {
+                let filters = setFilters(req.body.filters);
+                search(str, filters);
+            }
+        } else {
+            parseQuery.getObjects({class: "Project"},
+                (answer) => {
+                    var result = answer;
+                    res.json(result);
+                },
+                (answer) => {
+                    res.json("error");
+                }
+            );
+        }
+    });
+app.route('/projects')
+    .get((req, res) => {
+        let from = req.query.page ? (req.query.page * 8) : 0;
+        let printPage = () => {
+            let newTech = {};
+            (res.locals.technologies).forEach(function(obj){
+                newTech[obj.attributes.modified] = obj.attributes.original;
+            });
+            parseQuery.getObjects({class: "Project", limit: 8, from: from},
+                (answer) => {
+                    console.log("projects", answer.object);
+                    if(req.query.page)
+                        res.json(answer);
+                    else
+                        res.isLogged ? res.render('../pages/project_index', {"projects": answer.object}) : res.render('../pages/project_index', {"projects": answer.object, technologies: newTech});
+                },
+                (answer) => {
+                    console.log("getting projects error", answer.error);
+                    res.json("error");
+                }
+            );
+        };
+        if (!res.locals.technologies)
+            parseQuery.getObjects({class: "Technologies", sort:{order: "asc", key: "order"}},
+                (answer)=>{
+                    res.locals.technologies = answer.object;
+                    printPage();
+                },
+                (answer)=>{
+                    console.log(answer.error);
+                }
+            );
+        else
+            printPage();
     })
     .post(function (req, res) { /* inserting new project */
         if(req.body.skills && req.body.skills != "Select Skill Level") {
             let strSkills = req.body.skills,
-                arrSkills = strSkills.split(",");
+                arrSkills = strSkills.toLowerCase().split(",");
             arrSkills.forEach((item) => {
                 item = item.trim();
             });
@@ -235,41 +378,45 @@ app.route('/projects')
         );
   });
 
+let setFilters = (obj) => {
+    let request = JSON.parse(obj),
+        filters = [];
+    (Object.keys(request)).forEach((item)=>{
+        if(item == "languages") {
+            filters.push({key: "skills", value: request[item], condition: "containsAll"});
+            return;
+        }
+        (request[item]).forEach((it)=>{
+            if(item == "duration" || item == "rate") {
+                switch (it) {
+                    case "short":
+                        filters.push({key: item, value: 1, condition: "<="});
+                        break;
+                    case "medium":
+                        filters.push({key: item, value: 1, condition: ">"});
+                        filters.push({key: item, value: 4, condition: "<="});
+                        break;
+                    case "long":
+                        filters.push({key: item, value: 4, condition: ">"});
+                        filters.push({key: item, value: 8, condition: "<="});
+                        break;
+                    case "longest":
+                        filters.push({key: item, value: 8, condition: ">"});
+                        break;
+                }
+            } else {
+                filters.push({key: item, value: it, condition: "="});
+            }
+        });
+    });
+    return filters;
+};
+
+
 app.route('/projectSearch')
     .post((req,res)=>{
-        let request = JSON.parse(req.body.filters),
-            filters = [];
-        (Object.keys(request)).forEach((item)=>{
-            (request[item]).forEach((it)=>{
-                if(item == "duration" || item == "rate") {
-                    switch (it) {
-                        case "short":
-                            filters.push({key: item, value: 1, condition: "<="});
-                            break;
-                        case "medium":
-                            filters.push({key: item, value: 1, condition: ">"});
-                            filters.push({key: item, value: 4, condition: "<="});
-                            break;
-                        case "long":
-                            filters.push({key: item, value: 4, condition: ">"});
-                            filters.push({key: item, value: 8, condition: "<="});
-                            break;
-                        case "longest":
-                            filters.push({key: item, value: 8, condition: ">"});
-                            break;
-                    }
-                } else if(item == "languages") {
-                    (request[item]).forEach((it)=> {
-                        filters.push({key: "skills", value: it, condition: "="});
-                    });
-                } else {
-                    (request[item]).forEach((it)=> {
-                        filters.push({key: item, value: it, condition: "="});
-                    });
-                }
-            });
-        });
-        parseQuery.filterObjects({class:"Project", filters: filters},
+        let filters = setFilters(req.body.filters);
+        parseQuery.filterObjects({class:"Project", filters: filters, limit: 8},
             (answer) => {
                 res.json(answer);
             },
@@ -383,9 +530,29 @@ app.get('/profile/:id', (req, res) =>
 
 app.route('/company')
     .get( (req, res) => {
-        if (res.isLogged && req.session.user.attributes.userRole == "user" && req.session.user.attributes.accountType == "company")
-          res.render('../pages/company_profile', {logged: res.isLogged, profile: req.session.user});
-        else
+        if (res.isLogged && req.session.user.attributes.userRole == "user" && req.session.user.attributes.accountType == "company") {
+
+            let printPage = () => {
+                let newTech = {};
+                (res.locals.technologies).forEach(function (obj) {
+                    newTech[obj.attributes.modified] = obj.attributes.original;
+                });
+                res.render('../pages/company_profile', {profile: req.session.user, technologies: newTech});
+            };
+            if (!res.locals.technologies)
+                parseQuery.getObjects({class: "Technologies", sort: {order: "asc", key: "order"}},
+                    (answer)=> {
+                        res.locals.technologies = answer.object;
+                        printPage();
+                    },
+                    (answer)=> {
+                        console.log(answer.error);
+                    }
+                );
+            else
+                printPage();
+
+        } else
           res.redirect("/get-started");
         //res.sendFile(__dirname + '/dist/pages/company_profile.html')
     })

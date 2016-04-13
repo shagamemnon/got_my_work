@@ -301,12 +301,42 @@ $(document).ready(function(){
 
 				var infoBlock = chatBlock.find('.infoBlock');
 				var contactName = infoBlock.find('.name');
+				var contactAvatar = chatBlock.find('.avatar img');
+
+				let shift = false;
+				sendBlock.keydown(function(event){
+					switch (event.which) {
+						case 13: return false;
+						case 16: shift = true;
+					}
+				});
+				sendBlock.keyup(function(event){
+					let content = input.val();
+					switch (event.which) {
+						case 13:
+							if (!shift) {
+								if(content.length){
+
+									processor.event('sendMessage',currentContact.id,input.val().replace(/\n/g, "<br />"));
+									$("textarea").val("");
+								}
+								return false;
+							} else{
+								let indent = input.val()  + '\n' ;
+								input.val(indent);
+								return false;
+							}
+							break;
+						case 16: shift = false;
+					}
+				});
 
 				sendBlock.find('div').click(function(){
 					var content = input.val();
 					if(content.length){
 						//printMessage('out',content);
 						processor.event('sendMessage',currentContact.id,input.val());
+						$("textarea").val("");
 
 					}
 				});
@@ -315,7 +345,7 @@ $(document).ready(function(){
 
 				processor.addAction('setContact',function(){
 					contactName.text(currentContact.name);
-
+					contactAvatar.attr("src", currentContact.avatar);
 					console.log(currentContact);
 
 					if($('div.chatDisabled').length != 0)
@@ -447,7 +477,7 @@ $(document).ready(function(){
 
 				function addContact(contact){
 					var item = $(render(contactTemplate,{
-							img: 'http://findicons.com/files/icons/1072/face_avatars/300/a05.png',
+							img: contact.avatar,
 							name: contact.name,
 							id: contact.id
 						}
@@ -470,7 +500,7 @@ $(document).ready(function(){
 							}
 						}
 
-						communication.initialChat(contact.id);
+						communication.initialChat(contact);
 					});
 
 					if(!contact.canView) {

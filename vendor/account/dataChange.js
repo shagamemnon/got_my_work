@@ -1,10 +1,14 @@
 $(document).ready(function(){
+    var tags = [];
+
     function sendData(data, url, callback){
         $.ajax({
             type: "POST",
             url: url,
             data: data,
             success: function(result){
+                $('#info .container').css('background-image', 'none');
+                $('#info .container .project-listing').css('opacity', '1');
                 if (callback)
                     callback(result);
             },
@@ -53,10 +57,54 @@ $(document).ready(function(){
         inputChange(name);
     });
 
+    function tagsPlaceholder(){
+        if($('#projectTags li').length != 0)
+            $('.tagsPlaceholder').text('');
+        else
+            $('.tagsPlaceholder').text('Drop tags Here...');
+    }
+
+    function tag(){
+        $('#projectTags li').each(function(index, item){
+            tags.push($(item).text().trim());
+        });
+        $('input[name="skills"]').val($.unique(tags).join());
+        $('#tagsList').empty();
+        $(languages).each(function(index, item){
+            $('#tagsList').append('<li>'+item+'<span></span></li>');
+        });
+    }
+
+    $( "#projectTags, #tagsList" ).sortable({
+        connectWith: "#projectTags",
+        change: function( event, ui ) {
+            tagsPlaceholder();
+        }
+    }).disableSelection();
+
+    $('#tagsList').on('dblclick', 'li', function(){
+        var li = $(this);
+        $('#projectTags').append(li);
+        tagsPlaceholder();
+        //tag('add', li);
+    });
+
+    $('#projectTags').on('click', 'li span', function(){
+        var li = $(this).parent('li');
+        $('#tagsList').append(li);
+        //tag('remove', li);
+        tagsPlaceholder();
+    });
+
     $("#project-save").on('click', function(){
+        tag();
+        $('#info .container').css('background-image', 'url("https://s3.amazonaws.com/igotmywork/projects/loading.gif")');
+        $('#info .container .project-listing').css('opacity', '0.5');
         sendData($("#payment-form").serialize(), "/projects", function(result){
             if(result == "ok") {
                 $("#payment-form")[0].reset();
+                $('#projectTags').empty();
+                $('.tagsPlaceholder').text('Drop tags Here...');
                 $("#close").click();
             } else
                 $(".error-message").text(result);

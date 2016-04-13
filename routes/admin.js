@@ -7,7 +7,7 @@ let auth = require('../modules/auth');
 
 let checker = (counter, length) => {
     return ++counter.val == length;
-}
+};
 
 router.get('/', (req, res) => {
 
@@ -84,7 +84,7 @@ router.get('/', (req, res) => {
                     queryType.get(linkTypeId, {
                         success: (getData) => {
                             check++;
-                            arrGetType = arrGetType.concat(getData)
+                            arrGetType = arrGetType.concat(getData);
                             if(check==answer.object.length){
                                 if(queryType==queryCompany) {
                                     arrGetCompanies = arrGetType;
@@ -198,7 +198,7 @@ router.delete('/', (req, res) => {
                         }
                     );
                 });
-            };
+            }
         }
 
         for(let i = 0; i<parseQueries.length; i++){
@@ -244,7 +244,7 @@ router.put('/target', (req, res) => {
             console.log("target", answer.object);
             checker();
         }, (error) =>{
-            console.log("target", error.error)
+            console.log("target", error.error);
             checker();
         });
     });
@@ -263,7 +263,7 @@ router.delete('/target', (req, res) => {
             if(counter == allTargetsLinksCountForDelete){
                 targetIds.forEach( (id, targetIdsForDeleteTargets) => {
                     parseQuery.deleteObject({class: "Target", id: id}, (answer) => {
-                        counetTargets++
+                        counetTargets++;
                         if(counetTargets == targetIds.length){
                             res.json("ok");
                         }
@@ -313,26 +313,6 @@ router.put('/manager_signup', (req, res) => {
         }, (error) => {
             res.json("error");
         });
-    /*parseQuery.getObjects({class: "Token", limit: 50, equals:{column:"SalesManagerID" ,objectId:req.params.id}}, function(answer){
-        if (answer.result == 'ok') {
-            var managersTypes = answer.object;
-            managersTypes.forEach((manager, managersTypes) => {
-                if(manager.attributes.ManagerType == req.body.ManagerType){
-                    parseQuery.updateObject({class: "Token", id: manager.id, data: req.body}, function(answer){
-                        if(answer.result == 'ok'){
-                            res.json("got");
-                            console.log("target", answer.object);
-                        }else{
-                            console.log("target", answer.error)
-                        }
-                    });
-                }
-            });
-        } else {
-            console.log("getting projects error", answer.error);
-            res.json("error");
-        }
-    });*/
 });
 
 router.get('/manager_signup/:type', (req, res) => {
@@ -345,7 +325,7 @@ router.get('/manager_signup/:type', (req, res) => {
                 if (manager.attributes.ManagerType == req.params.type && manager.attributes.ManagerToken == req.query.qs1) {
                     res.render('../pages/login/manager_signup', {managerType: req.params.type})
                 } else {
-                    counter++
+                    counter++;
                     if (counter == managersTypes.length) {
                         res.redirect('/');
                     }
@@ -354,27 +334,6 @@ router.get('/manager_signup/:type', (req, res) => {
         }, (error) => {
             res.json("error");
         });
-   /* parseQuery.getObjects({class: "Token", limit: 50, equals:{column:"SalesManagerID" ,objectId:req.params.id}}, function(answer){
-        if (answer.result == 'ok') {
-            var managersTypes = answer.object;
-            managersTypes.forEach((manager, managersTypes1) => {
-                if(manager.attributes.ManagerType == req.params.type && manager.attributes.ManagerToken == req.query.qs1){
-                    res.render('../pages/login/manager_signup', {managerType: req.params.type})
-                } else{
-                    counter++
-                    if(counter == managersTypes.length){
-                        res.redirect('/');
-                    }
-                }
-            });
-
-
-        } else {
-            console.log("getting projects error", answer.error);
-            res.json("error");
-        }
-    });*/
-
 });
 
 
