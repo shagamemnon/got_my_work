@@ -30,7 +30,7 @@ mixin printCategories(category, index)
     a(href="#tab#{index}")
       .check-box
         input(type="checkbox", value="#{category}", id="check-box_1#{index}", name="categories[]")
-        label(for="check-box_1#{index}")
+        label(for="check-box_#1{index}")
       h5= category
 
 mixin printLanguages(language, index)

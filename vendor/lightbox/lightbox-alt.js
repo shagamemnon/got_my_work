@@ -1,6 +1,6 @@
 $(document).ready(function(){
   $("#open-user").click(function(){
-     $('#overlay-user, #info-user').animate({'opacity':'0.7'}, 300, 'linear');
+     $('#overlay-user, #info-user').animate({'opacity':'0.9'}, 300, 'linear');
      $('#info-user').animate({'opacity':'1.00'},300,'linear');
      $('#overlay-user, #info-user').css('visibility','visible');
      $('.dashboard-container').css('display','none');
