@@ -1,31 +1,35 @@
 .dashboard-container
   .dashboard
-    h2 Update SQL Database
+    - if(projectTitle)
+      h2= projectTitle.attributes.title
     section.participants
       .titles
-        em.left 
+        em.left
           | Company
         em.right
           | Freelancer
       .company
-        .logo 
+        - if(projectCompany)
+          img.logo( src= projectCompany.attributes.logo, style="visibility: visible;")
       .freelancer
-        .avatar
-        .name
-          p ARVIND SWAMY
-          small Java Engineer
+        - if(projectDeveloper)
+          img.avatar( src= projectDeveloper.attributes.avatar, style="visibility: visible;")
+          .name
+            p= projectDeveloper.attributes.fullName
+            small= projectDeveloper.attributes.skill
     section.status
       em Status
-      .stage#complete
-        small Waiting
-      .stage#complete
-        small Running
-      .stage#active
-        small Testing
-      .stage#inactive
-        small Complete
-      .stage#inactive
-        small Delivered
+      - if(projectTitle)
+        p.stage#waiting(  class= projectTitle.attributes.statusWaiting) &nbsp;
+          small Waiting
+        p.stage#running(  class= projectTitle.attributes.statusRunning) &nbsp;
+          small Running
+        p.stage#testing(class= projectTitle.attributes.statusTesting) &nbsp;
+          small Testing
+        p.stage#complete(  class= projectTitle.attributes.statusComplete) &nbsp;
+          small Complete
+        p.stage#delivered(  class= projectTitle.attributes.statusDelivered) &nbsp;
+          small Delivered
     .key
       .dot.start
         p Start
@@ -93,9 +97,13 @@
         a mpasve02.sql
         small 10/22/2015
       .right
-        a Upload
+        .uploadimgbtn(onclick="getFile()") Upload
+        article(style='height: 0px;width: 0px; overflow:hidden')
+          input(id="upfile", type="file", value="upload", onchange="sub(this)", accept="image/*", class="upload-image")
     .dashboard-buttons
       button.cancel
-        a(href="#") Cancel Project
+        a(href="") Cancel Project
       button.deliver
-        a(href="#" ) Deliver Project
+        a(href="" ) Deliver Project
+  #alert
+    p Request Submitted

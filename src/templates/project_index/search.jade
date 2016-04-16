@@ -23,14 +23,17 @@ mixin printProject(project)
     .tags
       span(style="box-shadow: 0 0 0 0 transparent;color:#3F8CD8;background: white;text-align: left;font-size:14px") Skills
       -each skill in project.attributes.skills
-        span= technologies[skill]
+        -if(technologies[skill])
+          span= technologies[skill]
+        -else
+          span= skill
 
 mixin printCategories(category, index)
   span
     a(href="#tab#{index}")
       .check-box
         input(type="checkbox", value="#{category}", id="check-box_1#{index}", name="categories[]")
-        label(for="check-box_#1{index}")
+        label(for="check-box_1#{index}")
       h5= category
 
 mixin printLanguages(language, index)
@@ -54,11 +57,11 @@ section.project_index
 
     .content
       input(type="hidden", name="page", value="1")
-      -if (projects)
-        -each project in projects
-          +printProject(project)
-      .load-more
-        a(href="#") Load more
+      -for(var index in projects)
+        +printProject(projects[index])
+        if ( index == 7 )
+          .load-more
+            a(href="#") Load more
       //a.project-listing(href="#")#open
       //  h4 Small Web Design Project
       //  em Posted 1 day ago

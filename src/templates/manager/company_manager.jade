@@ -1,0 +1,62 @@
+.manager-panel
+   .table-title
+      img(style="height: 30px;background-color: #111;padding: 10px 20px;margin-bottom: 20px", src="https://s3.amazonaws.com/igotmywork/igotmywork_logo.png")
+      h3 Company-Manager Dashboard
+        h4 Projects&Developers
+    table#sortTable1.sortTable.table-fill
+        thead
+            tr
+                th.text-left.subhead #
+                th.text-left.subhead Projects
+                th.text-left.subhead Developers
+                th.text-left.subhead Status
+        tbody.table-hover.companyPorjectsTableBody
+            - if(projectsInfo)
+                .tiles-row
+                    - each project in projectsInfo
+                        tr.compManagerTablesCount
+                            td.text-left
+                            td.text-left
+                                div(style='color:red')| Title:
+                                        span(style='color:black')| #{project.attributes.title}
+                                br
+                                div(style='color:red')| Description:
+                                    span(style='color:black')| #{project.attributes.description}
+                                br
+                            td.text-left
+                                - if (projectsDevelopers)
+                                        ul
+                                           - each projectDeveloper in projectsDevelopers
+                                                    - if(projectDeveloper.id == project.attributes.developerId)
+                                                            li(style="list-style-type: disc")
+                                                                   div(style='color:red')| Name:
+                                                                        span(style='color:black')|#{projectDeveloper.attributes.fullName}
+                                                                   br
+                                                                   div(style='color:red')| Email:
+                                                                        span(style='color:black')|#{projectDeveloper.attributes.email}
+                                                            br
+                                                            br
+
+                            td.text-left
+                                - if (project.attributes.statusWaiting == "active")
+                                    li#waiting Waiting
+                                - if (project.attributes.statusRunning == "active")
+                                    li#running Running
+                                - if (project.attributes.statusTesting == "active")
+                                    li#testing Testing
+                                -  if (project.attributes.statusComplete == "active")
+                                    li#complete Complete
+                                         span
+                                            input(type="submit", class = "ajax_confirm_project_completing", data = project.id, value="Confirm", style=' margin: 10px')
+                                - if (project.attributes.statusDelivered == "active")
+                                    li#delivering Delivering
+                                - if (project.attributes.statusDelivered == "complete")
+                                    li#delivered Delivered
+                                - if (project.attributes.statusWaiting == "inactive")
+                                    li#Inactive Inactive
+
+
+
+
+
+

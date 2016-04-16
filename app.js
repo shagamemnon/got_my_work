@@ -17,7 +17,10 @@ var port = process.env.PORT || 3000
   , parseQuery = require('./modules/parseQuery')
   , admin = require('./routes/admin')
   , sales_manager = require('./routes/sales_manager')
-  , project_manager = require('./routes/project_manager');
+  , project_manager = require('./routes/project_manager')
+  , moduleFilters = require('./modules/filters')
+  , company_manager = require('./routes/company_manager')
+  , dashboard = require('./routes/dashboard');
 
 GLOBAL._ = require('lodash');
 
@@ -110,6 +113,8 @@ app.all('/*',(req, res, next)=>{
 app.use('/admin', admin);
 app.use('/sales-manager', sales_manager);
 app.use('/project-manager', project_manager);
+app.use('/company-manager', company_manager);
+app.use('/dashboard', dashboard);
 
 app.get('/', (req, res) => {
     let device_path = req.device.type == 'desktop' ? 'desktop' : 'mobile';
@@ -158,23 +163,24 @@ app.post('/', function (request, res ) {
 });
 
 app.get('/admin', (req, res) => 
-    res.sendFile(__dirname + '/dist/pages/base.html')
+    //res.sendFile(__dirname + '/dist/pages/base.html')
+    res.render('../pages/base')
 );
 
 app.route('/technologies')
     .get((req, res) => {
-        if (res.locals.technologies)
+        if (!res.locals.technologies)
             parseQuery.getObjects({class: "Technologies", sort:{order: "asc", key: "order"}},
                 (answer)=>{
                     res.locals.technologies = answer.object;
-                    res.render('../pages/technologies', {technologies:GLOBAL.technologies});
+                    res.render('../pages/technologies');
                 },
                 (answer)=>{
                     console.log(answer.error);
                 }
             );
         else
-            res.render('../pages/technologies', {technologies:res.locals.technologies});
+            res.render('../pages/technologies');
     }).post((req, res)=>{
         /*let arr = JSON.parse(req.body.technologies);
         //let arr = ["Android", "iOS", "C#", "C", "C++", ".NET", "Java", "Ruby", "Python", "Node.js", "PHP", "HTML/CSS", "JavaScript", "E-Commerce", "WordPress & Drupal", "OS X", "Windows", "Systems Infrastructure", "Database Management"]
@@ -212,15 +218,18 @@ app.route('/technologies')
 
 /** Static && Marketing Routes **/
 app.get('/how-it-works', (req, res) => 
-    res.sendFile(__dirname + '/dist/pages/how_it_works.html')
+    //res.sendFile(__dirname + '/dist/pages/how_it_works.html')
+    res.render('../pages/how_it_works')
 );
 
 app.get('/pricing', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/pricing.html')
+    //res.sendFile(__dirname + '/dist/pages/pricing.html')
+    res.render('../pages/pricing')
 );
 
 app.get('/about', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/about.html')
+    //res.sendFile(__dirname + '/dist/pages/about.html')
+    res.render('../pages/about')
 );
 
 app.get('/terms-of-service', (req, res) =>
@@ -232,19 +241,23 @@ app.get('/privacy-policy', (req, res) =>
 );
 
 app.get('/listing', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/project_listing.html')
+    //res.sendFile(__dirname + '/dist/pages/project_listing.html')
+    res.render('../pages/project_listing')
 );
 
 app.get('/contact', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/contact.html')
+    //res.sendFile(__dirname + '/dist/pages/contact.html')
+    res.render('../pages/contact')
 );
 
 app.get('/project_index', function ( req, res) {
-    res.sendfile( 'dist/pages/project_index.html')
+    //res.sendfile( 'dist/pages/project_index.html')
+    res.render('../pages/project_index')
 });
 
 app.get('/projects-dashboard', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
+    //res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
+    res.render('../pages/project_dashboard')
 );
 
 app.route("/search")
@@ -305,7 +318,7 @@ app.route("/search")
             if ( req.body.filters == "{}" )
                 search(str, []);
             else {
-                let filters = setFilters(req.body.filters);
+                let filters = moduleFilters.setFilters(req.body.filters);
                 search(str, filters);
             }
         } else {
@@ -378,44 +391,9 @@ app.route('/projects')
         );
   });
 
-let setFilters = (obj) => {
-    let request = JSON.parse(obj),
-        filters = [];
-    (Object.keys(request)).forEach((item)=>{
-        if(item == "languages") {
-            filters.push({key: "skills", value: request[item], condition: "containsAll"});
-            return;
-        }
-        (request[item]).forEach((it)=>{
-            if(item == "duration" || item == "rate") {
-                switch (it) {
-                    case "short":
-                        filters.push({key: item, value: 1, condition: "<="});
-                        break;
-                    case "medium":
-                        filters.push({key: item, value: 1, condition: ">"});
-                        filters.push({key: item, value: 4, condition: "<="});
-                        break;
-                    case "long":
-                        filters.push({key: item, value: 4, condition: ">"});
-                        filters.push({key: item, value: 8, condition: "<="});
-                        break;
-                    case "longest":
-                        filters.push({key: item, value: 8, condition: ">"});
-                        break;
-                }
-            } else {
-                filters.push({key: item, value: it, condition: "="});
-            }
-        });
-    });
-    return filters;
-};
-
-
 app.route('/projectSearch')
     .post((req,res)=>{
-        let filters = setFilters(req.body.filters);
+        let filters = moduleFilters.setFilters(req.body.filters);
         parseQuery.filterObjects({class:"Project", filters: filters, limit: 8},
             (answer) => {
                 res.json(answer);
@@ -478,15 +456,18 @@ app.route('/projectRequyest')
     });
 
 app.get('/dashboard', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
+    //res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
+    res.render('../pages/project_dashboard')
 );
 
 app.get('/user', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
+    //res.sendFile(__dirname + '/dist/pages/project_dashboard.html')
+    res.render('../pages/project_dashboard')
 );
 
 app.get('/profile-interface', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/user_profile.html')
+    //res.sendFile(__dirname + '/dist/pages/user_profile.html')
+    res.render('../pages/user_profile')
 );
 
 app.route('/profile')
@@ -597,12 +578,14 @@ app.route('/company/:id')
     });
 
 app.get('/get-started', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/login/selection.html')
+    //res.sendFile(__dirname + '/dist/pages/login/selection.html')
+    res.render('../pages/login/selection')
 );
 
 app.route('/login')
     .get( (req, res) =>
-        res.sendFile(__dirname + '/dist/pages/login/login.html')
+        //res.sendFile(__dirname + '/dist/pages/login/login.html')
+        res.render('../pages/login/login')
     )
     .post( (req, res ) => {
         auth.loginUser(req.body,
@@ -653,7 +636,8 @@ app.post('/signup-company', (req, res) =>
 );
 
 app.get('/payment', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/login/payment.html')
+    //res.sendFile(__dirname + '/dist/pages/login/payment.html')
+    res.render('../pages/login/payment')
 );
 
 // app.get('/signup-user', function ( req, res) {
@@ -667,32 +651,48 @@ app.get('/thanks', (req, res) =>
 // Manager Panel
 
 app.get('/manager-login', (req, res) =>
-    res.sendfile(__dirname + '/dist/pages/login/manager.html')
+    //res.sendfile(__dirname + '/dist/pages/login/manager.html')
+    res.render('../pages/login/manager')
 );
 
 app.get('/manager-one', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/manager/tab1.html')
+    //res.sendFile(__dirname + '/dist/pages/manager/tab1.html')
+    res.render('../pages/manager/tab1')
 );
 
 app.get('/manager-two', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/manager/tab2.html')
+    //res.sendFile(__dirname + '/dist/pages/manager/tab2.html')
+    res.render('../pages/manager/tab2')
 );
 
 app.get('/manager-three', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/manager/tab3.html')
+    //res.sendFile(__dirname + '/dist/pages/manager/tab3.html')
+    res.render('../pages/manager/tab3')
 );
 
 app.get('/manager-four', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/manager/tab4.html')
+    //res.sendFile(__dirname + '/dist/pages/manager/tab4.html')
+    res.render('../pages/manager/tab4')
 );
 
 app.get('/manager-five', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/manager/tab5.html')
+    //res.sendFile(__dirname + '/dist/pages/manager/tab5.html')
+    res.render('../pages/manager/tab5')
 );
 
 app.get('/sales-manager', (req, res) =>
-    res.sendFile(__dirname + '/dist/pages/manager/sales_manager.html')
+    //res.sendFile(__dirname + '/dist/pages/manager/sales_manager.html')
+    res.render('../pages/manager/sales_manager')
 );
+
+/*app.use(function(req, res) {
+    res.status(404).send('<h4>Error 404.</h4> Sorry! Page doesn&#039;t exists');
+});
+
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('<h4>Error 500.</h4> Server error!');
+});*/
 
 app.get('/*' , (req, res, next) => {
     var file = req.params[0];

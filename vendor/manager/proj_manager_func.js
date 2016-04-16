@@ -32,7 +32,13 @@ $(document).ready(function () {
 
     $('.ajax_signup_developer_to_project').on('click', function () {
         var result = $(this).attr("data").split(" ");
-        var developerId = {developerBody : {developerId: result[0]}, projectId: result[1]};
+        var developerId = {developerBody : {developerId: result[0]
+                                            ,statusWaiting: "active"
+                                            ,statusRunning: "inactive"
+                                            ,statusTesting: "inactive"
+                                            ,statusComplete: "inactive"
+                                            ,statusDelivered: "inactive"},
+                           projectId: result[1]};
         $.ajax({
             url: "/project-manager",
             method: "put",

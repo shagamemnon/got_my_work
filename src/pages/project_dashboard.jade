@@ -1,7 +1,10 @@
 extends ./base
 
-block style
-  link(rel="stylesheet", href="dist/css/project_dashboard.css")
+block extendStyles
+  link(rel="stylesheet", href="../dist/css/project_dashboard.css")
+
+block extendScripts
+  script(src="/vendor/project_dashboard/mark.js")
 
 block title
   title Dashboard

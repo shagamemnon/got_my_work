@@ -87,28 +87,34 @@ let auth = require('../modules/auth');
         let signupDeveloperId = req.body.developerBody;
         let projectId = req.body.projectId;
             parseQuery.updateObject({class: "Project", id: projectId, data: signupDeveloperId}, (answer) => {
-                console.log("target", answer.object);
-                parseQuery.filterObjects(
-                    {class: 'ProjectRequest', filters: [{key: 'projectId', value: projectId, condition: "="}]},
-                    function (answer) {
-                        let counter = 0;
-                        let projectRequestsForDelete = answer.object;
-                        projectRequestsForDelete.forEach((deletedProject) => {
-                            parseQuery.deleteObject({class: 'ProjectRequest', id: deletedProject.id},
-                            (answer) => {
-                                counter++;
-                                if(counter == projectRequestsForDelete.length){
-                                    res.json("ok");
-                                }
+                parseQuery.addObject({class: "ProjectStatusStages", data: {projectId: req.body.projectId}},
+                    (answer) => {
+                        parseQuery.filterObjects(
+                            {class: 'ProjectRequest', filters: [{key: 'projectId', value: projectId, condition: "="}]},
+                            function (answer) {
+                                let counter = 0;
+                                let projectRequestsForDelete = answer.object;
+                                projectRequestsForDelete.forEach((deletedProject) => {
+                                    parseQuery.deleteObject({class: 'ProjectRequest', id: deletedProject.id},
+                                        (answer) => {
+                                            counter++;
+                                            if(counter == projectRequestsForDelete.length){
+                                                res.json("ok");
+                                            }
+                                        }, (error) => {
+                                            res.json("error");
+                                        });
+                                });
                             }, (error) => {
                                 res.json("error");
                             });
+                    },
+                    (error) => {
+                        //console.log("inserting projects error", answer);
+                        res.json('error');
+                    }
+                );
 
-
-                        });
-                    }, (error) => {
-                        res.json("error");
-                    });
             }, (error) =>{
                 console.log("target", error.error)
             });

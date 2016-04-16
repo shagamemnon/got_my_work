@@ -1,32 +1,65 @@
-#steps-section.header
-  border-top: 62px solid #323232
-  height: 700px
+.dashboard-container
+  .dashboard
+    section.participants
+      max-width: 700px
+      margin-left: 50px
+      margin-top: 40px
+      margin-bottom: 50px
+      min-height: 130px
+      
+      .titles
+        position: relative
+        margin: auto
+        
+        em.left
+          col(3/7)
+          padding-bottom: 20px
+          text-transform: uppercase
+          color: #333
+          font-size: 0.80em
+          font-weight: 500
+        
+        em.right
+          col(1/2)
+          padding-bottom: 20px
+          text-transform: uppercase
+          color: #333
+          font-size: 0.80em
+          font-weight: 500
 
-  img
-    &:first-child
-      display: block
-      height: 35px
-      padding-top: 80px
-      padding-bottom: 60px
+      .company
+        col(3/7)
+        
+        .logo
+          background-image: url('https://s3.amazonaws.com/igotmywork/duniya.png')
+          height: 100px
+          background-size: auto
+          background-repeat: no-repeat
 
-  h1
-    font-family: $Gotham
-    font-size: 2.4em
-    font-weight: 500
-    color: #00A3A3
-    line-height: 1.2
-    letter-spacing: 0px
-    padding-right: 5px
-    padding-bottom: 20px
-
-  .image-container
-    col(3/5)
-    clearfix()
-    background-image: url('https://s3.amazonaws.com/mycents/photos/centsdevshop/portfolio/Three/three_desktop.png')
-    background-size: 93%
-    background-repeat: no-repeat
-    background-position: center
-    float: right
-    opacity: 1
-    margin: 40px auto 10px
-    overflow: hidden
+      .freelancer
+        col(1/2)
+        
+        .avatar
+          col(1/3)
+          background-image: url('https://s3.amazonaws.com/igotmywork/user_profile/avatar.png')
+          background-size: 100%
+          height: 100px
+          background-repeat: no-repeat
+        
+        .name
+          col(2/3)
+          shift(1/20)
+          
+          p
+            font-size: 0.80em
+            position: absolute
+            margin-top: 30px
+            display: inline-block
+          
+          small
+            position: relative
+            top: 50px
+            font-size: 0.8em
+            color: #999
+            font-weight: 300
+            margin-top: 40px

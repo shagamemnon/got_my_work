@@ -1,7 +1,7 @@
 "use strict";
 let express = require('express');
 let router = express.Router();
-let Parse = require('parse').Parse
+let Parse = require('parse').Parse;
 let parseQuery = require('../modules/parseQuery');
 
 router.get('/:id',  (req, res) => {
