@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+
+<?php session_start(); /* Starts the session */
+
+if(!isset($_SESSION['UserData']['Username'])){
+  header("location:thanks.php");
+  exit;
+}
+?>
+
+Congratulation! You have logged into password protected page. <a href="logout.php">Click here</a> to Logout.
+Ready, now our login system perfectly done but we also need to provide a logout facility to user, so we require to create a logout page.
+
+
+
 <html>
   <head>
     <link rel="stylesheet" href="vendor/foundation.min.css">

@@ -1,27 +1,14 @@
 
 <div class="dashboard-container">
   <div class="dashboard">
-    <h2>Update SQL Database</h2>
     <section class="participants">
-      <div class="titles"><em class="left">
-           
-          Company</em><em class="right">Freelancer</em></div>
+      <div class="titles"><em class="left">Company</em><em class="right">Freelancer</em></div>
       <div class="company">
-        <div class="logo"> </div>
       </div>
       <div class="freelancer">
-        <div class="avatar"></div>
-        <div class="name">
-          <p>ARVIND SWAMY</p><small>Java Engineer</small>
-        </div>
       </div>
     </section>
     <section class="status"><em>Status</em>
-      <div id="complete" class="stage"><small>Waiting</small></div>
-      <div id="complete" class="stage"><small>Running</small></div>
-      <div id="active" class="stage"><small>Testing</small></div>
-      <div id="inactive" class="stage"><small>Complete</small></div>
-      <div id="inactive" class="stage"><small>Delivered</small></div>
     </section>
     <div class="key">
       <div class="dot start">
@@ -99,11 +86,19 @@
     </div>
     <section class="files-row">
       <div class="left"><em>Files</em><a>mpasve02.sql</a><small>10/22/2015</small></div>
-      <div class="right"><a>Upload</a></div>
+      <div class="right">
+        <div onclick="getFile()" class="uploadimgbtn">Upload</div>
+        <article style="height: 0px;width: 0px; overflow:hidden">
+          <input id="upfile" type="file" value="upload" onchange="sub(this)" accept="image/*" class="upload-image"/>
+        </article>
+      </div>
     </section>
     <div class="dashboard-buttons">
-      <button class="cancel"><a href="#">Cancel Project</a></button>
-      <button class="deliver"><a href="#">Deliver Project</a></button>
+      <button class="cancel"><a href="">Cancel Project</a></button>
+      <button class="deliver"><a href="">Deliver Project</a></button>
     </div>
+  </div>
+  <div id="alert">
+    <p>Request Submitted</p>
   </div>
 </div>
