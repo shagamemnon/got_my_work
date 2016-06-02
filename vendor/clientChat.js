@@ -550,7 +550,7 @@ $(document).ready(function(){
 			var allUnreadMark = header.find('#allUnreadMark');
 			var allInitialChats = header.find('#allInitialChats');
 
-			var minminaze = 	header.find('.minimaze');
+			var minminaze =   header.find('.minimaze');
 			minminaze.click(minimaze);
 			var chatTab = tabs.find('.chat');
 			var contactsTab = tabs.find('.contacts');
@@ -575,4 +575,3 @@ $(document).ready(function(){
 
 	syncRuner([communication,initView,initProcessor]).then(function(){processor.event('init')});
 });
-

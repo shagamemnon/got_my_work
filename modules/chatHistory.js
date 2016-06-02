@@ -17,18 +17,26 @@ exports.getMessages = function(params, done){
     if(!params.page)
         params.page = 1;
     parse.orGetObject({
-        'class' : doc,
-        'filters': [
+        search: [
             {
-                'condition' : '=',
-                'key' : 'senderId',
-                'value' : params.id
+                'class' : doc,
+                'filters': [
+                    {
+                        'condition' : '=',
+                        'key' : 'senderId',
+                        'value' : params.id
+                    }]
+
             },
             {
-                'condition' : '=',
-                'key' : 'receiverId',
-                'value' : params.id
-            }
+                'class' : doc,
+                'filters': [
+                    {
+                        'condition' : '=',
+                        'key' : 'receiverId',
+                        'value' : params.id
+                    }]
+            },
         ],
         'sort' : {
             'order' : 'desc',
